@@ -1,7 +1,8 @@
 import React from 'react';
 import { 
   ShieldCheck, Building2, ArrowRight, Award, UserCheck,
-  BadgeCheck, Smartphone, Siren, HelpCircle, MapPin, Phone, Sparkles, Zap
+  BadgeCheck, Smartphone, Siren, HelpCircle, MapPin, Phone, Sparkles, Zap,
+  ClipboardCheck, Timer, UsersRound
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { COMPANY_INFO } from '../data/mockData';
@@ -231,30 +232,89 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
         </div>
 
         {/* Featured Registration Banner + Direct Links to Images on Other Pages */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
           {/* Main Featured Image: Telangana Government Registration Banner */}
-          <div className="lg:col-span-7 bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-md hover:shadow-lg transition-all flex flex-col group">
-            <div className="relative h-64 sm:h-72 bg-slate-900 flex items-center justify-center p-2 overflow-hidden">
-              <img
-                src={brandRegImg}
-                alt="Ayudh Vikas Telangana Reg. No. 417/2025 License Banner"
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-contain group-hover:scale-102 transition-transform duration-500"
-              />
-              <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-blue-900/90 backdrop-blur-md text-white text-xs font-bold shadow-md border border-blue-400/30">
-                Government License Reg. 417/2025
+          <div className="lg:col-span-7 bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-md hover:shadow-lg transition-all flex flex-col group">
+            <div className="bg-slate-950 p-5 sm:p-6">
+              <div className="grid gap-5 xl:grid-cols-[0.95fr_1.05fr] items-center">
+                <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-2xl border border-white/15 bg-white p-2 shadow-2xl shadow-slate-950/30">
+                  <img
+                    src={brandRegImg}
+                    alt="Ayudh Vikas Telangana Reg. No. 417/2025 License Banner"
+                    referrerPolicy="no-referrer"
+                    className="w-full max-h-52 object-contain rounded-xl group-hover:scale-[1.02] transition-transform duration-500"
+                  />
+                  <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-blue-900/95 backdrop-blur-md text-white text-[10px] font-bold shadow-md border border-blue-400/30">
+                    Reg. 417/2025
+                  </div>
+                </div>
+
+                <div className="text-white space-y-4">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/15 px-3 py-1 text-[11px] font-extrabold text-emerald-200 ring-1 ring-emerald-400/30">
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    Licensed, Verified & Field Ready
+                  </div>
+                  <h3 className="text-2xl font-extrabold leading-tight">
+                    One registered team for security, cleaning, staffing, and facility care.
+                  </h3>
+                  <p className="text-xs sm:text-sm leading-relaxed text-slate-300">
+                    Ayudh Vikas combines statutory compliance with fast local execution from Warangal HQ for homes, apartments, offices, schools, hospitals, events, and industrial sites.
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-              <div className="space-y-2">
-                <h3 className="text-xl font-extrabold text-slate-900">
+
+            <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3">
+              <div className="space-y-1.5">
+                <h3 className="text-lg sm:text-xl font-extrabold text-slate-900">
                   Government Registered Operations (Warangal HQ)
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                   Headquartered at # 12-8-287, KM Complex, Hunter Road, Warangal. Operating under official license Reg. No. 417/2025, Telangana with 100% EPF, ESIC, and statutory compliance.
                 </p>
               </div>
-              <div className="pt-2 flex flex-wrap gap-3">
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {[
+                  { icon: ShieldCheck, title: 'Security Guarding', desc: 'Manned guarding, gate control, VIP/event security, and night patrol support.' },
+                  { icon: Sparkles, title: 'AyudhKlin Cleaning', desc: 'Homes, offices, commercial spaces, post-construction, and industrial cleaning.' },
+                  { icon: Building2, title: 'Facility Support', desc: 'Housekeeping, maintenance coordination, and daily site upkeep with SLA discipline.' },
+                  { icon: UsersRound, title: 'Corporate Manpower', desc: 'Screened support staff and operational manpower for business requirements.' },
+                ].map((item) => {
+                  const Icon = item.icon;
+
+                  return (
+                    <div key={item.title} className="rounded-xl border border-slate-200 bg-slate-50 p-2.5">
+                      <div className="flex items-start gap-2.5">
+                        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-blue-50 text-blue-900 border border-blue-100">
+                          <Icon className="w-4 h-4" />
+                        </span>
+                        <span>
+                          <span className="block text-xs font-extrabold text-slate-900">{item.title}</span>
+                          <span className="mt-0.5 block text-[11px] leading-snug text-slate-600">{item.desc}</span>
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <div className="rounded-xl bg-emerald-50 px-3 py-2 text-emerald-800 border border-emerald-200">
+                  <ClipboardCheck className="w-4 h-4 mb-0.5" />
+                  <p className="text-[11px] font-extrabold">EPF / ESIC Ready</p>
+                </div>
+                <div className="rounded-xl bg-blue-50 px-3 py-2 text-blue-900 border border-blue-200">
+                  <Timer className="w-4 h-4 mb-0.5" />
+                  <p className="text-[11px] font-extrabold">Fast Deployment</p>
+                </div>
+                <div className="rounded-xl bg-red-50 px-3 py-2 text-red-800 border border-red-200">
+                  <Siren className="w-4 h-4 mb-0.5" />
+                  <p className="text-[11px] font-extrabold">24/7 Support</p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => onSelectTab('contact')}
                   className="px-5 py-2.5 rounded-xl bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs flex items-center gap-2 transition-all cursor-pointer shadow-sm"
@@ -262,14 +322,21 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
                   <ShieldCheck className="w-4 h-4 text-blue-300" />
                   <span>Verify Contact & Office Address</span>
                 </button>
+                <button
+                  onClick={() => onSelectTab('services')}
+                  className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-2 transition-all cursor-pointer shadow-sm"
+                >
+                  <Sparkles className="w-4 h-4 text-emerald-100" />
+                  <span>Explore Services</span>
+                </button>
               </div>
             </div>
           </div>
 
           {/* Side Cards: Direct navigation to the other 3 official image artwork locations */}
-          <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
+          <div className="lg:col-span-5 flex flex-col gap-3">
             {/* Card 1: Justdial Award -> Why Choose Us */}
-            <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-50/80 to-white border border-amber-200/80 hover:border-amber-400 transition-all shadow-sm flex items-center justify-between gap-4 group">
+            <div className="p-3.5 rounded-2xl bg-gradient-to-r from-amber-50/80 to-white border border-amber-200/80 hover:border-amber-400 transition-all shadow-sm flex items-center justify-between gap-3 group">
               <div className="space-y-1">
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-bold">
                   <span>★ 5-Star Award Artwork</span>
@@ -281,7 +348,7 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
               </div>
               <button
                 onClick={() => onSelectTab('why-us')}
-                className="p-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs flex items-center gap-1 shrink-0 transition-all cursor-pointer shadow-sm"
+                className="px-3 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs flex items-center gap-1 shrink-0 transition-all cursor-pointer shadow-sm"
                 aria-label="View Justdial Award"
               >
                 <span>View Award</span>
@@ -290,7 +357,7 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
             </div>
 
             {/* Card 2: Teamwork Quote -> Why Choose Us */}
-            <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-50/80 to-white border border-blue-200/80 hover:border-blue-400 transition-all shadow-sm flex items-center justify-between gap-4 group">
+            <div className="p-3.5 rounded-2xl bg-gradient-to-r from-blue-50/80 to-white border border-blue-200/80 hover:border-blue-400 transition-all shadow-sm flex items-center justify-between gap-3 group">
               <div className="space-y-1">
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-900 text-[10px] font-bold">
                   <span>Leadership Culture</span>
@@ -302,7 +369,7 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
               </div>
               <button
                 onClick={() => onSelectTab('why-us')}
-                className="p-3 rounded-xl bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs flex items-center gap-1 shrink-0 transition-all cursor-pointer shadow-sm"
+                className="px-3 py-2.5 rounded-xl bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs flex items-center gap-1 shrink-0 transition-all cursor-pointer shadow-sm"
                 aria-label="View Culture Quote"
               >
                 <span>View Culture</span>
@@ -311,7 +378,7 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
             </div>
 
             {/* Card 3: Operations Poster -> Services */}
-            <div className="p-4 rounded-2xl bg-gradient-to-r from-red-50/80 to-white border border-red-200/80 hover:border-red-400 transition-all shadow-sm flex items-center justify-between gap-4 group">
+            <div className="p-3.5 rounded-2xl bg-gradient-to-r from-red-50/80 to-white border border-red-200/80 hover:border-red-400 transition-all shadow-sm flex items-center justify-between gap-3 group">
               <div className="space-y-1">
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-100 text-red-900 text-[10px] font-bold">
                   <span>Official Services Poster</span>
@@ -323,7 +390,7 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
               </div>
               <button
                 onClick={() => onSelectTab('services')}
-                className="p-3 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs flex items-center gap-1 shrink-0 transition-all cursor-pointer shadow-sm"
+                className="px-3 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs flex items-center gap-1 shrink-0 transition-all cursor-pointer shadow-sm"
                 aria-label="View Operations Poster"
               >
                 <span>View Poster</span>

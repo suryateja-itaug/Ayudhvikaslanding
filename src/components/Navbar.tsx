@@ -57,7 +57,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
     <>
       {/* Top emergency announcement bar with Blue-Green-Red combo */}
       <div className="bg-slate-950 border-b border-blue-900/60 text-xs py-1.5 px-4 text-slate-100">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+        <div className="max-w-[96rem] mx-auto flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-3">
             <span className="inline-flex items-center gap-1.5 bg-red-950 text-red-200 px-2.5 py-0.5 rounded-full font-bold text-[11px] border border-red-700">
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" />
@@ -100,17 +100,17 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
             : 'bg-white/85 backdrop-blur-sm border-b border-slate-100 py-3.5'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div className="max-w-[96rem] mx-auto px-4 sm:px-6 xl:px-8 2xl:px-10 flex items-center justify-between gap-4 xl:gap-6">
           {/* Logo */}
           <button 
             onClick={() => onSelectTab('home')}
-            className="flex items-center group text-left cursor-pointer border-none bg-transparent"
+            className="flex shrink-0 items-center group text-left cursor-pointer border-none bg-transparent"
           >
             <Logo size="md" showText={true} />
           </button>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-1 bg-slate-100/90 p-1.5 rounded-full border border-blue-200/80 shadow-inner">
+          <nav className="hidden lg:flex shrink-0 items-center gap-1 bg-slate-100/90 p-1.5 rounded-full border border-blue-200/80 shadow-inner">
             {navLinks.map((link) => {
               const isAyudhKlin = link.id === 'ayudhklin-products';
               const isActive = isAyudhKlin ? activeTab.startsWith('ayudhklin-') : activeTab === link.id;
@@ -123,7 +123,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
 
               if (isAyudhKlin) return (
                 <div key={link.id} className="relative group">
-                  <button className={`px-4 py-1.5 text-xs font-bold rounded-full transition-all duration-200 cursor-pointer ${isActive ? activeBg : 'text-slate-800 hover:text-emerald-700 hover:bg-white'}`}>
+                  <button className={`px-3.5 xl:px-4 py-1.5 text-xs font-bold rounded-full transition-all duration-200 cursor-pointer whitespace-nowrap ${isActive ? activeBg : 'text-slate-800 hover:text-emerald-700 hover:bg-white'}`}>
                     <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block mr-1.5" />AyudhKlin
                   </button>
                   <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all absolute left-0 top-full pt-2 z-50 w-52">
@@ -139,7 +139,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
                 <button
                   key={link.id}
                   onClick={() => onSelectTab(link.id)}
-                  className={`px-4 py-1.5 text-xs font-bold rounded-full transition-all duration-200 cursor-pointer ${
+                  className={`px-3.5 xl:px-4 py-1.5 text-xs font-bold rounded-full transition-all duration-200 cursor-pointer whitespace-nowrap ${
                     isActive
                       ? activeBg
                       : 'text-slate-800 hover:text-blue-900 hover:bg-white'
@@ -152,7 +152,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
           </nav>
 
           {/* Actions & Call Button */}
-          <div className="hidden sm:flex items-center gap-2 xl:gap-2.5">
+          <div className="hidden sm:flex shrink-0 items-center gap-2 xl:gap-2.5">
             <div className="hidden xl:flex items-center gap-1.5 2xl:gap-2">
               {appButtons.map((app) => {
                 const Icon = app.icon;
