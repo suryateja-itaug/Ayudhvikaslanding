@@ -44,6 +44,20 @@ export const SEO: React.FC<SEOProps> = ({ activeTab }) => {
           keywords: 'ayudh vikas phone number, security guard office warangal, contact security agency hanamkonda, deep cleaning contact kazipet',
           canonical: 'https://ayudhvikas.com/#contact',
         };
+      case 'av-ride':
+        return {
+          title: 'AV Ride Coming Soon | Ayudh Vikas Ride Booking',
+          description: 'AV Ride by Ayudh Vikas is a coming-soon ride booking template for managed local travel, staff commute, and guest pickup requests.',
+          keywords: 'av ride, ayudh vikas ride booking, warangal ride booking, staff commute booking',
+          canonical: 'https://ayudhvikas.com/#av-ride',
+        };
+      case 'av-food':
+        return {
+          title: 'AV Food Coming Soon | Ayudh Vikas Food Ordering',
+          description: 'AV Food by Ayudh Vikas is a coming-soon food ordering template for office meals, catering orders, and scheduled delivery.',
+          keywords: 'av food, ayudh vikas food ordering, office meals warangal, catering order template',
+          canonical: 'https://ayudhvikas.com/#av-food',
+        };
       case 'home':
       default:
         return {

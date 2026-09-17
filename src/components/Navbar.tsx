@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, Menu, X, ArrowRight, Sparkles, Clock } from 'lucide-react';
+import { Phone, Menu, X, ArrowRight, Sparkles, Clock, BriefcaseBusiness, CarTaxiFront, Utensils } from 'lucide-react';
 import { COMPANY_INFO } from '../data/mockData';
 import { Logo } from './Logo';
 
@@ -33,6 +33,24 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
     { id: 'why-us', name: 'Why Ayudh Vikas' },
     { id: 'faq', name: 'FAQ' },
     { id: 'contact', name: 'Contact' },
+  ];
+
+  const appButtons = [
+    {
+      name: 'AV Manpower',
+      icon: BriefcaseBusiness,
+      href: 'https://ayudh-vikas-manpower.vercel.app',
+    },
+    {
+      name: 'AV Ride',
+      icon: CarTaxiFront,
+      href: '#av-ride',
+    },
+    {
+      name: 'AV Food',
+      icon: Utensils,
+      href: '#av-food',
+    },
   ];
 
   return (
@@ -134,7 +152,21 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
           </nav>
 
           {/* Actions & Call Button */}
-          <div className="hidden sm:flex items-center gap-3">
+          <div className="hidden sm:flex items-center gap-2 xl:gap-2.5">
+            <div className="hidden xl:flex items-center gap-1.5 2xl:gap-2">
+              {appButtons.map((app) => {
+                const Icon = app.icon;
+                const classes = 'inline-flex h-8 items-center justify-center gap-1.5 rounded-lg border border-emerald-300 bg-white px-2.5 text-[11px] font-bold leading-none text-blue-950 shadow-sm shadow-emerald-900/5 transition-all hover:border-emerald-500 hover:bg-emerald-50';
+
+                return (
+                  <a key={app.name} href={app.href} target="_blank" rel="noopener noreferrer" className={classes}>
+                    <Icon className="w-3.5 h-3.5 text-emerald-600" />
+                    <span className="whitespace-nowrap">{app.name}</span>
+                  </a>
+                );
+              })}
+            </div>
+
             <a
               href={`tel:${COMPANY_INFO.phone}`}
               className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-800 bg-blue-50 border border-blue-200 hover:border-blue-400 hover:bg-blue-100/80 transition-all group"
@@ -208,6 +240,27 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
             </div>
 
             <div className="pt-3 border-t border-slate-200 flex flex-col gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                {appButtons.map((app) => {
+                  const Icon = app.icon;
+                  const classes = 'flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold bg-white text-blue-950 border border-emerald-300';
+
+                  return (
+                    <a
+                      key={app.name}
+                      href={app.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={classes}
+                    >
+                      <Icon className="w-4 h-4 text-emerald-600" />
+                      <span>{app.name}</span>
+                    </a>
+                  );
+                })}
+              </div>
+
               <a
                 href={`tel:${COMPANY_INFO.phone}`}
                 className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold bg-blue-50 text-blue-900 border border-blue-200"
