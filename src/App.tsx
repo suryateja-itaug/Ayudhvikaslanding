@@ -16,13 +16,16 @@ import { QuoteModal } from './components/QuoteModal';
 import { ServiceModal } from './components/ServiceModal';
 import { FloatingActions } from './components/FloatingActions';
 import { AboutUs } from './components/AboutUs';
+import { ComingSoonApp } from './components/ComingSoonApp';
 import { ServiceItem } from './types';
+
+const VALID_TABS = ['home', 'services', 'ayudhklin-products', 'ayudhklin-services', 'about-us', 'why-us', 'faq', 'contact', 'av-ride', 'av-food'];
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>(() => {
     const hash = window.location.hash.replace('#', '');
     if (hash === 'ayudhklin') return 'ayudhklin-products';
-    return ['home', 'services', 'ayudhklin-products', 'ayudhklin-services', 'about-us', 'why-us', 'faq', 'contact'].includes(hash) ? hash : 'home';
+    return VALID_TABS.includes(hash) ? hash : 'home';
   });
 
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
@@ -33,7 +36,7 @@ export default function App() {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '');
-      setActiveTab(hash === 'ayudhklin' ? 'ayudhklin-products' : ['home', 'services', 'ayudhklin-products', 'ayudhklin-services', 'about-us', 'why-us', 'faq', 'contact'].includes(hash) ? hash : 'home');
+      setActiveTab(hash === 'ayudhklin' ? 'ayudhklin-products' : VALID_TABS.includes(hash) ? hash : 'home');
     };
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
@@ -62,17 +65,21 @@ export default function App() {
     setSelectedService(null);
   };
 
+  const isStandaloneApp = activeTab === 'av-ride' || activeTab === 'av-food';
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-emerald-500 selection:text-white antialiased">
       {/* Dynamic SEO Meta & Schema Injector */}
       <SEO activeTab={activeTab} />
 
       {/* Translucent Header Navbar */}
-      <Navbar 
-        activeTab={activeTab} 
-        onSelectTab={handleSelectTab} 
-        onOpenQuoteModal={() => handleOpenQuoteModal()} 
-      />
+      {!isStandaloneApp && (
+        <Navbar
+          activeTab={activeTab}
+          onSelectTab={handleSelectTab}
+          onOpenQuoteModal={() => handleOpenQuoteModal()}
+        />
+      )}
 
       {/* Main Separate Page Views */}
       <main className="min-h-[70vh]">
@@ -156,10 +163,26 @@ export default function App() {
             <ContactSection />
           </div>
         )}
+
+        {activeTab === 'av-ride' && (
+          <ComingSoonApp
+            type="ride"
+            onSelectTab={handleSelectTab}
+            onOpenQuoteModal={() => handleOpenQuoteModal('AV Ride')}
+          />
+        )}
+
+        {activeTab === 'av-food' && (
+          <ComingSoonApp
+            type="food"
+            onSelectTab={handleSelectTab}
+            onOpenQuoteModal={() => handleOpenQuoteModal('AV Food')}
+          />
+        )}
       </main>
 
       {/* Footer */}
-      <Footer onSelectTab={handleSelectTab} />
+      {!isStandaloneApp && <Footer onSelectTab={handleSelectTab} />}
 
       {/* Popups & Sticky Widgets */}
       <QuoteModal
@@ -174,7 +197,7 @@ export default function App() {
         onOpenQuoteModal={handleOpenQuoteModal}
       />
 
-      <FloatingActions onOpenQuoteModal={() => handleOpenQuoteModal()} />
+      {!isStandaloneApp && <FloatingActions onOpenQuoteModal={() => handleOpenQuoteModal()} />}
     </div>
   );
 }
