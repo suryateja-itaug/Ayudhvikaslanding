@@ -1,277 +1,343 @@
-import React, { useState } from 'react';
-import { 
-  ShieldCheck, Building2, Users, Crown, Sparkles,
-  ArrowRight, Check, Clock, Shield, Filter, Eye
+import React from 'react';
+import {
+  ArrowRight,
+  BadgeCheck,
+  BriefcaseBusiness,
+  CarTaxiFront,
+  Check,
+  Clock,
+  Headphones,
+  Newspaper,
+  PackageCheck,
+  ShieldCheck,
+  Sparkles,
+  Utensils,
+  Zap,
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { SERVICES_DATA } from '../data/mockData';
 import { ServiceItem } from '../types';
-import brandPosterImg from '../assets/images/brand_official_poster_1784802712788.jpg';
+import ecosystemHeroImg from '../assets/images/ayudh-ecosystem-hero.png';
+import securityImg from '../assets/images/service_security_guard_1784719456979.jpg';
+import staffingImg from '../assets/images/service_corporate_staffing_1784719493174.jpg';
+import deepCleaningImg from '../assets/images/service_deep_cleaning_1784719519754.jpg';
+import avFoodImg from '../assets/images/av-food-hero.png';
+import avRideImg from '../assets/images/av-ride-hero.png';
+import avNewsImg from '../assets/images/service-av-news.png';
+import cleaningProductsImg from '../assets/images/service-cleaning-products-delivery.png';
 
 interface ServicesBentoProps {
   onSelectService: (service: ServiceItem) => void;
   onOpenQuoteModal: (serviceId?: string) => void;
 }
 
-export const ServicesBento: React.FC<ServicesBentoProps> = ({ 
-  onSelectService, 
-  onOpenQuoteModal 
-}) => {
-  const [activeCategory, setActiveCategory] = useState<string>('all');
+const servicePillClass = 'inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[11px] font-extrabold text-white backdrop-blur-md';
 
-  const categories = [
-    { id: 'all', label: 'All Solutions' },
-    { id: 'deep-cleaning', label: 'Deep Cleaning' },
-    { id: 'security', label: 'Security & Guarding' },
-    { id: 'facility', label: 'Facility Management' },
-    { id: 'manpower', label: 'Corporate Manpower' },
+export const ServicesBento: React.FC<ServicesBentoProps> = ({
+  onSelectService,
+  onOpenQuoteModal,
+}) => {
+  const operationalCatalog = SERVICES_DATA.slice(0, 6);
+
+  const ecosystemServices = [
+    {
+      title: 'Security Services',
+      eyebrow: 'Verified guarding',
+      desc: 'Police-verified guards, executive protection, gate control, night patrols, and emergency response support for homes, offices, events, and industrial sites.',
+      image: securityImg,
+      icon: ShieldCheck,
+      accent: 'text-blue-800',
+      bg: 'bg-blue-50',
+      border: 'border-blue-200',
+      bullets: ['Manned guarding', 'VIP & event security', '24/7 supervisor checks'],
+      action: 'Request security quote',
+      onAction: () => onOpenQuoteModal('Security Services'),
+    },
+    {
+      title: 'Jobs & Manpower',
+      eyebrow: 'AV Manpower',
+      desc: 'Staffing support for job seekers and businesses, including front-office staff, office boys, pantry helpers, field support, and verified operational manpower.',
+      image: staffingImg,
+      icon: BriefcaseBusiness,
+      accent: 'text-slate-800',
+      bg: 'bg-slate-100',
+      border: 'border-slate-200',
+      bullets: ['Job matching support', 'Corporate staffing', 'Verified manpower pipeline'],
+      action: 'Explore manpower',
+      href: 'https://ayudh-vikas-manpower.vercel.app',
+    },
+    {
+      title: 'AV News',
+      eyebrow: 'AV Life local updates',
+      desc: 'A local media wing planned for community stories, public updates, event coverage, civic awareness, business features, and regional video news.',
+      image: avNewsImg,
+      icon: Newspaper,
+      accent: 'text-red-700',
+      bg: 'bg-red-50',
+      border: 'border-red-200',
+      bullets: ['Local reporting', 'Event coverage', 'Community updates'],
+      action: 'Register media interest',
+      onAction: () => onOpenQuoteModal('AV News / AV Life'),
+      soon: true,
+    },
+    {
+      title: 'AV Food Delivery',
+      eyebrow: 'Coming soon',
+      desc: 'Food delivery and office meal ordering for Warangal teams, homes, and events, with scheduled lunch boxes, bulk meals, and hygienic delivery workflows.',
+      image: avFoodImg,
+      icon: Utensils,
+      accent: 'text-red-700',
+      bg: 'bg-red-50',
+      border: 'border-red-200',
+      bullets: ['Office lunch boxes', 'Bulk food orders', 'Scheduled local delivery'],
+      action: 'Preview AV Food',
+      href: '#av-food',
+      soon: true,
+    },
+    {
+      title: 'House Cleaning Products Delivery',
+      eyebrow: 'AyudhKlin supplies',
+      desc: 'Doorstep delivery for home hygiene products, floor cleaners, sprays, microfiber cloths, brushes, and cleaning essentials supported by AyudhKlin know-how.',
+      image: cleaningProductsImg,
+      icon: PackageCheck,
+      accent: 'text-emerald-700',
+      bg: 'bg-emerald-50',
+      border: 'border-emerald-200',
+      bullets: ['Cleaning kits', 'Home hygiene supplies', 'Doorstep delivery'],
+      action: 'Request product supply',
+      onAction: () => onOpenQuoteModal('House Cleaning Products Delivery'),
+    },
+    {
+      title: 'AV Ride',
+      eyebrow: 'Coming soon',
+      desc: 'A safer local ride experience for Warangal, Hanamkonda, and Kazipet with verified drivers, managed pickup flows, and women-safety-focused travel planning.',
+      image: avRideImg,
+      icon: CarTaxiFront,
+      accent: 'text-blue-800',
+      bg: 'bg-blue-50',
+      border: 'border-blue-200',
+      bullets: ['Verified drivers', 'Women safety focus', 'Local route familiarity'],
+      action: 'Preview AV Ride',
+      href: '#av-ride',
+      soon: true,
+    },
   ];
 
-  const filteredServices = (activeCategory === 'all'
-    ? SERVICES_DATA
-    : SERVICES_DATA.filter(s => s.category === activeCategory || (activeCategory === 'facility' && s.category === 'specialized'))
-  ).slice().sort((a, b) => {
-    if (activeCategory !== 'all') return 0;
-    if (a.category === 'deep-cleaning' && b.category !== 'deep-cleaning') return -1;
-    if (a.category !== 'deep-cleaning' && b.category === 'deep-cleaning') return 1;
-    if (a.category === 'security' && b.category !== 'security') return -1;
-    if (a.category !== 'security' && b.category === 'security') return 1;
-    return 0;
-  });
-
-  const getIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'ShieldCheck': return <ShieldCheck className="w-6 h-6 text-blue-900" />;
-      case 'Building2': return <Building2 className="w-6 h-6 text-blue-800" />;
-      case 'Users': return <Users className="w-6 h-6 text-red-600" />;
-      case 'Crown': return <Crown className="w-6 h-6 text-amber-500" />;
-      case 'Sparkles': return <Sparkles className="w-6 h-6 text-blue-800" />;
-      default: return <Shield className="w-6 h-6 text-blue-900" />;
+  const handleCardAction = (service: typeof ecosystemServices[number]) => {
+    if (service.onAction) {
+      service.onAction();
     }
   };
 
   return (
-    <section id="services" className="py-24 bg-slate-50 relative overflow-hidden">
-      {/* Background radial glow */}
-      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-red-500/10 rounded-full blur-[120px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-100 border border-blue-300 text-xs font-bold text-blue-900">
-            <span>🛡️ INTEGRATED SOLUTIONS PORTFOLIO</span>
-          </div>
-
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
-            Tailored Security &{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-blue-800 to-red-600">
-              Facility Services
-            </span>
-          </h2>
-
-          <p className="text-slate-600 text-base sm:text-lg">
-            Our expanded AyudhKlin deep-cleaning solutions cover homes, offices, commercial spaces, industrial sites, and post-construction handovers alongside reliable security and facility support.
-          </p>
-        </div>
-
-        {/* Category Filters */}
-        <div className="flex flex-wrap items-center justify-center gap-2 my-10">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer ${
-                activeCategory === cat.id
-                  ? 'bg-gradient-to-r from-red-600 via-red-500 to-blue-900 text-white shadow-md shadow-red-600/20 border border-red-500/30'
-                  : 'bg-white text-slate-700 hover:text-blue-900 border border-slate-200 hover:border-blue-300 shadow-sm'
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
-
-        {activeCategory === 'all' && (
-          <div className="mb-8 rounded-3xl border border-emerald-300 bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-5 sm:px-8 sm:py-6 text-white shadow-xl shadow-emerald-900/20 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div>
-              <p className="text-xs font-bold tracking-widest text-emerald-100 uppercase">Featured first</p>
-              <h3 className="mt-1 text-2xl sm:text-3xl font-extrabold">AyudhKlin Professional Deep Cleaning</h3>
-              <p className="mt-1 text-sm text-emerald-50">Detailed cleaning for homes, offices, commercial spaces, industrial sites, and post-construction handovers.</p>
+    <section id="services" className="bg-slate-50">
+      <div className="relative overflow-hidden bg-slate-950 text-white">
+        <img
+          src={ecosystemHeroImg}
+          alt="Ayudh Vikas service ecosystem"
+          className="absolute inset-0 h-full w-full object-cover object-center opacity-80"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/82 to-slate-950/20" />
+        <div className="relative mx-auto grid max-w-[96rem] gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.82fr_1fr] lg:py-16 xl:px-8 2xl:px-10">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="max-w-3xl"
+          >
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/15 px-3 py-1.5 text-xs font-extrabold text-emerald-100">
+              <BadgeCheck className="h-3.5 w-3.5" />
+              Ayudh Vikas Service Ecosystem
             </div>
-            <button onClick={() => setActiveCategory('deep-cleaning')} className="shrink-0 rounded-xl bg-white px-5 py-3 text-sm font-bold text-emerald-700 hover:bg-emerald-50 transition-colors">View deep cleaning</button>
-          </div>
-        )}
+            <h2 className="mt-5 text-3xl font-black leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
+              One regional platform for protection, work, daily essentials, mobility, meals, and media.
+            </h2>
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">
+              The services page now brings together the expanded Ayudh Vikas portfolio, from core security and manpower operations to upcoming AV Food, AV Ride, AV News, and cleaning-product delivery.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {[
+                ['Security', ShieldCheck],
+                ['Jobs', BriefcaseBusiness],
+                ['AV News', Newspaper],
+                ['AV Food', Utensils],
+                ['Cleaning Products', PackageCheck],
+                ['AV Ride', CarTaxiFront],
+              ].map(([label, Icon]) => {
+                const ServiceIcon = Icon as typeof ShieldCheck;
 
-        {/* Bento Grid Layout */}
-        <motion.div 
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          <AnimatePresence>
-            {filteredServices.map((service) => (
-              <motion.div
-                key={service.id}
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
-                className={`group relative rounded-3xl bg-white border ${service.category === 'deep-cleaning' ? 'border-emerald-300 hover:border-emerald-500 shadow-lg shadow-emerald-900/10' : 'border-slate-200/90 hover:border-blue-500'} p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:shadow-blue-900/5 ${
-                  service.bentoSpan || 'col-span-1'
-                }`}
+                return (
+                  <span key={label as string} className={servicePillClass}>
+                    <ServiceIcon className="h-3.5 w-3.5 text-emerald-300" />
+                    {label as string}
+                  </span>
+                );
+              })}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-[96rem] px-4 py-12 sm:px-6 lg:py-16 xl:px-8 2xl:px-10">
+        <div className="grid gap-5 lg:grid-cols-3">
+          {ecosystemServices.map((service, index) => {
+            const Icon = service.icon;
+            const isWide = index === 0 || index === 1;
+            const cardClass = isWide ? 'lg:col-span-3 xl:col-span-1' : '';
+
+            return (
+              <motion.article
+                key={service.title}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.45, delay: Math.min(index * 0.04, 0.2) }}
+                className={`group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-950/10 ${cardClass}`}
               >
-                {/* Background Card Gradient Accent */}
-                <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${service.category === 'deep-cleaning' ? 'from-emerald-50 via-transparent to-teal-50' : 'from-blue-50/40 via-transparent to-red-50/20'} opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none`} />
-
-                <div className="relative z-10">
-                  {/* Service Card Image Banner */}
-                  {service.image && (
-                    <div className="relative h-44 sm:h-48 w-full overflow-hidden rounded-2xl mb-5 border border-slate-200/80 group-hover:border-blue-400 transition-colors shadow-sm">
-                      <img
-                        src={service.image}
-                        alt={service.title}
-                        referrerPolicy="no-referrer"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
-
-                      {/* Icon overlay on top right */}
-                      <div className="absolute top-3 right-3 p-2.5 rounded-xl bg-white/90 backdrop-blur-md border border-white/50 shadow-md">
-                        {getIcon(service.iconName)}
-                      </div>
-
-                      {/* Badge overlay on top left */}
-                      {service.badge && (
-                        <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold bg-red-600 text-white shadow-md border border-red-400/50">
-                          {service.badge}
-                        </span>
-                      )}
-                    </div>
-                  )}
-
-                  {!service.image && (
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="p-3 rounded-2xl bg-blue-50/80 border border-blue-200/80 shadow-inner group-hover:border-blue-400 transition-colors">
-                        {getIcon(service.iconName)}
-                      </div>
-
-                      {service.badge && (
-                        <span className="px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-950 border border-red-300">
-                          {service.badge}
-                        </span>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Title & Description */}
-                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-900 transition-colors mb-3">
-                    {service.title}
-                  </h3>
-
-                  <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                    {service.shortDesc}
-                  </p>
-
-                  {/* Bullet points */}
-                  <ul className="space-y-2 mb-6">
-                    {service.features.slice(0, 3).map((feat, i) => (
-                      <li key={i} className="flex items-start gap-2 text-xs text-slate-700 font-medium">
-                        <Check className="w-3.5 h-3.5 text-red-600 shrink-0 mt-0.5" />
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Footer spec bar & Action Buttons */}
-                <div className="relative z-10 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
-                  <div className="text-[11px] text-slate-500 flex items-center gap-1 font-medium">
-                    <Clock className="w-3.5 h-3.5 text-amber-500" />
-                    <span>Deployment: <strong className="text-slate-800">{service.specs.deploymentTime}</strong></span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => onSelectService(service)}
-                      className="px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-blue-50 hover:text-blue-900 border border-slate-200 transition-colors flex items-center gap-1 cursor-pointer"
-                    >
-                      <Eye className="w-3 h-3 text-blue-800" />
-                      <span>Details</span>
-                    </button>
-
-                    <button
-                      onClick={() => onOpenQuoteModal(service.id)}
-                      className="px-3.5 py-1.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-red-600 via-red-500 to-blue-900 hover:from-red-500 hover:to-blue-800 shadow-md shadow-red-600/20 transition-all flex items-center gap-1 cursor-pointer"
-                    >
-                      <span>Quote</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </button>
-                  </div>
-                </div>
-
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {/* Official Operations Poster & Registration Credentials Banner */}
-        <div className="mt-16 rounded-3xl bg-slate-900 border border-slate-800 p-6 sm:p-8 text-white overflow-hidden relative shadow-2xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-            <div className="lg:col-span-7 space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950 border border-red-500/50 text-red-300 text-xs font-bold">
-                <ShieldCheck className="w-3.5 h-3.5 text-red-400" />
-                <span>OFFICIAL AYUDH VIKAS SERVICES POSTER & REGISTRATION</span>
-              </div>
-
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                Verified Telangana Security & Facility Operations Poster
-              </h3>
-
-              <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                Licensed under Reg. No. 417/2025, Telangana. We deliver comprehensive security guarding, housekeeping, deep cleaning, civil cleaning, and pre-vetted corporate manpower with guaranteed 24/7 helpline desk assistance.
-              </p>
-
-              <div className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs text-slate-300 space-y-2">
-                <div className="flex items-center justify-between font-bold text-white">
-                  <span>🏢 Warangal Regional Office Helpline</span>
-                  <span className="text-red-400 font-mono">0870 412 0820 / 9000045073</span>
-                </div>
-                <p className="text-[11px] text-slate-400">
-                  Address: # 12-8-287, KM Complex, Hunter Road, Opp: Kasam Janata Sale, Warangal - 506002.
-                </p>
-              </div>
-
-              <div className="pt-2 flex flex-wrap gap-3">
-                <button
-                  onClick={() => onOpenQuoteModal()}
-                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white font-bold text-xs flex items-center gap-2 transition-all shadow-lg cursor-pointer"
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                  <span>Request Custom Service Package</span>
-                </button>
-              </div>
-            </div>
-
-            <div className="lg:col-span-5 flex justify-center">
-              <div className="rounded-2xl overflow-hidden border border-slate-700 bg-slate-950 shadow-2xl group w-full max-w-sm">
-                <div className="relative h-72 bg-slate-950 overflow-hidden">
+                <div className="relative h-56 overflow-hidden">
                   <img
-                    src={brandPosterImg}
-                    alt="Official Ayudh Vikas Business Services Poster Flyer"
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    src={service.image}
+                    alt={service.title}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/15 to-transparent" />
+                  <div className="absolute left-4 top-4 flex items-center gap-2">
+                    <span className={`grid h-10 w-10 place-items-center rounded-xl ${service.bg} ${service.accent} border ${service.border} shadow-sm`}>
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    {service.soon && (
+                      <span className="rounded-full bg-amber-300 px-2.5 py-1 text-[10px] font-black uppercase text-slate-950">
+                        Coming Soon
+                      </span>
+                    )}
+                  </div>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <p className="text-[11px] font-extrabold uppercase text-white/70">{service.eyebrow}</p>
+                    <h3 className="mt-1 text-2xl font-black text-white">{service.title}</h3>
+                  </div>
                 </div>
-                <div className="p-3 text-center bg-slate-950 border-t border-slate-800 text-xs font-bold text-slate-300">
-                  AYUDH VIKAS Official Operations Poster
+
+                <div className="p-5">
+                  <p className="text-sm leading-relaxed text-slate-600">{service.desc}</p>
+                  <div className="mt-5 grid gap-2">
+                    {service.bullets.map((bullet) => (
+                      <div key={bullet} className="flex items-center gap-2 text-xs font-bold text-slate-700">
+                        <Check className={`h-4 w-4 ${service.accent}`} />
+                        <span>{bullet}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-5 flex items-center justify-between gap-3 border-t border-slate-100 pt-4">
+                    <span className="text-[11px] font-bold uppercase text-slate-400">Warangal focused</span>
+                    {service.href ? (
+                      <a
+                        href={service.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-xl bg-slate-950 px-3.5 py-2 text-xs font-extrabold text-white hover:bg-slate-800"
+                      >
+                        <span>{service.action}</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </a>
+                    ) : (
+                      <button
+                        onClick={() => handleCardAction(service)}
+                        className="inline-flex items-center gap-1.5 rounded-xl bg-slate-950 px-3.5 py-2 text-xs font-extrabold text-white hover:bg-slate-800"
+                      >
+                        <span>{service.action}</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
+              </motion.article>
+            );
+          })}
         </div>
 
+        <div className="mt-12 grid gap-5 border-y border-slate-200 py-8 md:grid-cols-4">
+          {[
+            ['24/7 desk', 'Emergency support for security and field operations', Headphones],
+            ['Verified teams', 'Identity checks and statutory compliance for core manpower', BadgeCheck],
+            ['Fast launch', 'Quick onboarding for quotes, staffing, cleaning, and delivery pilots', Zap],
+            ['Local zones', 'Warangal, Hanamkonda, Kazipet, Hunter Road, and nearby areas', Clock],
+          ].map(([title, desc, Icon]) => {
+            const StatIcon = Icon as typeof ShieldCheck;
+
+            return (
+              <div key={title as string} className="flex gap-3">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white text-blue-900 shadow-sm ring-1 ring-slate-200">
+                  <StatIcon className="h-5 w-5" />
+                </span>
+                <span>
+                  <span className="block text-sm font-black text-slate-950">{title as string}</span>
+                  <span className="mt-1 block text-xs leading-relaxed text-slate-600">{desc as string}</span>
+                </span>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="mt-14">
+          <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div>
+              <p className="text-xs font-black uppercase text-blue-800">Detailed operations catalog</p>
+              <h3 className="mt-2 text-3xl font-black tracking-tight text-slate-950">Core service packages</h3>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
+                For security, cleaning, facility support, and staffing, these packages include detailed specifications and can still be opened for service-level details.
+              </p>
+            </div>
+            <button
+              onClick={() => onOpenQuoteModal('Integrated Service Package')}
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-600 via-red-500 to-blue-900 px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-red-900/20"
+            >
+              <Sparkles className="h-4 w-4 text-amber-300" />
+              <span>Request combined quote</span>
+            </button>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {operationalCatalog.map((service) => (
+              <article key={service.id} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:border-blue-300 hover:shadow-md">
+                <div className="flex gap-4">
+                  {service.image && (
+                    <img src={service.image} alt={service.title} className="h-24 w-28 shrink-0 rounded-xl object-cover" />
+                  )}
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-black uppercase text-slate-500">
+                        {service.badge}
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase text-amber-700">
+                        <Clock className="h-3 w-3" />
+                        {service.specs.deploymentTime}
+                      </span>
+                    </div>
+                    <h4 className="mt-2 text-base font-black text-slate-950">{service.title}</h4>
+                    <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-slate-600">{service.shortDesc}</p>
+                  </div>
+                </div>
+                <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3">
+                  <button
+                    onClick={() => onSelectService(service)}
+                    className="text-xs font-black text-blue-900 hover:text-blue-700"
+                  >
+                    View details
+                  </button>
+                  <button
+                    onClick={() => onOpenQuoteModal(service.id)}
+                    className="inline-flex items-center gap-1 rounded-lg bg-blue-950 px-3 py-2 text-xs font-black text-white hover:bg-blue-900"
+                  >
+                    Quote
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
