@@ -1,9 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   Search, Check, Sparkles, Filter, Package,
-  ArrowRight, Building2, Home, ShoppingCart, Plus, Minus, Trash2, MessageCircle, X
+  ArrowRight, ShoppingCart, Plus, Minus, Trash2, MessageCircle, X
 } from 'lucide-react';
-import { AyudhKlinLogo } from './AyudhKlinLogo';
 import brandPosterImg from '../assets/images/brand_official_poster_1784802712788.jpg';
 import brandTeamworkImg from '../assets/images/brand_teamwork_quote_1784802669697.jpg';
 
@@ -196,22 +195,6 @@ export const S4SmartProducts: React.FC<S4SmartProductsProps> = ({ onSelectTab })
 
     return matchesSearch && matchesCategory && matchesType;
   });
-
-  const handleSelectDomesticCard = () => {
-    setSelectedType('Domestic');
-    const catalogEl = document.getElementById('product-catalog');
-    if (catalogEl) {
-      catalogEl.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleSelectIndustrialCard = () => {
-    setSelectedType('Industrial');
-    const catalogEl = document.getElementById('product-catalog');
-    if (catalogEl) {
-      catalogEl.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   const cartItems = useMemo(() => (
     Object.entries(cart)
@@ -443,119 +426,8 @@ export const S4SmartProducts: React.FC<S4SmartProductsProps> = ({ onSelectTab })
         </div>
       )}
 
-      
-      {/* Pristine Green & White Top Banner / Brand Header */}
-      <div className="bg-gradient-to-b from-emerald-50/80 via-emerald-100/40 to-white py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-emerald-100 text-center relative overflow-hidden">
-        <div className="absolute top-0 right-1/3 w-96 h-96 bg-emerald-200/30 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-emerald-300/20 rounded-full blur-2xl pointer-events-none" />
-
-        <div className="max-w-4xl mx-auto relative z-10 space-y-5">
-          {/* Brand Logo & Tagline Component backgroundless */}
-          <div className="flex justify-center mb-2">
-            <AyudhKlinLogo size="xl" showTagline={true} />
-          </div>
-
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-800 text-xs font-bold tracking-wide">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-            <span>EXCLUSIVELY GREEN & CLEAN SOLUTIONS</span>
-          </div>
-          
-          <h1 className="text-3xl sm:text-5xl font-black text-emerald-950 tracking-tight">
-            AyudhKlin Professional Products
-          </h1>
-
-          <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-medium">
-            Add domestic and industrial hygiene products to your cart, review quantities, and send your selected order directly to our WhatsApp desk.
-          </p>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 space-y-12">
-
-        {/* SECTION 1: 2 Main Cards (Domestic & Industrial) - Green & White Style */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-          
-          {/* Domestic Products Card */}
-          <div 
-            onClick={handleSelectDomesticCard}
-            className={`group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-emerald-200 cursor-pointer flex flex-col ${
-              selectedType === 'Domestic' ? 'ring-2 ring-emerald-600 bg-emerald-50/20' : ''
-            }`}
-          >
-            <div className="relative h-56 sm:h-64 overflow-hidden bg-emerald-50">
-              <img 
-                src="https://images.unsplash.com/photo-1585421514738-01798e348b17?auto=format&fit=crop&w=800&q=80" 
-                alt="Domestic Products" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/40 via-transparent to-transparent" />
-              <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-bold text-emerald-900 border border-emerald-200 shadow-sm">
-                <Home className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Home & Office</span>
-              </div>
-            </div>
-
-            <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-3">
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex flex-col">
-                  <span>Domestic Products</span>
-                  <span className="w-12 h-1 bg-emerald-500 rounded-full mt-1.5" />
-                </h2>
-                <p className="text-slate-600 text-sm mt-3 leading-relaxed">
-                  Professional eco-safe cleaning solutions for homes, residential units, and small business offices.
-                </p>
-              </div>
-
-              <div className="pt-2 flex items-center gap-2 text-xs font-bold text-emerald-700 group-hover:text-emerald-800">
-                <span>Browse Domestic Catalog</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </div>
-            </div>
-          </div>
-
-          {/* Industrial Products Card */}
-          <div 
-            onClick={handleSelectIndustrialCard}
-            className={`group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-emerald-200 cursor-pointer flex flex-col ${
-              selectedType === 'Industrial' ? 'ring-2 ring-emerald-600 bg-emerald-50/20' : ''
-            }`}
-          >
-            <div className="relative h-56 sm:h-64 overflow-hidden bg-emerald-50">
-              <img 
-                src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80" 
-                alt="Industrial Products" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/40 via-transparent to-transparent" />
-              <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-bold text-emerald-900 border border-emerald-200 shadow-sm">
-                <Building2 className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Heavy Duty Commercial</span>
-              </div>
-            </div>
-
-            <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-3">
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex flex-col">
-                  <span>Industrial Products</span>
-                  <span className="w-12 h-1 bg-emerald-500 rounded-full mt-1.5" />
-                </h2>
-                <p className="text-slate-600 text-sm mt-3 leading-relaxed">
-                  Heavy-duty industrial floor scrubbers, degreasers, and automated hygiene systems.
-                </p>
-              </div>
-
-              <div className="pt-2 flex items-center gap-2 text-xs font-bold text-emerald-700 group-hover:text-emerald-800">
-                <span>Browse Industrial Catalog</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </div>
-            </div>
-          </div>
-
-        </section>
-
-
-        {/* SECTION 2: Search Bar & Filter Pills - Green & White Style */}
-        <section id="product-catalog" className="pt-6 space-y-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 space-y-12">
+        <section id="product-catalog" className="space-y-6">
           
           {/* Green-focused Search Bar */}
           <div className="max-w-2xl mx-auto">

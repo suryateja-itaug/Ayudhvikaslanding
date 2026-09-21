@@ -46,6 +46,10 @@ export default function App() {
     setActiveTab(tabId);
     window.location.hash = tabId;
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (tabId === 'services') {
+      setQuoteServiceId(undefined);
+      setIsQuoteModalOpen(true);
+    }
   };
 
   const handleOpenQuoteModal = (serviceId?: string) => {
