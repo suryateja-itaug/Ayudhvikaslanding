@@ -3,15 +3,7 @@ import {
   BookOpen,
   ChevronLeft,
   ChevronRight,
-  GraduationCap,
-  HandHeart,
   HeartHandshake,
-  Landmark,
-  Leaf,
-  Scale,
-  ShieldCheck,
-  Stethoscope,
-  Users,
 } from 'lucide-react';
 import { GlobalWorkerOptions, getDocument, type PDFDocumentProxy } from 'pdfjs-dist';
 import pdfWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
@@ -88,88 +80,6 @@ const leadershipProfiles = [
   },
 ];
 
-const foundationServices = [
-  {
-    title: 'Health & Medical Support | ఆరోగ్య & వైద్య సహాయం',
-    icon: Stethoscope,
-    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Doctor supporting a patient during a health consultation',
-    text: 'We work towards health awareness, community and rural health camps, patient support, medical guidance, healthcare coordination and making essential healthcare services more accessible to people.',
-    telugu: 'ఆరోగ్య అవగాహన, గ్రామీణ మరియు కమ్యూనిటీ ఆరోగ్య శిబిరాలు, రోగులకు సహాయం, వైద్య మార్గదర్శకత్వం, ఆరోగ్య సేవల సమన్వయం మరియు అవసరమైన వైద్య సేవలను ప్రజలకు చేరువ చేయడానికి మేము కృషి చేస్తున్నాము.',
-  },
-  {
-    title: 'Education & Awareness | విద్య & అవగాహన',
-    icon: GraduationCap,
-    image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Students learning together in a classroom',
-    text: 'We support educational awareness, student development, community education and initiatives that help people make informed decisions about their future.',
-    telugu: 'విద్యా అవగాహన, విద్యార్థుల అభివృద్ధి, కమ్యూనిటీ విద్య మరియు ప్రజలు తమ భవిష్యత్తు గురించి మంచి నిర్ణయాలు తీసుకునేందుకు అవసరమైన అవగాహన కార్యక్రమాలకు మేము సహకరిస్తాము.',
-  },
-  {
-    title: 'Social Welfare | సామాజిక సంక్షేమం',
-    icon: HandHeart,
-    image: 'https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Volunteers packing support supplies for community welfare',
-    text: 'We work to support vulnerable communities, people in need and families facing difficult circumstances through appropriate social welfare initiatives.',
-    telugu: 'బలహీన వర్గాలు, సహాయం అవసరమైన ప్రజలు మరియు కష్టాలను ఎదుర్కొంటున్న కుటుంబాలకు అవసరమైన సామాజిక సంక్షేమ కార్యక్రమాల ద్వారా మద్దతు అందించేందుకు మేము కృషి చేస్తున్నాము.',
-  },
-  {
-    title: 'Women Empowerment & Protection | మహిళా సాధికారత & రక్షణ',
-    icon: ShieldCheck,
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Women participating in a professional empowerment discussion',
-    text: 'We promote awareness, dignity, safety, rights and empowerment of women through community-based initiatives.',
-    telugu: 'మహిళల గౌరవం, భద్రత, హక్కులు, సాధికారత మరియు సామాజిక అవగాహన కోసం కమ్యూనిటీ ఆధారిత కార్యక్రమాలను ప్రోత్సహిస్తాము.',
-  },
-  {
-    title: 'Environment Protection | పర్యావరణ పరిరక్షణ',
-    icon: Leaf,
-    image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Hands holding a young green plant for environmental protection',
-    text: 'We promote environmental awareness, cleanliness, greenery and responsible participation in protecting our earth and natural resources.',
-    telugu: 'పర్యావరణ అవగాహన, పరిశుభ్రత, పచ్చదనం మరియు మన భూమి, ప్రకృతి, సహజ వనరుల పరిరక్షణలో ప్రజల భాగస్వామ్యాన్ని ప్రోత్సహిస్తాము.',
-  },
-  {
-    title: 'Temple & Community Development | ఆలయ & సమాజ అభివృద్ధి',
-    icon: Landmark,
-    image: 'https://images.unsplash.com/photo-1623059508779-2542c6e83753?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Indian temple architecture and community gathering place',
-    text: 'We support appropriate spiritual, cultural, temple development and community welfare initiatives that contribute positively to society.',
-    telugu: 'సమాజానికి సానుకూలంగా ఉపయోగపడే ఆధ్యాత్మిక, సాంస్కృతిక, ఆలయ అభివృద్ధి మరియు కమ్యూనిటీ సంక్షేమ కార్యక్రమాలకు మద్దతు ఇస్తాము.',
-  },
-];
-
-const gratitudeSections = [
-  {
-    title: 'Gratitude To Public Leadership | ప్రజా నాయకత్వానికి కృతజ్ఞతలు',
-    body: [
-      'Ayudh Vikas Foundation respectfully expresses heartfelt gratitude to the Honble President of India, the Honble Prime Minister of India, national and state leaders, governors, chief ministers, ministers, elected representatives and all public servants working for public welfare, unity, constitutional responsibility and inclusive growth.',
-      'ప్రజాసేవ, రాజ్యాంగ బాధ్యత, జాతీయ ఐక్యత, మానవ గౌరవం మరియు ప్రజా సంక్షేమం కోసం పనిచేస్తున్న గౌరవనీయ నాయకులు మరియు ప్రజాసేవకులందరికీ ఆయుధ్ వికాస్ ఫౌండేషన్ హృదయపూర్వక కృతజ్ఞతలు తెలియజేస్తోంది.',
-    ],
-  },
-  {
-    title: 'Gratitude To Service Institutions | సేవా సంస్థలకు కృతజ్ఞతలు',
-    body: [
-      'We sincerely appreciate government officials, civil servants, NGOs, charitable institutions, social service organizations, volunteers and community groups who serve people with dedication and responsibility.',
-      'ప్రజలకు అవసరమైన సేవలను అందిస్తూ, మానవ సంక్షేమం కోసం పనిచేస్తున్న ప్రభుత్వ అధికారులు, స్వచ్ఛంద సంస్థలు, సేవా సంస్థలు, వాలంటీర్లు మరియు కమ్యూనిటీ సంస్థలకు మా హృదయపూర్వక కృతజ్ఞతలు.',
-    ],
-  },
-  {
-    title: 'Gratitude To Protectors & Professionals | రక్షకులు మరియు నిపుణులకు కృతజ్ఞతలు',
-    body: [
-      'Ayudh Vikas Foundation salutes brave soldiers, police personnel, law dignitaries, doctors, nurses, healthcare professionals and everyone who protects lives, justice, dignity, health and peace.',
-      'దేశాన్ని కాపాడే వీర జవాన్లు, శాంతిభద్రతలను కాపాడే పోలీస్ సిబ్బంది, న్యాయ ప్రముఖులు, వైద్యులు, నర్సులు మరియు ఆరోగ్య సేవా నిపుణులందరికీ మా గౌరవపూర్వక వందనం.',
-    ],
-  },
-  {
-    title: 'Gratitude To Supporters & Team | మద్దతుదారులు మరియు టీమ్ సభ్యులకు కృతజ్ఞతలు',
-    body: [
-      'We extend heartfelt thanks to supporters, well-wishers, friends, donors, volunteers and dedicated team members whose trust, encouragement, unity and service spirit give strength to our journey.',
-      'మా సేవా ప్రయాణాన్ని నమ్మి, మాకు ప్రోత్సాహం, మార్గదర్శకత్వం మరియు సహకారం అందిస్తున్న మద్దతుదారులు, శ్రేయోభిలాషులు, దాతలు, వాలంటీర్లు మరియు టీమ్ సభ్యులందరికీ హృదయపూర్వక ధన్యవాదాలు.',
-    ],
-  },
-];
-
 const FoundationStory: React.FC = () => (
   <section className="overflow-hidden bg-slate-950 text-white">
     <div className="relative min-h-[34rem] px-4 py-16 sm:px-6 lg:px-8">
@@ -224,12 +134,12 @@ const FoundationStory: React.FC = () => (
         <article className="overflow-hidden rounded-2xl border border-white/10 bg-slate-900">
           <img src={healthcareImage} alt="Healthcare and community support" className="h-56 w-full object-cover" />
           <div className="p-6">
-            <h2 className="text-2xl font-black">Our Purpose | మా లక్ష్యం</h2>
+            <h2 className="text-2xl font-black">Our Purpose</h2>
             <p className="mt-4 text-sm leading-7 text-slate-300">
-              Our purpose is to identify genuine social needs and provide meaningful, practical and sustainable support to individuals, families and communities.
+              Our purpose is to protect people, property, workplaces, homes, institutions, and events through dependable security services and disciplined deep cleaning support. Ayudh Vikas focuses on practical ground execution: trained manpower, verified deployment, planned supervision, hygienic environments, and quick response for daily operational needs.
             </p>
             <p className="mt-3 text-sm leading-7 text-slate-400">
-              సమాజంలోని నిజమైన అవసరాలను గుర్తించి, వ్యక్తులు, కుటుంబాలు మరియు సమాజాలకు ఉపయోగకరమైన, ఆచరణాత్మకమైన మరియు స్థిరమైన సహాయాన్ని అందించడం మా ప్రధాన లక్ష్యం.
+              We aim to make every site safer, cleaner, healthier, and easier to manage by combining professional security guarding, facility support, and deep cleaning practices with responsible local service.
             </p>
           </div>
         </article>
@@ -237,127 +147,39 @@ const FoundationStory: React.FC = () => (
         <article className="overflow-hidden rounded-2xl border border-white/10 bg-slate-900">
           <img src={communityImage} alt="Community development and teamwork" className="h-56 w-full object-cover" />
           <div className="p-6">
-            <h2 className="text-2xl font-black">Vision & Mission | దృష్టి & కార్యాచరణ</h2>
+            <h2 className="text-2xl font-black">Vision & Mission</h2>
             <p className="mt-4 text-sm leading-7 text-slate-300">
-              To build a healthy, educated, compassionate, responsible and empowered society where every person has the opportunity to live with dignity and hope.
+              Our vision is to become a trusted name for security and deep cleaning across Telangana by delivering consistent manpower, transparent coordination, and service quality that clients can rely on every day.
             </p>
             <p className="mt-3 text-sm leading-7 text-slate-400">
-              ప్రజల వద్దకు నేరుగా చేరుకుని ఆరోగ్య అవగాహన, విద్య, సామాజిక సంక్షేమం, మహిళా సాధికారత, పర్యావరణ పరిరక్షణ మరియు సమాజ అభివృద్ధి ద్వారా అర్థవంతమైన సేవలను అందించడం మా కార్యాచరణ లక్ష్యం.
+              Our mission is to deploy police-verified guards, trained cleaning teams, supervisors, and support staff with clear accountability, fast coordination, and a strong focus on safety, hygiene, dignity, and customer confidence.
             </p>
           </div>
         </article>
       </div>
 
       <div className="mt-12">
-        <h2 className="text-3xl font-black tracking-tight">What We Do | మా సేవా రంగాలు</h2>
-        <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {foundationServices.map((service) => {
-            const Icon = service.icon;
-            return (
-              <article key={service.title} className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-xl shadow-slate-950/20">
-                <div className="relative h-48 overflow-hidden">
-                  <img src={service.image} alt={service.imageAlt} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/35 to-transparent" />
-                  <div className="absolute bottom-4 left-4 rounded-xl border border-white/20 bg-slate-950/75 p-3 text-amber-300 backdrop-blur-md">
-                    <Icon className="h-6 w-6" />
-                  </div>
-                </div>
-                <div className="p-5">
-                  <h3 className="text-lg font-black">{service.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-300">{service.text}</p>
-                  <p className="mt-3 text-sm leading-7 text-slate-400">{service.telugu}</p>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="mt-12 grid gap-4 lg:grid-cols-[0.8fr_1.2fr]">
-        <div className="overflow-hidden rounded-2xl border border-amber-300/20 bg-amber-300/10">
-          <div className="relative h-56">
-            <img
-              src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1000&q=85"
-              alt="Community service values represented by people helping together"
-              className="h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
-            <div className="absolute bottom-5 left-5 right-5">
-              <h2 className="text-2xl font-black text-white">Our Values | మా విలువలు</h2>
-              <p className="mt-2 text-sm font-bold text-amber-100">Love • Service • Humanity • Compassion</p>
-            </div>
-          </div>
-          <div className="grid gap-2 p-5 sm:grid-cols-2">
-            {['Equality', 'Integrity', 'Responsibility', 'Teamwork', 'Transparency', 'Selfless Service'].map((value) => (
-              <span key={value} className="rounded-xl border border-amber-300/20 bg-slate-950/60 px-3 py-2 text-sm font-bold text-amber-50">
-                {value}
-              </span>
-            ))}
-          </div>
-          <p className="px-5 pb-5 text-sm leading-7 text-amber-100">
-            ప్రేమ • సేవ • మానవత్వం • కరుణ • సమానత్వం • నిజాయితీ • బాధ్యత • టీమ్‌వర్క్ • పారదర్శకత
-          </p>
-        </div>
-
         <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04]">
           <img
             src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1000&q=85"
-            alt="People working together for social support"
+            alt="Professional operations team planning security and cleaning services"
             className="h-48 w-full object-cover"
           />
           <div className="p-6">
             <h2 className="text-2xl font-black">Founder & Chairman Message</h2>
             <p className="mt-4 text-sm leading-7 text-slate-300">
-              With 15 years of experience in the Healthcare sector, we are moving forward on this path of service with a sincere commitment to make healthcare, social support, and community welfare more accessible to people through Ayudh Vikas Foundation.
+              Ayudh Vikas was built with a practical belief: every client deserves a safe site, a clean environment, and a team that takes responsibility from the first call to final execution. Security and deep cleaning are not just services for us; they are daily commitments to discipline, trust, and public confidence.
             </p>
             <p className="mt-3 text-sm leading-7 text-slate-400">
-              సేవ అనేది కేవలం ఒక కార్యక్రమం కాదు; అది మానవత్వం పట్ల మన బాధ్యత, ఇతరుల జీవితాల్లో మంచి మార్పు తీసుకురావాలనే ఒక పవిత్రమైన సంకల్పం.
+              Our focus is to deploy dependable guards, trained cleaning personnel, site supervisors, and support teams who understand ground realities. We continue to strengthen our systems, verification practices, training discipline, and customer response so homes, offices, schools, hospitals, apartments, events, and industrial locations can operate with confidence.
             </p>
             <p className="mt-4 text-sm font-black text-amber-200">
-              Your blessings are our strength. Your encouragement is our inspiration. Service to humanity is our mission.
+              Our promise is simple: reliable manpower, visible supervision, cleaner spaces, safer premises, and accountable service.
             </p>
             <p className="mt-2 text-sm font-bold text-slate-300">
-              With Humble Regards, Mandala Vijender, MBA (LLB), Founder & Chairman, Ayudh Vikas Foundation
+              With Humble Regards, Mandala Vijender, MA, MBA, (LLB), Founder & Chairman, Ayudh Vikas
             </p>
           </div>
-        </div>
-      </div>
-
-      <div className="mt-12 rounded-2xl border border-white/10 bg-slate-900 p-6">
-        <div className="flex items-center gap-3">
-          <Users className="h-7 w-7 text-amber-300" />
-          <h2 className="text-2xl font-black">Our Gratitude | మా కృతజ్ఞతలు</h2>
-        </div>
-        <div className="mt-6 grid gap-3">
-          {gratitudeSections.map((section) => (
-            <details key={section.title} className="group rounded-xl border border-white/10 bg-slate-950/70 p-4">
-              <summary className="cursor-pointer text-sm font-black text-white marker:text-amber-300">{section.title}</summary>
-              <div className="mt-4 space-y-3 text-sm leading-7 text-slate-300">
-                {section.body.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </div>
-            </details>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-12 grid gap-4 lg:grid-cols-2">
-        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-          <Scale className="h-8 w-8 text-amber-300" />
-          <h2 className="mt-4 text-2xl font-black">Our Journey Of Service | మా సేవా ప్రయాణం</h2>
-          <p className="mt-4 text-sm leading-7 text-slate-300">
-            The journey of Ayudh Vikas Foundation is not merely the journey of an organization. It is a journey of humanity, compassion and service.
-          </p>
-          <p className="mt-3 text-sm leading-7 text-slate-400">
-            ఒక చిన్న మంచి పని, ఒక సహాయక హస్తం లేదా ఒక ఆప్యాయమైన మాట కూడా ఒక మంచి మార్పుకు ప్రారంభం కావచ్చు.
-          </p>
-        </div>
-        <div className="rounded-2xl border border-amber-300/30 bg-gradient-to-br from-amber-300/20 to-slate-900 p-6">
-          <h2 className="text-2xl font-black">Our Motto | మా సేవా నినాదం</h2>
-          <p className="mt-4 text-xl font-black text-amber-100">Care Beyond Boundaries</p>
-          <p className="mt-3 text-sm leading-7 text-slate-200">Together for Better Health, Better Communities and a Better Future.</p>
-          <p className="mt-3 text-sm leading-7 text-slate-300">హద్దులు దాటి మానవతా సేవ. మంచి ఆరోగ్యం కోసం • మంచి సమాజాల కోసం • మంచి భవిష్యత్తు కోసం కలిసి ముందుకు.</p>
         </div>
       </div>
     </div>
