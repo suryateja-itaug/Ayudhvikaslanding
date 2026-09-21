@@ -26,7 +26,7 @@ export const StatsBar: React.FC = () => {
 
   return (
     <section className="relative z-30 -mt-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="rounded-3xl bg-white border border-slate-200 shadow-xl shadow-slate-900/5 p-6 md:p-8">
+      <div className="rounded-3xl border border-slate-200 bg-white/95 p-6 shadow-xl shadow-slate-900/10 ring-1 ring-blue-100/80 backdrop-blur-sm md:p-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
           {STATS_LIST.map((stat, idx) => (
             <motion.div
