@@ -20,19 +20,31 @@ import directorsImage from '../assets/images/about-directors.jpg';
 import ecosystemHeroImage from '../assets/images/ayudh-ecosystem-hero.png';
 import healthcareImage from '../assets/images/service_deep_cleaning_1784719519754.jpg';
 import communityImage from '../assets/images/service_corporate_staffing_1784719493174.jpg';
+import poshalaNareshImage from '../assets/images/poshala-naresh.jpg';
+import jannuRajuImage from '../assets/images/jannu-raju.jpg';
 
 GlobalWorkerOptions.workerSrc = pdfWorker;
 
 const leadershipProfiles = [
   {
-    name: 'M. Vijender, MBA',
-    role: 'Managing Director',
+    name: 'M. Vijender, MA, MBA, (LLB)',
+    role: 'Honourable Director',
     image: directorsImage,
-    alt: 'M. Vijender, Managing Director',
+    alt: 'M. Vijender, Honourable Director',
     crop: { backgroundSize: '335% auto', backgroundPosition: '4% 44%' },
     summary:
       'Mr. Vijender is the Managing Director of Ayudh Vikas. With an MBA background and strong leadership skills, he drives the organization with a clear vision of delivering reliable manpower solutions, professional cleaning services and impactful healthcare initiatives. His focus on innovation, integrity and customer satisfaction continues to guide the company towards sustainable growth and social impact.',
     highlights: ['MBA-backed leadership', 'Focus on innovation and integrity', 'Customer satisfaction and sustainable growth'],
+  },
+  {
+    name: 'Poshala Naresh M.PHAM (LLB)',
+    role: 'Director',
+    image: poshalaNareshImage,
+    alt: 'Poshala Naresh, Director',
+    crop: { backgroundSize: 'cover', backgroundPosition: 'center 24%' },
+    summary:
+      'Mr. Poshala Naresh brings a valuable combination of pharmacy knowledge, legal understanding and public-service commitment to Ayudh Vikas Foundation. His multidisciplinary background supports the organization in healthcare awareness, ethical operations, compliance-oriented planning and responsible community service initiatives.',
+    highlights: ['Pharmacy and legal perspective', 'Healthcare awareness support', 'Ethical and responsible planning'],
   },
   {
     name: 'Allam Ashok',
@@ -63,6 +75,16 @@ const leadershipProfiles = [
     summary:
       'Dr. V. Ravinder serves as the Chief Advisor of Ayudh Vikas. With his vast experience and valuable guidance, he supports the organization in strategic decision-making, policy development and overall growth. His wisdom and vision continue to inspire the team and strengthen our commitment to serve the community.',
     highlights: ['Strategic guidance', 'Policy development', 'Community-focused leadership'],
+  },
+  {
+    name: 'Jannu Raju',
+    role: 'Operations Director',
+    image: jannuRajuImage,
+    alt: 'Jannu Raju, Operations Director',
+    crop: { backgroundSize: 'cover', backgroundPosition: 'center 20%' },
+    summary:
+      'Mr. Jannu Raju serves as Operations Director and supports the day-to-day coordination, execution and monitoring of Ayudh Vikas Foundation activities. His operational focus helps strengthen field-level implementation, team coordination, service delivery and timely follow-up across community and healthcare support programmes.',
+    highlights: ['Operational coordination', 'Field execution and follow-up', 'Service delivery management'],
   },
 ];
 
@@ -171,6 +193,19 @@ const FoundationStory: React.FC = () => (
 
         <div className="grid gap-4">
           <div className="rounded-2xl border border-white/10 bg-white/10 p-6 backdrop-blur-md">
+            <div className="-m-6 mb-5 overflow-hidden rounded-t-2xl border-b border-amber-200/20">
+              <div className="relative h-72">
+                <img
+                  src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Sri_Sathya_Sai_Baba_PIC.jpg"
+                  alt="Sri Sathya Sai Baba with devotees during bhajans"
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-amber-100/10" />
+                <div className="absolute bottom-4 left-4 rounded-full border border-amber-200/30 bg-amber-200/15 px-3 py-1.5 text-xs font-black uppercase tracking-[0.16em] text-amber-100 backdrop-blur-md">
+                  Love All • Serve All
+                </div>
+              </div>
+            </div>
             <HeartHandshake className="h-9 w-9 text-amber-300" />
             <h2 className="mt-4 text-2xl font-black">Inspired by Sri Sathya Sai Baba</h2>
             <p className="mt-3 text-sm leading-7 text-slate-200">
@@ -390,40 +425,90 @@ const Flipbook: React.FC = () => {
   }, [pageNumber, pageCount]);
 
   const changePage = (nextPage: number) => {
+    if (nextPage < 1 || nextPage > pageCount || nextPage === pageNumber) return;
     setDirection(nextPage > pageNumber ? 'next' : 'previous');
     setPageNumber(nextPage);
   };
 
+  useEffect(() => {
+    const handleKeydown = (event: KeyboardEvent) => {
+      if (!pageCount) return;
+      if (event.key === 'ArrowRight') changePage(pageNumber + 1);
+      if (event.key === 'ArrowLeft') changePage(pageNumber - 1);
+    };
+
+    window.addEventListener('keydown', handleKeydown);
+    return () => window.removeEventListener('keydown', handleKeydown);
+  }, [pageCount, pageNumber]);
+
+  const progress = pageCount ? (pageNumber / pageCount) * 100 : 0;
+
   return (
-    <section className="bg-slate-900 px-4 py-14 sm:py-20">
+    <section className="bg-[radial-gradient(circle_at_top,#1e293b_0%,#0f172a_45%,#020617_100%)] px-4 py-14 sm:py-20">
       <div className="mx-auto max-w-6xl text-center">
         <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-amber-300/30 bg-amber-300/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-amber-200">
           <BookOpen className="h-4 w-4" /> Company Profile
         </div>
         <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl">Explore our story</h2>
-        <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-300">Turn through the pages of our company profile to learn more about Ayudh Vikas.</p>
+        <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-300">Turn through the company profile with realistic page depth, shadows, and keyboard navigation.</p>
 
-        <div ref={stageRef} className="mt-8 flex min-h-[400px] items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-slate-800/70 p-3 shadow-2xl sm:p-6">
+        <div ref={stageRef} className="flipbook-stage relative mt-8 flex min-h-[430px] items-center justify-center overflow-hidden rounded-3xl border border-white/10 bg-[linear-gradient(135deg,#111827,#020617_65%)] p-5 shadow-2xl shadow-slate-950/60 sm:p-8">
+          <div className="absolute inset-x-10 bottom-6 h-8 rounded-full bg-black/45 blur-2xl" />
+          <div className="absolute left-1/2 top-8 bottom-8 hidden w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-amber-200/25 to-transparent md:block" />
           {isLoading ? (
             <div className="text-sm font-semibold text-slate-300">Loading company profile…</div>
           ) : pageCount ? (
-            <div key={pageNumber} className={`flipbook-page flipbook-page--${direction} relative bg-white shadow-2xl`}>
-              <canvas ref={canvasRef} aria-label={`Company profile page ${pageNumber} of ${pageCount}`} />
-            </div>
+            <>
+              <button
+                type="button"
+                onClick={() => changePage(pageNumber - 1)}
+                disabled={pageNumber === 1}
+                className="absolute left-3 top-1/2 z-20 hidden h-16 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-md transition hover:bg-white/20 disabled:pointer-events-none disabled:opacity-0 sm:flex"
+                aria-label="Previous page"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => changePage(pageNumber + 1)}
+                disabled={pageNumber === pageCount}
+                className="absolute right-3 top-1/2 z-20 hidden h-16 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-md transition hover:bg-white/20 disabled:pointer-events-none disabled:opacity-0 sm:flex"
+                aria-label="Next page"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+
+              <div className="flipbook-stack relative">
+                <div className="flipbook-paper-shadow flipbook-paper-shadow--one" />
+                <div className="flipbook-paper-shadow flipbook-paper-shadow--two" />
+                <div key={pageNumber} className={`flipbook-page flipbook-page--${direction} relative overflow-hidden bg-white shadow-2xl`}>
+                  <div className="flipbook-page-sheen" />
+                  <canvas ref={canvasRef} aria-label={`Company profile page ${pageNumber} of ${pageCount}`} />
+                  <div className="flipbook-page-curl" />
+                </div>
+              </div>
+
+              <div className="absolute bottom-4 left-6 right-6 z-20">
+                <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
+                  <div className="h-full rounded-full bg-amber-300 transition-all duration-500" style={{ width: `${progress}%` }} />
+                </div>
+              </div>
+            </>
           ) : (
             <a className="text-sm font-bold text-amber-300 underline" href={`${import.meta.env.BASE_URL}about-us-brochure.pdf`} target="_blank" rel="noreferrer">Open company profile PDF</a>
           )}
         </div>
 
         {pageCount > 0 && (
-          <div className="mt-6 flex items-center justify-center gap-4">
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
             <button onClick={() => changePage(pageNumber - 1)} disabled={pageNumber === 1} className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-35">
               <ChevronLeft className="h-4 w-4" /> Previous
             </button>
-            <span className="min-w-24 text-sm font-bold text-slate-300">Page {pageNumber} / {pageCount}</span>
+            <span className="rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-bold text-slate-200">Page {pageNumber} / {pageCount}</span>
             <button onClick={() => changePage(pageNumber + 1)} disabled={pageNumber === pageCount} className="inline-flex items-center gap-2 rounded-xl bg-amber-400 px-4 py-2.5 text-sm font-black text-slate-950 transition hover:bg-amber-300 disabled:cursor-not-allowed disabled:opacity-35">
               Next <ChevronRight className="h-4 w-4" />
             </button>
+            <span className="w-full text-xs font-semibold text-slate-400">Use left and right arrow keys to turn pages</span>
           </div>
         )}
       </div>
