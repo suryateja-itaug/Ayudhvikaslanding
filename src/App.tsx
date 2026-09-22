@@ -103,13 +103,6 @@ export default function App() {
 
         {activeTab === 'services' && (
           <div>
-            <PageHeader 
-              badge="Services Portfolio"
-              title="Integrated Solutions Portfolio"
-              subtitle="Explore our full suite of security officers, electronic CCTV surveillance, facility management, and pre-vetted corporate manpower."
-              onSelectTab={handleSelectTab}
-              onOpenQuoteModal={() => handleOpenQuoteModal()}
-            />
             <ServicesBento 
               onSelectService={handleSelectService}
               onOpenQuoteModal={handleOpenQuoteModal}
