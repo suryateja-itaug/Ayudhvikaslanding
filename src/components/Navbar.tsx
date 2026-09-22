@@ -27,10 +27,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
 
   const navLinks = [
     { id: 'home', name: 'Home' },
-    { id: 'services', name: 'Services' },
-    { id: 'ayudhklin-products', name: 'Klin Products' },
-    { id: 'ayudhklin-services', name: 'Klin Services' },
     { id: 'about-us', name: 'About' },
+    { id: 'services', name: 'Services' },
+    { id: 'ayudhklin-products', name: 'Ayudhklin Products' },
+    { id: 'ayudhklin-services', name: 'Ayudhklin Services' },
     { id: 'why-us', name: 'Why Us' },
     { id: 'faq', name: 'FAQ' },
     { id: 'contact', name: 'Contact' },

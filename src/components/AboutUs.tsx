@@ -14,6 +14,8 @@ import healthcareImage from '../assets/images/service_deep_cleaning_178471951975
 import communityImage from '../assets/images/service_corporate_staffing_1784719493174.jpg';
 import poshalaNareshImage from '../assets/images/poshala-naresh.jpg';
 import jannuRajuImage from '../assets/images/jannu-raju.jpg';
+import vijenderProfileImage from '../assets/images/vijender-profile.jpg';
+import govinduProfileImage from '../assets/images/govindu-vinay-kumar-profile.jpg';
 
 GlobalWorkerOptions.workerSrc = pdfWorker;
 
@@ -21,9 +23,9 @@ const leadershipProfiles = [
   {
     name: 'M. Vijender, MA, MBA, (LLB)',
     role: 'Honourable Director',
-    image: directorsImage,
+    image: vijenderProfileImage,
     alt: 'M. Vijender, Honourable Director',
-    crop: { backgroundSize: '335% auto', backgroundPosition: '4% 44%' },
+    crop: { backgroundSize: 'cover', backgroundPosition: 'center 20%' },
     summary:
       'Mr. Vijender is the Managing Director of Ayudh Vikas. With an MBA background and strong leadership skills, he drives the organization with a clear vision of delivering reliable manpower solutions, professional cleaning services and impactful healthcare initiatives. His focus on innovation, integrity and customer satisfaction continues to guide the company towards sustainable growth and social impact.',
     highlights: ['MBA-backed leadership', 'Focus on innovation and integrity', 'Customer satisfaction and sustainable growth'],
@@ -35,8 +37,8 @@ const leadershipProfiles = [
     alt: 'Poshala Naresh, Director',
     crop: { backgroundSize: 'cover', backgroundPosition: 'center 24%' },
     summary:
-      'Mr. Poshala Naresh brings a valuable combination of pharmacy knowledge, legal understanding and public-service commitment to Ayudh Vikas Foundation. His multidisciplinary background supports the organization in healthcare awareness, ethical operations, compliance-oriented planning and responsible community service initiatives.',
-    highlights: ['Pharmacy and legal perspective', 'Healthcare awareness support', 'Ethical and responsible planning'],
+      'Mr. Poshala Naresh brings a valuable combination of pharmacy knowledge, legal understanding and public-service commitment to Ayudh Vikas Manpower. His multidisciplinary background supports ethical operations, compliance-oriented planning, team discipline and responsible service delivery.',
+    highlights: ['Pharmacy and legal perspective', 'Compliance support', 'Ethical and responsible planning'],
   },
   {
     name: 'Allam Ashok',
@@ -51,9 +53,9 @@ const leadershipProfiles = [
   {
     name: 'Govindu Vinay Kumar',
     role: 'Director',
-    image: directorsImage,
+    image: govinduProfileImage,
     alt: 'Govindu Vinay Kumar, Director',
-    crop: { backgroundSize: '335% auto', backgroundPosition: '95% 42%' },
+    crop: { backgroundSize: 'cover', backgroundPosition: 'center 18%' },
     summary:
       'Mr. Govindu Vinay Kumar serves as a Director and is responsible for financial planning, budgeting and maintaining transparency in all financial operations. His strategic approach and strong financial management ensure the organization’s stability, accountability and sustainable development.',
     highlights: ['Financial planning and budgeting', 'Transparent operations', 'Strategic financial stability'],
@@ -75,7 +77,7 @@ const leadershipProfiles = [
     alt: 'Jannu Raju, Operations Director',
     crop: { backgroundSize: 'cover', backgroundPosition: 'center 20%' },
     summary:
-      'Mr. Jannu Raju serves as Operations Director and supports the day-to-day coordination, execution and monitoring of Ayudh Vikas Foundation activities. His operational focus helps strengthen field-level implementation, team coordination, service delivery and timely follow-up across community and healthcare support programmes.',
+      'Mr. Jannu Raju serves as Operations Director and supports the day-to-day coordination, execution and monitoring of Ayudh Vikas Manpower activities. His operational focus helps strengthen field-level implementation, team coordination, service delivery and timely follow-up across manpower, security and cleaning assignments.',
     highlights: ['Operational coordination', 'Field execution and follow-up', 'Service delivery management'],
   },
 ];
@@ -83,21 +85,21 @@ const leadershipProfiles = [
 const FoundationStory: React.FC = () => (
   <section className="overflow-hidden bg-slate-950 text-white">
     <div className="relative min-h-[34rem] px-4 py-16 sm:px-6 lg:px-8">
-      <img src={ecosystemHeroImage} alt="Ayudh Vikas Foundation service ecosystem" className="absolute inset-0 h-full w-full object-cover opacity-35" />
+      <img src={ecosystemHeroImage} alt="Ayudh Vikas Manpower service ecosystem" className="absolute inset-0 h-full w-full object-cover opacity-35" />
       <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/45" />
       <div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <div>
           <span className="inline-flex rounded-full border border-amber-300/40 bg-amber-300/10 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-amber-200">
-            Ayudh Vikas Foundation
+            Ayudh Vikas Manpower
           </span>
           <h1 className="mt-5 max-w-4xl text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-            Care Beyond Boundaries
+            Security, Deep Cleaning & Manpower Support
           </h1>
           <p className="mt-5 max-w-3xl text-base leading-8 text-slate-200">
-            Ayudh Vikas Foundation (AVF) is a public charitable and social welfare organization committed to serving society with compassion, responsibility and humanity.
+            Ayudh Vikas Manpower provides disciplined security personnel, trained deep-cleaning teams, housekeeping support and operational manpower for homes, apartments, offices, institutions, events and industrial sites.
           </p>
           <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">
-            ఆయుధ్ వికాస్ ఫౌండేషన్ (AVF) ప్రజా సంక్షేమం, సామాజిక సేవ, మానవత్వం మరియు బాధ్యతతో సమాజానికి సేవ చేయాలనే సంకల్పంతో పనిచేస్తున్న సేవా సంస్థ.
+            Our work is built around verified deployment, practical supervision, hygienic processes, fast coordination and dependable local teams who keep every site safer, cleaner and easier to manage.
           </p>
         </div>
 
@@ -119,7 +121,7 @@ const FoundationStory: React.FC = () => (
             <HeartHandshake className="h-9 w-9 text-amber-300" />
             <h2 className="mt-4 text-2xl font-black">Inspired by Sri Sathya Sai Baba</h2>
             <p className="mt-3 text-sm leading-7 text-slate-200">
-              AVF draws inspiration from love, compassion, selfless service and humanity. The values of Love All, Serve All and Service to Man is Service to God guide its social service approach.
+              Ayudh Vikas Manpower draws inspiration from discipline, responsibility and service-minded leadership. Those values guide how we train teams, supervise sites and deliver dependable manpower, security and deep-cleaning support.
             </p>
             <p className="mt-3 text-sm leading-7 text-slate-300">
               ప్రేమ, కరుణ, నిస్వార్థ సేవ మరియు మానవత్వం వంటి విలువలు ప్రజలకు గౌరవంతో, వినయంతో మరియు ఎటువంటి వివక్ష లేకుండా సేవ చేయడానికి మాకు స్ఫూర్తినిస్తున్నాయి.
@@ -351,7 +353,7 @@ export const AboutUs: React.FC = () => (
             Guided by vision. Driven by purpose.
           </h1>
           <p className="mt-4 text-sm leading-7 text-slate-300 sm:text-base">
-            Meet the leadership behind Ayudh Vikas Manpower, Cleaning, and Healthcare services. Each profile is presented with the person image beside their role, responsibility, and contribution.
+            Meet the leadership behind Ayudh Vikas Manpower, security and deep-cleaning services. Each profile is presented with the person image beside their role, responsibility, and contribution.
           </p>
         </div>
 

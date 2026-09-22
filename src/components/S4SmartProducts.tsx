@@ -24,6 +24,108 @@ export interface ProductItem {
 
 type ProductCart = Record<string, number>;
 
+type ProductVisualKind = 'bottle' | 'spray' | 'polish' | 'dispenser' | 'freshener' | 'scrubber' | 'vacuum' | 'mop' | 'gloves';
+
+const escapeSvgText = (text: string) =>
+  text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+const productImage = (label: string, kind: ProductVisualKind, accent = '#059669') => {
+  const title = escapeSvgText(label);
+  const icons: Record<ProductVisualKind, string> = {
+    bottle: `
+      <rect x="220" y="82" width="80" height="58" rx="16" fill="#dbeafe"/>
+      <rect x="235" y="126" width="50" height="32" rx="8" fill="#0f766e"/>
+      <rect x="175" y="145" width="170" height="215" rx="34" fill="#ecfdf5" stroke="${accent}" stroke-width="8"/>
+      <rect x="205" y="205" width="110" height="80" rx="20" fill="${accent}" opacity=".9"/>
+      <path d="M214 314h92" stroke="#99f6e4" stroke-width="10" stroke-linecap="round"/>
+      <path d="M224 334h72" stroke="#99f6e4" stroke-width="8" stroke-linecap="round"/>
+    `,
+    spray: `
+      <rect x="201" y="92" width="115" height="42" rx="14" fill="#0f766e"/>
+      <path d="M308 104h70c18 0 33 15 33 33v3h-103z" fill="#99f6e4"/>
+      <path d="M186 149h145l-21 211H206z" fill="#ecfdf5" stroke="${accent}" stroke-width="8" stroke-linejoin="round"/>
+      <rect x="210" y="210" width="96" height="70" rx="18" fill="${accent}"/>
+      <circle cx="404" cy="136" r="8" fill="#0f766e"/>
+      <circle cx="438" cy="124" r="5" fill="#14b8a6"/>
+      <circle cx="462" cy="151" r="4" fill="#14b8a6"/>
+    `,
+    polish: `
+      <ellipse cx="260" cy="330" rx="118" ry="32" fill="#0f172a" opacity=".18"/>
+      <rect x="188" y="130" width="144" height="205" rx="34" fill="#ecfdf5" stroke="${accent}" stroke-width="8"/>
+      <rect x="214" y="92" width="92" height="58" rx="18" fill="#0f766e"/>
+      <path d="M198 246c46 26 88 26 124 0v48c-37 28-82 28-124 0z" fill="${accent}"/>
+      <path d="M356 122l68-24m-44 63l75-4m-68 43l58 25" stroke="#facc15" stroke-width="10" stroke-linecap="round"/>
+    `,
+    dispenser: `
+      <rect x="186" y="92" width="148" height="238" rx="30" fill="#f8fafc" stroke="${accent}" stroke-width="8"/>
+      <rect x="218" y="122" width="84" height="70" rx="16" fill="#dbeafe"/>
+      <circle cx="260" cy="238" r="30" fill="${accent}"/>
+      <path d="M236 300h48" stroke="#0f766e" stroke-width="12" stroke-linecap="round"/>
+      <path d="M356 186c25 18 25 56 0 74m34-104c43 39 43 105 0 144" stroke="#99f6e4" stroke-width="12" stroke-linecap="round" fill="none"/>
+    `,
+    freshener: `
+      <rect x="196" y="112" width="128" height="220" rx="40" fill="#f8fafc" stroke="${accent}" stroke-width="8"/>
+      <circle cx="260" cy="172" r="26" fill="#99f6e4"/>
+      <rect x="226" y="226" width="68" height="72" rx="18" fill="${accent}"/>
+      <path d="M360 142c-46 40-46 81 0 121m36-152c-66 60-66 125 0 185" stroke="#14b8a6" stroke-width="11" stroke-linecap="round" fill="none"/>
+    `,
+    scrubber: `
+      <ellipse cx="262" cy="332" rx="135" ry="34" fill="#0f172a" opacity=".18"/>
+      <rect x="171" y="248" width="190" height="70" rx="32" fill="${accent}"/>
+      <circle cx="220" cy="314" r="38" fill="#ecfdf5" stroke="#0f766e" stroke-width="8"/>
+      <circle cx="312" cy="314" r="38" fill="#ecfdf5" stroke="#0f766e" stroke-width="8"/>
+      <path d="M305 245l72-128" stroke="#0f766e" stroke-width="16" stroke-linecap="round"/>
+      <path d="M373 116h58" stroke="#0f766e" stroke-width="16" stroke-linecap="round"/>
+    `,
+    vacuum: `
+      <ellipse cx="262" cy="334" rx="138" ry="32" fill="#0f172a" opacity=".18"/>
+      <rect x="177" y="166" width="146" height="154" rx="34" fill="#f8fafc" stroke="${accent}" stroke-width="8"/>
+      <rect x="210" y="118" width="80" height="58" rx="20" fill="#0f766e"/>
+      <circle cx="220" cy="322" r="25" fill="#0f766e"/>
+      <circle cx="304" cy="322" r="25" fill="#0f766e"/>
+      <path d="M322 214c59-8 94 13 105 63 7 31-8 54-37 62" stroke="#14b8a6" stroke-width="14" stroke-linecap="round" fill="none"/>
+    `,
+    mop: `
+      <path d="M330 90l-130 245" stroke="#0f766e" stroke-width="16" stroke-linecap="round"/>
+      <rect x="154" y="292" width="155" height="52" rx="22" fill="${accent}"/>
+      <path d="M170 344l-42 44m82-42l-24 50m66-52l24 50m18-50l50 44" stroke="#99f6e4" stroke-width="10" stroke-linecap="round"/>
+      <rect x="342" y="204" width="88" height="118" rx="24" fill="#ecfdf5" stroke="${accent}" stroke-width="8"/>
+      <path d="M356 250h60" stroke="#0f766e" stroke-width="10" stroke-linecap="round"/>
+    `,
+    gloves: `
+      <path d="M188 318c-20-54-4-112 38-134l13 90 13-144c2-18 31-17 32 1l3 133 19-105c4-19 32-14 30 6l-10 109 30-58c10-19 38-6 30 15l-42 102c-16 38-52 57-96 49-30-5-50-25-60-64z" fill="#ecfdf5" stroke="${accent}" stroke-width="8"/>
+      <path d="M317 314c36-10 64 2 81 34" stroke="#14b8a6" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="401" cy="176" r="28" fill="#dbeafe"/>
+      <path d="M389 176h24m-12-12v24" stroke="#0f766e" stroke-width="8" stroke-linecap="round"/>
+    `,
+  };
+
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" role="img" aria-label="${title}">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#f0fdfa"/>
+          <stop offset=".55" stop-color="#d1fae5"/>
+          <stop offset="1" stop-color="#ccfbf1"/>
+        </linearGradient>
+        <radialGradient id="glow" cx=".72" cy=".22" r=".52">
+          <stop offset="0" stop-color="#ffffff" stop-opacity=".95"/>
+          <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="600" height="420" fill="url(#bg)"/>
+      <circle cx="462" cy="72" r="170" fill="url(#glow)"/>
+      <path d="M38 95c76-54 151-68 224-41 95 36 152-16 252-1" fill="none" stroke="#ffffff" stroke-opacity=".65" stroke-width="20" stroke-linecap="round"/>
+      ${icons[kind]}
+      <rect x="54" y="42" width="164" height="32" rx="16" fill="#ffffff" opacity=".8"/>
+      <text x="72" y="64" font-family="Arial, sans-serif" font-size="15" font-weight="800" fill="#065f46">Ayudhklin</text>
+      <text x="54" y="386" font-family="Arial, sans-serif" font-size="25" font-weight="900" fill="#064e3b">${title}</text>
+    </svg>
+  `;
+
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+};
+
 export const PRODUCTS_DATA: ProductItem[] = [
   {
     id: 'prod-1',
@@ -32,7 +134,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
     type: 'Domestic',
     description: 'Professional-grade bathroom cleaning solution formulated for heavy lime-scale and tile stain removal.',
     features: ['Deep Cleaning', 'Anti-bacterial', 'Fresh Scent'],
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: productImage('Bathroom Cleaner', 'bottle'),
   },
   {
     id: 'prod-2',
@@ -41,7 +143,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
     type: 'Both',
     description: 'Hospital-grade disinfection for all hard surfaces, counter tops, and heavy foot-traffic floors.',
     features: ['Kills 99.9% Germs', 'Quick Action', 'Safe on Surfaces'],
-    image: 'https://images.unsplash.com/photo-1584483766114-2cea6facdf57?auto=format&fit=crop&w=600&q=80',
+    image: productImage('Surface Disinfectant', 'spray', '#0d9488'),
     badge: 'Best Seller',
   },
   {
@@ -51,7 +153,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
     type: 'Domestic',
     description: 'Streak-free shine for all glass, window panes, and mirror surfaces with anti-dust formulation.',
     features: ['Streak-Free Formula', 'Quick Drying', 'Anti-Static'],
-    image: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=600&q=80',
+    image: productImage('Glass Cleaner', 'spray', '#0284c7'),
   },
   {
     id: 'prod-4',
@@ -60,7 +162,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
     type: 'Both',
     description: 'Professional polish for multiple furniture, stainless steel, and composite surface shine.',
     features: ['Long-lasting Shine', 'Protective Layer', 'Multi-Surface Use'],
-    image: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=600&q=80',
+    image: productImage('Multi Purpose Polish', 'polish', '#ca8a04'),
   },
   {
     id: 'prod-5',
@@ -69,7 +171,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
     type: 'Industrial',
     description: 'Industrial-strength concentrated floor degreaser formulated for factories, automotive bays & warehouses.',
     features: ['Removes Oil & Grease', 'Low Foaming Formula', 'Concentrated Liquid'],
-    image: 'https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?auto=format&fit=crop&w=600&q=80',
+    image: productImage('Floor Degreaser', 'bottle', '#16a34a'),
   },
   {
     id: 'prod-6',
@@ -78,7 +180,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
     type: 'Both',
     description: 'Touchless infrared wall-mounted & stand dispenser for high-traffic entryways and lobbies.',
     features: ['Touchless Sensor', '1000ml Refill Tank', 'Battery / Adapter Powered'],
-    image: 'https://images.unsplash.com/photo-1584744982491-665216d95f8b?auto=format&fit=crop&w=600&q=80',
+    image: productImage('Sanitizer Dispenser', 'dispenser', '#0891b2'),
     badge: 'Corporate Standard',
   },
   {
@@ -88,7 +190,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
     type: 'Domestic',
     description: 'Gentle skin-safe antibacterial foaming hand wash with soothing moisturizers.',
     features: ['Moisturizing Formula', 'pH Balanced', 'Skin Protective'],
-    image: 'https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&w=600&q=80',
+    image: productImage('Anti-Bacterial Hand Wash', 'bottle', '#0d9488'),
   },
   {
     id: 'prod-8',
@@ -97,7 +199,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
     type: 'Both',
     description: 'Programmable wall-mounted fragrance dispenser unit for continuous ambient freshness.',
     features: ['24/7 Odor Control', 'Adjustable Timer Intervals', '3000 Spray Capacity'],
-    image: 'https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=600&q=80',
+    image: productImage('Aerosol Air Freshener', 'freshener', '#7c3aed'),
   },
   {
     id: 'prod-9',
@@ -106,7 +208,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
     type: 'Industrial',
     description: 'High performance 17-inch commercial floor scrubbing and polishing machine with gear drive.',
     features: ['Heavy Duty Motor', 'Ergonomic Handle', 'Multi-Surface Pad'],
-    image: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80',
+    image: productImage('Floor Scrubber', 'scrubber', '#0f766e'),
   },
   {
     id: 'prod-10',
@@ -115,7 +217,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
     type: 'Industrial',
     description: 'High suction 30L stainless steel commercial wet and dry extractor with heavy duty accessories.',
     features: ['Dual Turbine Motor', 'Blower Function', 'HEPA Filtration'],
-    image: 'https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=600&q=80',
+    image: productImage('Wet & Dry Vacuum', 'vacuum', '#334155'),
   },
   {
     id: 'prod-11',
@@ -124,7 +226,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
     type: 'Both',
     description: 'Professional dual-chamber spin mop bucket set with lint-free microfiber heads.',
     features: ['Dual Chamber Wringer', '360 Spin Mop Head', 'Lint-Free Microfiber'],
-    image: 'https://images.unsplash.com/photo-1585421514738-01798e348b17?auto=format&fit=crop&w=600&q=80',
+    image: productImage('Mop & Bucket System', 'mop', '#059669'),
   },
   {
     id: 'prod-12',
@@ -133,7 +235,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
     type: 'Industrial',
     description: 'Chemical resistant powder-free heavy duty nitrile safety gloves for sanitation teams.',
     features: ['Chemical Resistant', 'Textured Grip', 'Tear Resistant'],
-    image: 'https://images.unsplash.com/photo-1584634731339-252c581abfc5?auto=format&fit=crop&w=600&q=80',
+    image: productImage('Safety Gloves & PPE', 'gloves', '#2563eb'),
   },
 ];
 
