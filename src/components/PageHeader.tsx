@@ -36,7 +36,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
         </nav>
 
         {/* Title & Subtitle */}
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white">
+        <h1 className="px-1 text-2xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
           {title}
         </h1>
 

@@ -16,9 +16,9 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
   if (!service) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-slate-900/60 p-0 backdrop-blur-md animate-in fade-in duration-200 sm:items-center sm:p-4">
       <div 
-        className="relative w-full max-w-2xl bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
+        className="relative max-h-[92dvh] w-full max-w-2xl overflow-y-auto overflow-x-hidden rounded-t-3xl border border-slate-200 bg-white p-5 shadow-2xl sm:rounded-3xl sm:p-8"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -32,7 +32,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
 
         {/* Modal Header Image */}
         {service.image && (
-          <div className="relative h-48 sm:h-56 -mx-6 -mt-6 sm:-mx-8 sm:-mt-8 mb-6 overflow-hidden border-b border-slate-200">
+          <div className="relative -mx-5 -mt-5 mb-6 h-44 overflow-hidden border-b border-slate-200 sm:-mx-8 sm:-mt-8 sm:h-56">
             <img
               src={service.image}
               alt={service.title}

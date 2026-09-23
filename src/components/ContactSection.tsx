@@ -117,7 +117,7 @@ export const ContactSection: React.FC = () => {
                 </div>
                 <div>
                   <span className="text-[11px] font-bold text-slate-500 block uppercase">Official Email</span>
-                  <strong className="text-sm text-slate-900 group-hover:text-red-600 transition-colors block mt-0.5 truncate max-w-[160px]">
+                  <strong className="mt-0.5 block max-w-full truncate text-sm text-slate-900 transition-colors group-hover:text-red-600">
                     {COMPANY_INFO.email}
                   </strong>
                   <span className="text-[10px] text-slate-500 block mt-1">Responses within 2 hours</span>
@@ -135,9 +135,9 @@ export const ContactSection: React.FC = () => {
                   <MessageSquare className="w-5 h-5" />
                 </div>
                 <div className="flex-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-slate-500 uppercase">WhatsApp Instant Chat</span>
-                    <span className="text-[10px] bg-red-100 text-red-800 px-2 py-0.5 rounded font-bold border border-red-300">Fastest Response</span>
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="text-[11px] font-bold uppercase text-slate-500">WhatsApp Instant Chat</span>
+                    <span className="rounded border border-red-300 bg-red-100 px-2 py-0.5 text-[10px] font-bold text-red-800">Fastest Response</span>
                   </div>
                   <strong className="text-sm text-slate-900 group-hover:text-red-600 transition-colors block mt-0.5">
                     Click to Start WhatsApp Conversation (+91 9000045073)
@@ -165,7 +165,7 @@ export const ContactSection: React.FC = () => {
                       <input
                         type="text"
                         required
-                        placeholder="e.g. Anand Rao"
+                        placeholder="E.g. Anand Rao"
                         value={contactState.name}
                         onChange={(e) => setContactState({ ...contactState, name: e.target.value })}
                         className="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500"
@@ -190,7 +190,7 @@ export const ContactSection: React.FC = () => {
                       <label className="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
                       <input
                         type="email"
-                        placeholder="name@company.com"
+                        placeholder="Name@company.com"
                         value={contactState.email}
                         onChange={(e) => setContactState({ ...contactState, email: e.target.value })}
                         className="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500"
@@ -216,7 +216,7 @@ export const ContactSection: React.FC = () => {
                     <label className="block text-xs font-bold text-slate-700 mb-1">Facility Details / Notes</label>
                     <textarea
                       rows={3}
-                      placeholder="Specify square footage, number of shifts, or location..."
+                      placeholder="Specify Square Footage, Number Of Shifts, Or Location..."
                       value={contactState.message}
                       onChange={(e) => setContactState({ ...contactState, message: e.target.value })}
                       className="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 resize-none"
@@ -258,8 +258,8 @@ export const ContactSection: React.FC = () => {
           <div className="lg:col-span-5 space-y-6">
             
             <div className="rounded-3xl bg-slate-50 border border-slate-200 p-6 sm:p-8 space-y-6 shadow-xl">
-              <div className="flex items-center justify-between pb-4 border-b border-slate-200">
-                <div className="flex items-center gap-3">
+              <div className="flex items-start justify-between gap-3 border-b border-slate-200 pb-4">
+                <div className="flex min-w-0 items-center gap-3">
                   <div className="p-2.5 rounded-xl bg-red-100 border border-red-200 text-red-600">
                     <Building className="w-5 h-5" />
                   </div>
@@ -269,7 +269,7 @@ export const ContactSection: React.FC = () => {
                   </div>
                 </div>
 
-                <span className="px-2 py-0.5 rounded text-[10px] bg-blue-100 text-blue-900 font-bold border border-blue-300">
+                <span className="shrink-0 rounded border border-blue-300 bg-blue-100 px-2 py-0.5 text-[10px] font-bold text-blue-900">
                   OPEN NOW
                 </span>
               </div>

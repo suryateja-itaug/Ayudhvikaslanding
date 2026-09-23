@@ -1,393 +1,628 @@
-import React from 'react';
-import { 
-  ShieldCheck, Building2, ArrowRight, Award, UserCheck,
-  BadgeCheck, Smartphone, Siren, HelpCircle, MapPin, Phone, Sparkles, Zap,
-  ClipboardCheck, Timer, UsersRound
+import React, { useRef } from 'react';
+import {
+  ArrowRight,
+  BadgeCheck,
+  Building2,
+  ClipboardCheck,
+  HelpCircle,
+  MapPin,
+  Phone,
+  ShieldCheck,
+  Siren,
+  Smartphone,
+  Sparkles,
+  Star,
+  Timer,
+  UserCheck,
+  UsersRound,
 } from 'lucide-react';
-import { COMPANY_INFO } from '../data/mockData';
+import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
+import { CLIENT_LOGOS, COMPANY_INFO, PROCESS_STEPS, TESTIMONIALS } from '../data/mockData';
 import bodyguardImg from '../assets/images/bodyguard_security_section_1784716099006.jpg';
 import brandPosterImg from '../assets/images/brand_official_poster_1784802712788.jpg';
 import brandJustdialImg from '../assets/images/brand_justdial_award_1784802699150.jpg';
 import securityGuardImg from '../assets/images/service_security_guard_1784719456979.jpg';
 import deepCleanImg from '../assets/images/service_deep_cleaning_1784719519754.jpg';
 import facilityImg from '../assets/images/service_facility_management_1784719479580.jpg';
+import vipImg from '../assets/images/service_vip_event_security_1784719506450.jpg';
+import avRideImg from '../assets/images/av-ride-hero.png';
+import avFoodImg from '../assets/images/av-food-hero.png';
+import avNewsImg from '../assets/images/service-av-news.png';
+import klinDeliveryImg from '../assets/images/service-cleaning-products-delivery.png';
+import staffingImg from '../assets/images/service_corporate_staffing_1784719493174.jpg';
 
 interface HomePreviewsProps {
   onSelectTab: (tab: string) => void;
   onOpenQuoteModal: (serviceId?: string) => void;
 }
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  show: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] as const },
+  }),
+};
+
+const Eyebrow: React.FC<{ children: React.ReactNode; light?: boolean }> = ({ children, light }) => (
+  <div
+    className={`inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.16em] sm:text-[11px] sm:tracking-[0.28em] ${
+      light ? 'text-gold-soft' : 'text-gold'
+    }`}
+  >
+    <span className="h-px w-8 bg-current opacity-70" />
+    {children}
+  </div>
+);
+
+const TiltCard: React.FC<{ children: React.ReactNode; className?: string; onClick?: () => void }> = ({
+  children,
+  className = '',
+  onClick,
+}) => {
+  const handleMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches) return;
+    const el = e.currentTarget;
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width;
+    const y = (e.clientY - r.top) / r.height;
+    el.style.transform = `perspective(1100px) rotateX(${(0.5 - y) * 7}deg) rotateY(${(x - 0.5) * 9}deg) translateY(-4px)`;
+  };
+  const handleLeave = (e: React.MouseEvent<HTMLElement>) => {
+    e.currentTarget.style.transform = '';
+  };
+
+  const tiltProps = {
+    onMouseMove: handleMove,
+    onMouseLeave: handleLeave,
+    className: `tilt-card cursor-pointer ${className}`,
+  };
+
+  if (onClick) {
+    return (
+      <button type="button" onClick={onClick} {...tiltProps}>
+        {children}
+      </button>
+    );
+  }
+
+  return <div {...tiltProps}>{children}</div>;
+};
+
 export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQuoteModal }) => {
+  const featuredRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: featuredRef, offset: ['start end', 'end start'] });
+  const featuredY = useTransform(scrollYProgress, [0, 1], ['-8%', '8%']);
+  const [quoteIndex, setQuoteIndex] = React.useState(0);
+  const current = TESTIMONIALS[quoteIndex];
+
+  React.useEffect(() => {
+    const id = window.setInterval(() => {
+      setQuoteIndex((prev) => (prev + 1) % TESTIMONIALS.length);
+    }, 7000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  const marqueeItems = [
+    ...CLIENT_LOGOS.map((c) => c.name),
+    'License 417/2025',
+    'EPF / ESIC Ready',
+    'Justdial 5.0',
+    '24/7 Command Center',
+  ];
+
   return (
-    <div className="relative space-y-16 overflow-hidden bg-slate-50 py-12">
-      <div className="pointer-events-none absolute -left-24 top-40 h-72 w-72 rounded-full bg-blue-200/30 blur-3xl" />
-      <div className="pointer-events-none absolute right-0 top-[28rem] h-80 w-80 rounded-full bg-red-200/20 blur-3xl" />
-
-      {/* 1. Featured Services Preview */}
-      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 border border-blue-300 text-xs font-bold text-blue-900">
-            <span>CORE CAPABILITIES</span>
+    <div className="relative overflow-hidden bg-ink text-ivory">
+      {/* Trust marquee */}
+      <section className="border-b border-white/8 bg-ink py-5">
+        <div className="mask-fade-x overflow-hidden">
+          <div className="marquee-track flex items-center gap-10 pr-10">
+            {[...marqueeItems, ...marqueeItems].map((item, i) => (
+              <span key={`${item}-${i}`} className="flex items-center gap-10 text-[11px] font-semibold uppercase tracking-[0.26em] text-ivory/55">
+                <span className="text-gold">✦</span>
+                {item}
+              </span>
+            ))}
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            Integrated Security & Facility Solutions
-          </h2>
-          <p className="text-slate-600 text-sm sm:text-base">
-            Professional manned guarding, executive protection bodyguards, deep cleaning, and commercial property upkeep.
-          </p>
         </div>
+      </section>
 
-        <div className="mb-10 rounded-3xl overflow-hidden border border-blue-900/30 bg-slate-950 shadow-2xl shadow-slate-950/20 relative group">
-          <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
-            <div className="lg:col-span-7 relative h-64 sm:h-80 lg:h-96 overflow-hidden">
-              <img 
-                src={bodyguardImg} 
-                alt="Ayudh Vikas Professional Bodyguards and Security Officers"
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-95"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-slate-950/40 to-slate-950 lg:block hidden" />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent lg:hidden block" />
+      {/* Featured protection */}
+      <section ref={featuredRef} className="relative overflow-hidden">
+        <div className="mx-auto grid max-w-[96rem] items-stretch lg:grid-cols-12">
+          <div className="relative h-64 overflow-hidden sm:h-[28rem] lg:col-span-7 lg:h-[40rem]">
+            <motion.img
+              src={bodyguardImg}
+              alt="Ayudh Vikas executive protection detail"
+              style={{ y: featuredY }}
+              className="absolute inset-0 h-[120%] w-full object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-ink/20 lg:to-ink" />
+            <div className="grain-overlay opacity-30" />
+          </div>
+
+          <div className="relative z-10 flex flex-col justify-center px-4 py-10 sm:px-8 sm:py-14 lg:col-span-5 lg:-ml-16 lg:px-12">
+            <Eyebrow light>Executive protection</Eyebrow>
+            <h2 className="font-display mt-5 text-3xl font-medium leading-[1.05] tracking-tight text-ivory sm:text-5xl lg:text-[3.4rem]">
+              Presence that is felt before it is seen.
+            </h2>
+            <p className="mt-5 max-w-md text-sm leading-relaxed text-ivory/70 sm:text-base">
+              Elite, police-verified officers and close-protection specialists trained for VIP escort, crowd control, and perimeter command — the quiet confidence of a private house.
+            </p>
+            <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
+              <button
+                onClick={() => onOpenQuoteModal('VIP Executive Protection & Bodyguards')}
+                className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-semibold text-ink sm:w-auto"
+              >
+                <span className="btn-gold absolute inset-0" />
+                <span className="relative">Request a security detail</span>
+                <ArrowRight className="relative h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </button>
+              <button
+                onClick={() => onSelectTab('services')}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-ivory/90 hover:border-gold/40 sm:w-auto"
+              >
+                View the portfolio
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services gallery */}
+      <section className="relative px-4 py-14 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-[96rem]">
+          <div className="mb-12 flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
+            <div className="max-w-2xl">
+              <Eyebrow light>House capabilities</Eyebrow>
+              <h2 className="font-display mt-4 text-3xl font-medium tracking-tight text-ivory sm:text-4xl lg:text-5xl">
+                Crafted for campuses, homes, and high-stakes rooms.
+              </h2>
+            </div>
+            <button
+              onClick={() => onSelectTab('services')}
+              className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-gold hover:text-gold-soft"
+            >
+              Full services ledger
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-6 md:grid-rows-2">
+            {[
+              {
+                img: securityGuardImg,
+                title: 'Guarding & Security',
+                desc: 'Biometric-tracked officers, industrial gatekeepers, and night patrol command.',
+                tab: 'services',
+                span: 'md:col-span-3 md:row-span-2 min-h-[22rem] md:min-h-[34rem]',
+                eta: '24–48 Hr Deployment',
+              },
+              {
+                img: deepCleanImg,
+                title: 'AyudhKlin Deep Cleaning',
+                desc: 'Hotel-grade sanitation for homes, offices, and industrial floors.',
+                tab: 'ayudhklin-services',
+                span: 'md:col-span-3 min-h-[16rem]',
+                eta: 'Same Day / Next Day',
+              },
+              {
+                img: facilityImg,
+                title: 'Facility Management',
+                desc: 'MEP upkeep, janitorial SLAs, and a dedicated site manager.',
+                tab: 'services',
+                span: 'md:col-span-3 min-h-[16rem]',
+                eta: 'Dedicated SLA Manager',
+              },
+            ].map((card, i) => (
+              <motion.div
+                key={card.title}
+                custom={i}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: '-80px' }}
+                className={card.span}
+              >
+                <TiltCard
+                  onClick={() => onSelectTab(card.tab)}
+                  className="group relative h-full w-full overflow-hidden rounded-[1.6rem] text-left"
+                >
+                  <img
+                    src={card.img}
+                    alt={card.title}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
+                  <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_30%_80%,rgba(16,185,129,0.22),transparent_55%)]" />
+                  <div className="absolute inset-x-0 bottom-0 p-4 sm:p-8">
+                    <span className="rounded-full border border-gold/30 bg-ink/50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-soft backdrop-blur-md">
+                      {card.eta}
+                    </span>
+                    <h3 className="font-display mt-3 text-2xl font-medium text-ivory sm:text-3xl">{card.title}</h3>
+                    <p className="mt-2 max-w-md text-sm text-ivory/70">{card.desc}</p>
+                    <span className="mt-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+                      Enter
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </div>
+                </TiltCard>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <TiltCard
+              onClick={() => onSelectTab('services')}
+              className="group relative min-h-[14rem] overflow-hidden rounded-[1.6rem] text-left"
+            >
+              <img src={vipImg} alt="VIP event security" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <h3 className="font-display text-2xl font-medium text-ivory">Event & VIP escort</h3>
+                <p className="mt-1 text-sm text-ivory/70">Red-carpet presence, DFMD screening, and crowd choreography.</p>
+              </div>
+            </TiltCard>
+            <TiltCard
+              onClick={() => onSelectTab('services')}
+              className="group relative min-h-[14rem] overflow-hidden rounded-[1.6rem] text-left"
+            >
+              <img src={staffingImg} alt="Corporate manpower" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <h3 className="font-display text-2xl font-medium text-ivory">Corporate manpower</h3>
+                <p className="mt-1 text-sm text-ivory/70">Front desk, pantry, and operations staff with full statutory cover.</p>
+              </div>
+            </TiltCard>
+          </div>
+        </div>
+      </section>
+
+      {/* Ecosystem */}
+      <section className="relative border-y border-white/8 bg-ink-2 px-4 py-14 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-[96rem]">
+          <div className="mb-12 max-w-2xl">
+            <Eyebrow light>The Ayudh Vikas ecosystem</Eyebrow>
+            <h2 className="font-display mt-4 text-3xl font-medium tracking-tight text-ivory sm:text-4xl lg:text-5xl">
+              One house. A city of services.
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-ivory/65 sm:text-base">
+              Security remains the core. Around it we are building the daily life of Warangal — ride, food, jobs, news, and professional care.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {[
+              { img: securityGuardImg, title: 'AV Security', status: 'Live', desc: 'Manned guarding and executive protection.', action: () => onSelectTab('services') },
+              { img: klinDeliveryImg, title: 'AyudhKlin', status: 'Live', desc: 'Deep cleaning and hygiene product delivery.', action: () => onSelectTab('ayudhklin-products') },
+              { img: staffingImg, title: 'AV Manpower', status: 'Live', desc: 'Verified jobs and corporate staffing.', href: 'https://ayudh-vikas-manpower.vercel.app' },
+              { img: avRideImg, title: 'AV Ride', status: 'Coming soon', desc: 'Trusted local mobility for Warangal.', action: () => onSelectTab('av-ride') },
+              { img: avFoodImg, title: 'AV Food', status: 'Coming soon', desc: 'City kitchens, delivered with care.', action: () => onSelectTab('av-food') },
+              { img: avNewsImg, title: 'AV Life News', status: 'Coming soon', desc: 'Local stories from Hanamkonda to Kazipet.', action: () => onSelectTab('about-us') },
+            ].map((item, i) => (
+              <motion.button
+                key={item.title}
+                custom={i}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                onClick={() => (item.href ? window.open(item.href, '_blank', 'noopener,noreferrer') : item.action?.())}
+                className="group overflow-hidden rounded-[1.4rem] border border-white/8 bg-ink text-left transition-colors hover:border-gold/35"
+              >
+                <div className="relative h-44 overflow-hidden">
+                  <img src={item.img} alt={item.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink to-transparent" />
+                  <span className={`absolute right-4 top-4 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${
+                    item.status === 'Live'
+                      ? 'border border-gold/40 bg-ink/70 text-gold-soft'
+                      : 'border border-white/15 bg-ink/70 text-ivory/70'
+                  }`}>
+                    {item.status}
+                  </span>
+                </div>
+                <div className="flex items-end justify-between gap-3 p-5">
+                  <div>
+                    <h3 className="font-display text-2xl font-medium text-ivory">{item.title}</h3>
+                    <p className="mt-1 text-sm text-ivory/60">{item.desc}</p>
+                  </div>
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-white/10 text-gold transition-all group-hover:border-gold/50 group-hover:bg-gold group-hover:text-ink">
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
+                </div>
+              </motion.button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why us */}
+      <section className="relative px-4 py-14 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+        <div className="pointer-events-none absolute right-0 top-20 h-80 w-80 rounded-full bg-gold/8 blur-3xl" />
+        <div className="mx-auto max-w-[96rem]">
+          <div className="mb-14 flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
+            <div className="max-w-2xl">
+              <Eyebrow light>The Ayudh Vikas promise</Eyebrow>
+              <h2 className="font-display mt-4 text-3xl font-medium tracking-tight text-ivory sm:text-4xl lg:text-5xl">
+                Why enterprises choose the house over local agencies.
+              </h2>
+            </div>
+            <button
+              onClick={() => onSelectTab('why-us')}
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-ivory hover:border-gold/40"
+            >
+              Compare in detail
+              <ArrowRight className="h-4 w-4 text-gold" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[1.6rem] border border-white/8 bg-white/8 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { n: '01', icon: UserCheck, title: '100% Police Verified', desc: 'Biometric, address, and local police clearance before any posting.' },
+              { n: '02', icon: BadgeCheck, title: 'Statutory compliance', desc: 'EPF, ESIC, and minimum wage proof with every billing cycle.' },
+              { n: '03', icon: Smartphone, title: 'GPS patrol tracking', desc: 'NFC and QR checkpoints that make duty lapses visible in real time.' },
+              { n: '04', icon: Siren, title: '24/7 Standby QRT', desc: 'Substitute officers dispatched within 60 minutes. Zero unstaffed gates.' },
+              { n: '05', icon: ClipboardCheck, title: 'Transparent ledgers', desc: 'Upfront pricing. Statutory, management, and equipment — itemised.' },
+              { n: '06', icon: Phone, title: 'Named account manager', desc: 'A direct operations line. No call-center maze between you and the site.' },
+            ].map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={item.n}
+                  custom={i}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true }}
+                  className="group bg-ink p-7 transition-colors hover:bg-ink-2"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-display text-3xl text-gold/80">{item.n}</span>
+                    <Icon className="h-5 w-5 text-gold" />
+                  </div>
+                  <h3 className="mt-6 text-lg font-semibold text-ivory">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ivory/60">{item.desc}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Credentials */}
+      <section className="relative overflow-hidden border-y border-white/8 bg-gradient-to-b from-ink-2 to-ink px-4 py-14 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-[96rem]">
+          <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <Eyebrow light>Official credentials</Eyebrow>
+              <h2 className="font-display mt-4 text-3xl font-medium tracking-tight text-ivory sm:text-4xl lg:text-5xl">
+                Licensed. Awarded. Field ready.
+              </h2>
+              <p className="mt-4 text-sm leading-relaxed text-ivory/65">
+                Government licensed under <span className="text-ivory">Reg. No. 417/2025, Telangana</span>. Statutory EPF/ESIC compliance from Warangal HQ.
+              </p>
+            </div>
+            <div className="grid w-full grid-cols-3 gap-2 sm:w-auto sm:gap-3">
+              {[
+                { k: 'License', v: '417/2025' },
+                { k: 'Headquarters', v: 'Warangal' },
+                { k: 'Justdial', v: '5.0 ★' },
+              ].map((chip) => (
+                <div key={chip.k} className="rounded-2xl border border-gold/20 bg-gold/8 px-2 py-3 text-center sm:px-4">
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.12em] text-gold sm:text-[10px] sm:tracking-[0.2em]">{chip.k}</p>
+                  <p className="mt-1 font-display text-base text-ivory sm:text-xl">{chip.v}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid overflow-hidden rounded-[1.6rem] border border-white/10 lg:grid-cols-12">
+            <div className="relative bg-navy p-6 sm:p-8 lg:col-span-5">
+              <div className="overflow-hidden rounded-2xl border border-white/10">
+                <img src={brandPosterImg} alt="Ayudh Vikas official operations poster" className="h-64 w-full object-cover object-top" />
+              </div>
+              <div className="mt-4 grid grid-cols-2 gap-3">
+                <img src={brandJustdialImg} alt="Justdial Users Choice award" className="h-24 w-full rounded-xl object-cover" />
+                <img src={securityGuardImg} alt="On-ground security operations" className="h-24 w-full rounded-xl object-cover" />
+              </div>
+              <p className="mt-6 font-display text-2xl leading-snug text-ivory">
+                One registered team for security, cleaning, staffing, and facility care.
+              </p>
+              <p className="mt-2 text-sm text-ivory/60"># 12-8-287, KM Complex, Hunter Road, Warangal.</p>
             </div>
 
-            <div className="lg:col-span-5 p-6 sm:p-8 space-y-4 text-white relative z-10">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950 border border-red-500/50 text-red-300 text-xs font-bold">
-                <ShieldCheck className="w-3.5 h-3.5 text-red-400" />
-                <span>24/7 EXECUTIVE PROTECTION & MANNED GUARDING</span>
+            <div className="bg-ink-2 p-6 sm:p-8 lg:col-span-7">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {[
+                  { icon: ShieldCheck, title: 'Security guarding', desc: 'Manned guarding, gate control, VIP/event security, and night patrol.' },
+                  { icon: Sparkles, title: 'AyudhKlin cleaning', desc: 'Homes, offices, commercial spaces, and post-construction restoration.' },
+                  { icon: Building2, title: 'Facility support', desc: 'Housekeeping, maintenance coordination, and daily site discipline.' },
+                  { icon: UsersRound, title: 'Corporate manpower', desc: 'Screened support staff for reception, pantry, and operations.' },
+                ].map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={item.title} className="rounded-2xl border border-white/8 bg-ink p-5">
+                      <Icon className="h-5 w-5 text-gold" />
+                      <h4 className="mt-3 text-sm font-semibold text-ivory">{item.title}</h4>
+                      <p className="mt-1 text-xs leading-relaxed text-ivory/55">{item.desc}</p>
+                    </div>
+                  );
+                })}
               </div>
-              
-              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-snug">
-                Disciplined Bodyguards & Armed/Unarmed Security Detail
-              </h3>
-              
-              <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                Deploy elite, police-verified security personnel and executive bodyguards trained in crowd control, VIP escorting, facility perimeter defense, and rapid threat mitigation.
-              </p>
-
-              <div className="pt-2 flex flex-wrap gap-3">
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                <div className="flex items-center gap-2 rounded-xl border border-gold/20 bg-gold/8 px-3 py-3">
+                  <ClipboardCheck className="h-4 w-4 text-gold" />
+                  <p className="text-xs font-semibold text-ivory">EPF / ESIC Ready</p>
+                </div>
+                <div className="flex items-center gap-2 rounded-xl border border-white/8 bg-ink px-3 py-3">
+                  <Timer className="h-4 w-4 text-gold" />
+                  <p className="text-xs font-semibold text-ivory">Fast Deployment</p>
+                </div>
+                <div className="flex items-center gap-2 rounded-xl border border-white/8 bg-ink px-3 py-3">
+                  <Siren className="h-4 w-4 text-gold" />
+                  <p className="text-xs font-semibold text-ivory">24/7 Support</p>
+                </div>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-3">
                 <button
-                  onClick={() => onOpenQuoteModal('VIP Executive Protection & Bodyguards')}
-                  className="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs flex items-center gap-2 transition-all cursor-pointer shadow-md"
+                  onClick={() => onSelectTab('contact')}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] text-ivory hover:border-gold/40"
                 >
-                  <Zap className="w-3.5 h-3.5 text-amber-300" />
-                  <span>Request Security Detail</span>
+                  Verify the office
                 </button>
                 <button
                   onClick={() => onSelectTab('services')}
-                  className="px-5 py-2.5 rounded-xl bg-blue-900/80 hover:bg-blue-900 border border-blue-700 text-white font-semibold text-xs flex items-center gap-1.5 transition-all cursor-pointer"
+                  className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] text-ink"
                 >
-                  <span>Explore Security Portfolio</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <span className="btn-gold absolute inset-0" />
+                  <span className="relative">Explore services</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            { img: securityGuardImg, title: 'Guarding & Security', desc: 'Biometric-tracked, police-verified security officers, industrial gatekeepers, and executive protection.', tab: 'services', accent: 'blue', eta: '24-48 Hr Deployment' },
-            { img: deepCleanImg, title: 'AyudhKlin Deep Cleaning', desc: 'Detailed home, office, commercial, and industrial deep cleaning with trained teams and professional supplies.', tab: 'ayudhklin-services', accent: 'emerald', eta: 'Same Day / Next Day' },
-            { img: facilityImg, title: 'Facility Management SLA', desc: 'Comprehensive property upkeep, MEP electrical/plumbing maintenance, and janitorial sanitization.', tab: 'services', accent: 'navy', eta: 'Dedicated SLA Manager' },
-          ].map((card) => (
+      {/* Process */}
+      <section className="px-4 py-14 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-[96rem]">
+          <div className="mb-12 max-w-2xl">
+            <Eyebrow light>48-Hour Onboarding</Eyebrow>
+            <h2 className="font-display mt-4 text-3xl font-medium tracking-tight text-ivory sm:text-4xl lg:text-5xl">
+              From audit to posted officers in four movements.
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {PROCESS_STEPS.map((step, i) => (
+              <motion.div
+                key={step.number}
+                custom={i}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                className="relative border-t border-gold/40 pt-6"
+              >
+                <p className="font-display text-5xl text-gold/70">{step.number}</p>
+                <h3 className="mt-4 text-lg font-semibold text-ivory">{step.title}</h3>
+                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-gold">{step.subtitle}</p>
+                <p className="mt-3 text-sm leading-relaxed text-ivory/60">{step.description}</p>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-10">
             <button
-              key={card.title}
-              onClick={() => onSelectTab(card.tab)}
-              className="group overflow-hidden rounded-3xl border border-slate-200 bg-white text-left shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl hover:border-blue-300"
+              onClick={() => onOpenQuoteModal()}
+              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-7 py-3.5 text-sm font-semibold text-ink"
             >
-              <div className="relative h-40 overflow-hidden">
-                <img src={card.img} alt={card.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent" />
-                <span className="absolute bottom-3 left-3 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-extrabold text-slate-900">{card.eta}</span>
-              </div>
-              <div className="p-5">
-                <h3 className="text-lg font-bold text-slate-900">{card.title}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-slate-600">{card.desc}</p>
-                <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-blue-900">
-                  Learn more <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                </span>
-              </div>
+              <span className="btn-gold absolute inset-0" />
+              <span className="relative">Begin the briefing</span>
+              <ArrowRight className="relative h-4 w-4 transition-transform group-hover:translate-x-1" />
             </button>
-          ))}
-        </div>
-
-        <div className="text-center mt-8">
-          <button
-            onClick={() => onSelectTab('services')}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs sm:text-sm shadow-md transition-all cursor-pointer"
-          >
-            <span>View Full Services Page & Filter Portfolio</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+          </div>
         </div>
       </section>
 
-      {/* 2. Why Choose AZS4S Teaser Strip */}
-      <section className="bg-white py-12 border-y border-slate-200/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
+      {/* Testimonials */}
+      <section className="relative overflow-hidden border-y border-white/8 bg-ink-2 px-4 py-14 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+        <div className="pointer-events-none absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
+        <div className="mx-auto max-w-4xl text-center">
+          <Eyebrow light>Client letters</Eyebrow>
+          <h2 className="font-display mx-auto mt-4 max-w-2xl text-3xl font-medium tracking-tight text-ivory sm:text-4xl lg:text-5xl">
+            Spoken by the people who sleep better.
+          </h2>
+
+          <div className="relative mt-12 min-h-[12rem] sm:min-h-[16rem]">
+            <AnimatePresence mode="wait">
+              <motion.blockquote
+                key={current.id}
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -18 }}
+                transition={{ duration: 0.5 }}
+                className="font-display text-xl italic leading-snug text-ivory sm:text-3xl"
+              >
+                “{current.quote}”
+              </motion.blockquote>
+            </AnimatePresence>
+            <div className="mt-8 flex flex-col items-center gap-2">
+              <div className="flex text-gold">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-gold" />
+                ))}
+              </div>
+              <p className="text-sm font-semibold text-ivory">{current.name}</p>
+              <p className="text-xs text-ivory/50">
+                {current.designation} · {current.company}
+              </p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gold">{current.metrics}</p>
+            </div>
+            <div className="mt-8 flex justify-center gap-2">
+              {TESTIMONIALS.map((t, i) => (
+                <button
+                  key={t.id}
+                  onClick={() => setQuoteIndex(i)}
+                  aria-label={`Show testimonial from ${t.name}`}
+                  className={`h-1.5 rounded-full transition-all ${i === quoteIndex ? 'w-8 bg-gold' : 'w-3 bg-white/20'}`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ + Contact */}
+      <section className="px-4 py-14 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+        <div className="mx-auto grid max-w-[96rem] gap-4 lg:grid-cols-2">
+          <div className="flex flex-col justify-between rounded-[1.6rem] border border-white/8 bg-gradient-to-br from-navy via-ink to-ink p-5 sm:p-8">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-100 text-red-950 text-xs font-bold mb-2">
-                <Award className="w-3.5 h-3.5 text-red-600" />
-                <span>THE AYUDH VIKAS PROMISE</span>
+              <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-gold">
+                <HelpCircle className="h-3.5 w-3.5" />
+                Operations FAQ
               </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-                Why Enterprises Choose Ayudh Vikas Over Local Agencies
-              </h2>
-            </div>
-
-            <button
-              onClick={() => onSelectTab('why-us')}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold shrink-0 transition-all cursor-pointer"
-            >
-              <span>Explore Differentiator Matrix & Comparison</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-              <UserCheck className="w-5 h-5 text-blue-900 mb-2" />
-              <h4 className="text-xs font-bold text-slate-900">100% Police Verified</h4>
-              <p className="text-[11px] text-slate-600 mt-1">Biometric & police clearance before posting.</p>
-            </div>
-
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-              <BadgeCheck className="w-5 h-5 text-red-600 mb-2" />
-              <h4 className="text-xs font-bold text-slate-900">Statutory Compliant</h4>
-              <p className="text-[11px] text-slate-600 mt-1">Full statutory EPF, ESIC, and minimum wage proof.</p>
-            </div>
-
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-              <Smartphone className="w-5 h-5 text-blue-800 mb-2" />
-              <h4 className="text-xs font-bold text-slate-900">GPS Patrol Tracking</h4>
-              <p className="text-[11px] text-slate-600 mt-1">Digital NFC QR checkpoints prevent duty sleeping.</p>
-            </div>
-
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-              <Siren className="w-5 h-5 text-red-600 mb-2" />
-              <h4 className="text-xs font-bold text-slate-900">24/7 Standby QRT</h4>
-              <p className="text-[11px] text-slate-600 mt-1">Substitute guards dispatched within 60 minutes.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2.5 Brand Gallery & Official Credentials Showcase */}
-      <section className="relative overflow-hidden border-y border-blue-200/70 bg-gradient-to-b from-blue-50 via-white to-slate-50 py-14">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-900 via-amber-400 to-red-600" />
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-8 flex flex-col items-start justify-between gap-5 lg:flex-row lg:items-end">
-            <div className="max-w-2xl space-y-3">
-              <div className="inline-flex items-center gap-2 rounded-full border border-blue-300 bg-white px-3 py-1 text-xs font-bold text-blue-900 shadow-sm">
-                <BadgeCheck className="h-3.5 w-3.5 text-blue-700" />
-                <span>OFFICIAL TELANGANA LICENSE & CREDENTIALS</span>
-              </div>
-              <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-[2.15rem]">
-                Verified Telangana Operations & Enterprise Credentials
-              </h2>
-              <p className="text-sm leading-relaxed text-slate-600">
-                Government licensed under <span className="font-bold text-slate-900">Reg. No. 417/2025, Telangana</span>. Statutory EPF/ESIC compliance, Warangal HQ, and enterprise-ready field operations.
+              <h3 className="font-display mt-4 text-3xl font-medium text-ivory">Questions of SLA, billing, and proof.</h3>
+              <p className="mt-3 max-w-md text-sm leading-relaxed text-ivory/60">
+                Deployment windows, police verification, substitute procedures, and statutory remittance — answered without theatre.
               </p>
             </div>
-            <div className="grid w-full grid-cols-3 gap-2 sm:w-auto sm:min-w-[22rem]">
-              <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2.5 text-center">
-                <p className="text-[10px] font-bold uppercase tracking-wide text-emerald-700">License</p>
-                <p className="mt-0.5 text-xs font-extrabold text-emerald-950">417/2025</p>
-              </div>
-              <div className="rounded-xl border border-blue-200 bg-blue-50 px-3 py-2.5 text-center">
-                <p className="text-[10px] font-bold uppercase tracking-wide text-blue-700">HQ</p>
-                <p className="mt-0.5 text-xs font-extrabold text-blue-950">Warangal</p>
-              </div>
-              <div className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2.5 text-center">
-                <p className="text-[10px] font-bold uppercase tracking-wide text-amber-700">Rating</p>
-                <p className="mt-0.5 text-xs font-extrabold text-amber-950">5.0 Justdial</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg shadow-slate-900/5">
-            <div className="grid lg:grid-cols-12">
-              <div className="relative border-b border-slate-200 bg-slate-950 p-6 sm:p-8 lg:col-span-5 lg:border-b-0 lg:border-r">
-                <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-slate-900 shadow-2xl">
-                  <img
-                    src={brandPosterImg}
-                    alt="Ayudh Vikas official operations poster"
-                    referrerPolicy="no-referrer"
-                    className="h-56 w-full object-cover object-top sm:h-64"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent p-3">
-                    <p className="text-[11px] font-extrabold text-white">Official operations poster · Warangal HQ</p>
-                  </div>
-                </div>
-                <div className="mt-4 grid grid-cols-2 gap-2">
-                  <img src={brandJustdialImg} alt="Justdial Users Choice award" className="h-20 w-full rounded-xl object-cover border border-white/10" />
-                  <img src={securityGuardImg} alt="On-ground security operations" className="h-20 w-full rounded-xl object-cover border border-white/10" />
-                </div>
-                <div className="mt-5 space-y-2 text-white">
-                  <p className="inline-flex items-center gap-2 rounded-full bg-emerald-500/15 px-3 py-1 text-[11px] font-extrabold text-emerald-200 ring-1 ring-emerald-400/30">
-                    <ShieldCheck className="h-3.5 w-3.5" />
-                    Licensed, verified & field ready
-                  </p>
-                  <h3 className="text-xl font-extrabold leading-snug">
-                    One registered team for security, cleaning, staffing, and facility care.
-                  </h3>
-                  <p className="text-sm leading-relaxed text-slate-300">
-                    # 12-8-287, KM Complex, Hunter Road, Warangal. Fast local execution for homes, offices, events, and industrial sites.
-                  </p>
-                </div>
-              </div>
-
-              <div className="lg:col-span-7 p-6 sm:p-8">
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {[
-                    { icon: ShieldCheck, title: 'Security Guarding', desc: 'Manned guarding, gate control, VIP/event security, and night patrol support.' },
-                    { icon: Sparkles, title: 'AyudhKlin Cleaning', desc: 'Homes, offices, commercial spaces, post-construction, and industrial cleaning.' },
-                    { icon: Building2, title: 'Facility Support', desc: 'Housekeeping, maintenance coordination, and daily site upkeep with SLA discipline.' },
-                    { icon: UsersRound, title: 'Corporate Manpower', desc: 'Screened support staff and operational manpower for business requirements.' },
-                  ].map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <div key={item.title} className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-blue-100 bg-white text-blue-900">
-                          <Icon className="h-5 w-5" />
-                        </span>
-                        <div>
-                          <h4 className="text-sm font-extrabold text-slate-900">{item.title}</h4>
-                          <p className="mt-1 text-xs leading-relaxed text-slate-600">{item.desc}</p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                <div className="mt-5 grid gap-3 sm:grid-cols-3">
-                  <div className="flex items-center gap-2.5 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-3">
-                    <ClipboardCheck className="h-5 w-5 shrink-0 text-emerald-700" />
-                    <p className="text-xs font-extrabold text-emerald-900">EPF / ESIC Ready</p>
-                  </div>
-                  <div className="flex items-center gap-2.5 rounded-xl border border-blue-200 bg-blue-50 px-3 py-3">
-                    <Timer className="h-5 w-5 shrink-0 text-blue-800" />
-                    <p className="text-xs font-extrabold text-blue-950">Fast Deployment</p>
-                  </div>
-                  <div className="flex items-center gap-2.5 rounded-xl border border-red-200 bg-red-50 px-3 py-3">
-                    <Siren className="h-5 w-5 shrink-0 text-red-700" />
-                    <p className="text-xs font-extrabold text-red-900">24/7 Support</p>
-                  </div>
-                </div>
-
-                <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                  <button
-                    onClick={() => onSelectTab('why-us')}
-                    className="flex items-center justify-between rounded-xl border border-amber-200 bg-amber-50 px-3.5 py-3 text-left transition-colors hover:bg-amber-100"
-                  >
-                    <span>
-                      <span className="block text-[10px] font-bold uppercase tracking-wide text-amber-800">Award</span>
-                      <span className="text-xs font-extrabold text-slate-900">Justdial 2026</span>
-                    </span>
-                    <ArrowRight className="h-4 w-4 text-amber-700" />
-                  </button>
-                  <button
-                    onClick={() => onSelectTab('why-us')}
-                    className="flex items-center justify-between rounded-xl border border-blue-200 bg-blue-50 px-3.5 py-3 text-left transition-colors hover:bg-blue-100"
-                  >
-                    <span>
-                      <span className="block text-[10px] font-bold uppercase tracking-wide text-blue-800">Culture</span>
-                      <span className="text-xs font-extrabold text-slate-900">Teamwork values</span>
-                    </span>
-                    <ArrowRight className="h-4 w-4 text-blue-800" />
-                  </button>
-                  <button
-                    onClick={() => onSelectTab('services')}
-                    className="flex items-center justify-between rounded-xl border border-red-200 bg-red-50 px-3.5 py-3 text-left transition-colors hover:bg-red-100"
-                  >
-                    <span>
-                      <span className="block text-[10px] font-bold uppercase tracking-wide text-red-800">Poster</span>
-                      <span className="text-xs font-extrabold text-slate-900">Operations board</span>
-                    </span>
-                    <ArrowRight className="h-4 w-4 text-red-700" />
-                  </button>
-                </div>
-
-                <div className="mt-6 flex flex-wrap gap-2">
-                  <button
-                    onClick={() => onSelectTab('contact')}
-                    className="inline-flex items-center gap-2 rounded-xl bg-blue-900 px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-blue-950"
-                  >
-                    <ShieldCheck className="h-4 w-4 text-blue-300" />
-                    Verify office address
-                  </button>
-                  <button
-                    onClick={() => onSelectTab('services')}
-                    className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-emerald-700"
-                  >
-                    <Sparkles className="h-4 w-4 text-emerald-100" />
-                    Explore services
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. FAQ & Contact Quick Action Cards */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* FAQ Teaser Card */}
-          <div className="bg-gradient-to-br from-blue-950 via-slate-900 to-red-950 rounded-2xl p-6 text-white flex flex-col justify-between shadow-lg">
-            <div className="space-y-3">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-900/80 text-blue-100 text-xs font-bold border border-blue-700">
-                <HelpCircle className="w-3.5 h-3.5 text-amber-300" />
-                <span>FREQUENTLY ASKED QUESTIONS</span>
-              </div>
-              <h3 className="text-xl font-bold">Have Questions About SLAs or Billing?</h3>
-              <p className="text-xs text-blue-100/90 leading-relaxed">
-                Find clear answers on guard deployment timelines, statutory compliance proofs, and emergency substitute procedures.
-              </p>
-            </div>
-
-            <div className="mt-6 pt-4 border-t border-blue-800/80 flex items-center justify-between">
-              <span className="text-[11px] text-blue-200 font-medium">Clear, Transparent Policies</span>
+            <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
+              <span className="text-xs text-ivory/45">Clear policies. Named owners.</span>
               <button
                 onClick={() => onSelectTab('faq')}
-                className="px-4 py-2 rounded-xl bg-white text-blue-950 hover:bg-blue-50 text-xs font-bold flex items-center gap-1.5 cursor-pointer transition-all"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-ivory px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] text-ink sm:w-auto"
               >
-                <span>Read FAQ Answers</span>
-                <ArrowRight className="w-3.5 h-3.5 text-blue-900" />
+                Read the answers
+                <ArrowRight className="h-3.5 w-3.5" />
               </button>
             </div>
           </div>
 
-          {/* Contact Teaser Card */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-md">
-            <div className="space-y-3">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-900 text-xs font-bold border border-blue-200">
-                <MapPin className="w-3.5 h-3.5 text-blue-800" />
-                <span>WARANGAL REGIONAL HEADQUARTERS</span>
+          <div className="flex flex-col justify-between rounded-[1.6rem] border border-gold/20 bg-gold/5 p-5 sm:p-8">
+            <div>
+              <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-gold">
+                <MapPin className="h-3.5 w-3.5" />
+                Warangal headquarters
               </div>
-              <h3 className="text-xl font-bold text-slate-900">Direct Contact & 24/7 Helpline</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Located at Km Complex, Hunter Road, Warangal. Call <strong className="text-slate-900">{COMPANY_INFO.phoneDisplay}</strong> or send us an inquiry.
+              <h3 className="font-display mt-4 text-3xl font-medium text-ivory">A direct line. Always answered.</h3>
+              <p className="mt-3 max-w-md text-sm leading-relaxed text-ivory/70">
+                Km Complex, Hunter Road. Call <strong className="text-ivory">{COMPANY_INFO.phoneDisplay}</strong> or request a private quote.
               </p>
             </div>
-
-            <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-              <span className="text-[11px] text-slate-500 font-medium">Response Window: &lt; 15 Mins</span>
-              <div className="flex items-center gap-2">
+            <div className="mt-10 flex flex-col gap-3 border-t border-gold/20 pt-5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+              <span className="text-xs text-ivory/50">Response window under 15 minutes</span>
+              <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
                 <button
                   onClick={() => onOpenQuoteModal()}
-                  className="px-3.5 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-900 text-xs font-bold flex items-center gap-1 cursor-pointer transition-all border border-blue-200"
+                  className="rounded-full border border-white/15 px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] text-ivory hover:border-gold/40"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-blue-800" />
-                  <span>Get Quote</span>
+                  Get quote
                 </button>
                 <button
                   onClick={() => onSelectTab('contact')}
-                  className="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer transition-all shadow-md shadow-red-600/20"
+                  className="rounded-full bg-ivory px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] text-ink"
                 >
-                  <span>Go to Contact Page</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  Visit contact
                 </button>
               </div>
             </div>
@@ -395,6 +630,38 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
         </div>
       </section>
 
+      {/* Closing CTA */}
+      <section className="relative overflow-hidden">
+        <img src={vipImg} alt="" className="absolute inset-0 h-full w-full object-cover brightness-[0.35]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/40" />
+        <div className="grain-overlay" />
+        <div className="relative mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 sm:py-28">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-gold sm:text-[11px] sm:tracking-[0.32em]">Ready when you are</p>
+          <h2 className="font-display mt-4 text-3xl font-medium tracking-tight text-ivory sm:text-6xl">
+            Deployed in twenty-four hours. Remembered for a decade.
+          </h2>
+          <p className="mx-auto mt-5 max-w-lg text-sm text-ivory/70">
+            Brief the operations desk. We will return a tailored SLA, manpower plan, and on-site start date.
+          </p>
+          <div className="mt-8 flex w-full flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <button
+              onClick={() => onOpenQuoteModal()}
+              className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full px-8 py-3.5 text-sm font-semibold text-ink sm:w-auto"
+            >
+              <span className="btn-gold absolute inset-0" />
+              <span className="relative">Request 24-hour quote</span>
+              <ArrowRight className="relative h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </button>
+            <a
+              href={`tel:${COMPANY_INFO.phone}`}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 px-8 py-3.5 text-sm font-medium text-ivory hover:border-gold/50 sm:w-auto"
+            >
+              <Phone className="h-4 w-4 text-gold" />
+              {COMPANY_INFO.phoneDisplay}
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

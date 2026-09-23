@@ -229,7 +229,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({
                     ))}
                   </div>
 
-                  <div className="mt-5 flex items-center justify-between gap-3 border-t border-slate-100 pt-4">
+                  <div className="mt-5 flex flex-col gap-3 border-t border-slate-100 pt-4 sm:flex-row sm:items-center sm:justify-between">
                     <span className="text-[11px] font-bold uppercase text-slate-400">Warangal focused</span>
                     {service.href ? (
                       <a
@@ -291,7 +291,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({
             </div>
             <button
               onClick={() => onOpenQuoteModal('Integrated Service Package')}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-600 via-red-500 to-blue-900 px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-red-900/20"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-600 via-red-500 to-blue-900 px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-red-900/20 md:w-auto"
             >
               <Sparkles className="h-4 w-4 text-amber-300" />
               <span>Request combined quote</span>
@@ -301,9 +301,9 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {operationalCatalog.map((service) => (
               <article key={service.id} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:border-blue-300 hover:shadow-md">
-                <div className="flex gap-4">
+                <div className="flex flex-col gap-4 sm:flex-row">
                   {service.image && (
-                    <img src={service.image} alt={service.title} className="h-24 w-28 shrink-0 rounded-xl object-cover" />
+                    <img src={service.image} alt={service.title} className="h-40 w-full shrink-0 rounded-xl object-cover sm:h-24 sm:w-28" />
                   )}
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">

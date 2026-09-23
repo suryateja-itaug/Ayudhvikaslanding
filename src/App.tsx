@@ -72,7 +72,9 @@ export default function App() {
   const isStandaloneApp = activeTab === 'av-ride' || activeTab === 'av-food';
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-emerald-500 selection:text-white antialiased">
+    <div className={`min-h-screen overflow-x-clip font-sans antialiased selection:bg-gold selection:text-ink ${
+        activeTab === 'home' ? 'bg-ink text-ivory' : 'bg-slate-50 text-slate-900'
+      }`}>
       {/* Dynamic SEO Meta & Schema Injector */}
       <SEO activeTab={activeTab} />
 
@@ -86,7 +88,7 @@ export default function App() {
       )}
 
       {/* Main Separate Page Views */}
-      <main className="min-h-[70vh]">
+      <main className="min-h-[70vh] pb-24 sm:pb-10">
         {activeTab === 'home' && (
           <div>
             <Hero 
@@ -128,7 +130,7 @@ export default function App() {
             <PageHeader 
               badge="The Ayudh Vikas Differentiators"
               title="Why Enterprise Leaders Trust Ayudh Vikas"
-              subtitle="100% statutory compliant security and facility operations across Telangana and South India."
+              subtitle="100% Statutory Compliant Security And Facility Operations Across Telangana And South India."
               onSelectTab={handleSelectTab}
               onOpenQuoteModal={() => handleOpenQuoteModal()}
             />

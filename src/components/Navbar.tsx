@@ -12,110 +12,111 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQuoteModal }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isHome = activeTab === 'home';
+  const darkNav = isHome && !isScrolled && !mobileMenuOpen;
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 24);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [activeTab]);
 
   const navLinks = [
     { id: 'home', name: 'Home' },
     { id: 'about-us', name: 'About' },
     { id: 'services', name: 'Services' },
-    { id: 'ayudhklin-products', name: 'Ayudhklin Products' },
-    { id: 'ayudhklin-services', name: 'Ayudhklin Services' },
+    { id: 'ayudhklin-products', name: 'AyudhKlin Products' },
+    { id: 'ayudhklin-services', name: 'AyudhKlin Services' },
     { id: 'why-us', name: 'Why Us' },
     { id: 'faq', name: 'FAQ' },
     { id: 'contact', name: 'Contact' },
   ];
 
+  const appLinks = [
+    { name: 'AV Jobs', href: 'https://ayudh-vikas-manpower.vercel.app', external: true },
+    { name: 'AV Ride', id: 'av-ride' },
+    { name: 'AV Food', id: 'av-food' },
+  ];
+
   const navItemClass = (isActive: boolean) =>
-    `px-2.5 2xl:px-3 py-1.5 text-[11px] font-bold rounded-full transition-all duration-200 cursor-pointer whitespace-nowrap ${
+    `px-2.5 2xl:px-3 py-1.5 text-[11px] font-semibold tracking-wide rounded-full transition-all duration-200 cursor-pointer whitespace-nowrap ${
       isActive
-        ? 'bg-gradient-to-r from-blue-900 to-blue-950 text-white shadow-md shadow-blue-950/20'
-        : 'text-slate-800 hover:text-blue-900 hover:bg-white'
+        ? darkNav
+          ? 'bg-gold text-ink shadow-md shadow-gold/20'
+          : 'bg-ink text-ivory shadow-md'
+        : darkNav
+          ? 'text-ivory/80 hover:text-gold-soft hover:bg-white/8'
+          : 'text-slate-700 hover:text-ink hover:bg-ivory'
     }`;
 
-  const appButtons = [
-    {
-      name: 'AV Manpower',
-      href: 'https://ayudh-vikas-manpower.vercel.app',
-    },
-    {
-      name: 'AV Ride',
-      href: '#av-ride',
-    },
-    {
-      name: 'AV Food',
-      href: '#av-food',
-    },
-  ];
 
   return (
     <>
-      {/* Top emergency announcement bar with Blue-Green-Red combo */}
-      <div className="bg-slate-950 border-b border-blue-900/60 text-xs py-1.5 px-4 text-slate-100">
-        <div className="max-w-[96rem] mx-auto flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 bg-red-950 text-red-200 px-2.5 py-0.5 rounded-full font-bold text-[11px] border border-red-700">
-              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" />
-              24/7 Emergency Operations
+      <div className={`border-b text-xs ${darkNav ? 'border-white/10 bg-ink/90 text-ivory' : 'border-ink/10 bg-ink text-ivory'}`}>
+        <div className="mx-auto flex max-w-[96rem] items-center justify-between gap-2 px-3 py-1.5 sm:px-4">
+          <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+            <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-gold/30 bg-gold/10 px-2 py-0.5 text-[10px] font-semibold text-gold-soft sm:px-2.5 sm:text-[11px]">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inset-0 animate-ping rounded-full bg-gold" />
+                <span className="relative h-1.5 w-1.5 rounded-full bg-gold" />
+              </span>
+              <span className="sm:hidden">24/7 Ops</span>
+              <span className="hidden sm:inline">24/7 Emergency Operations</span>
             </span>
-            <span className="hidden sm:inline text-slate-200 text-[11px] font-medium">
-              Security & Professional Deep Cleaning Solutions across Telangana & South India
+            <span className="hidden min-w-0 truncate text-[11px] font-medium tracking-wide text-ivory/70 lg:inline">
+              Security & professional deep cleaning · Telangana
             </span>
           </div>
 
-          <div className="flex items-center gap-4 text-slate-100">
-            <a 
-              href={`tel:${COMPANY_INFO.phone}`} 
-              className="hover:text-red-400 transition-colors flex items-center gap-1 font-bold text-xs"
+          <div className="flex shrink-0 items-center gap-2 sm:gap-4">
+            <a
+              href={`tel:${COMPANY_INFO.phone}`}
+              className="flex items-center gap-1 text-[11px] font-semibold text-ivory transition-colors hover:text-gold sm:text-xs"
             >
-              <Phone className="w-3.5 h-3.5 text-red-400" />
-              <span>Call: {COMPANY_INFO.phoneDisplay}</span>
+              <Phone className="h-3.5 w-3.5 text-gold" />
+              <span>{COMPANY_INFO.phoneDisplay}</span>
             </a>
-            <a 
-              href={`tel:${COMPANY_INFO.phone2}`} 
-              className="hover:text-red-400 transition-colors flex items-center gap-1 font-bold text-xs"
+            <a
+              href={`tel:${COMPANY_INFO.phone2}`}
+              className="hidden items-center gap-1 text-xs font-semibold text-ivory transition-colors hover:text-gold md:flex"
             >
-              <Phone className="w-3.5 h-3.5 text-red-400" />
-              <span>, {COMPANY_INFO.phoneDisplay2}</span>
+              <span>{COMPANY_INFO.phoneDisplay2}</span>
             </a>
-            <span className="text-slate-700">|</span>
-            <span className="hidden md:flex items-center gap-1 text-slate-200 text-xs">
-              <Clock className="w-3 h-3 text-amber-400" />
-              Response Time: &lt; 15 Mins
+            <span className="hidden items-center gap-1 text-xs text-ivory/70 xl:flex">
+              <Clock className="h-3 w-3 text-gold" />
+              Response under 15 mins
             </span>
           </div>
         </div>
       </div>
 
-      {/* Main translucent sticky Header */}
       <header
-        className={`sticky top-0 z-40 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-white/95 backdrop-blur-md border-b border-blue-100 shadow-md shadow-blue-950/10 py-2.5'
-            : 'bg-white/85 backdrop-blur-sm border-b border-slate-100 py-3.5'
+        className={`sticky top-0 z-40 transition-all duration-500 ${
+          darkNav
+            ? 'border-b border-white/8 bg-ink/35 py-3.5 backdrop-blur-md'
+            : 'border-b border-ink/8 bg-ivory/92 py-2.5 shadow-[0_10px_40px_rgba(7,9,15,0.08)] backdrop-blur-xl'
         }`}
       >
-        <div className="max-w-[96rem] mx-auto px-3 sm:px-4 xl:px-6 flex items-center justify-between gap-2 xl:gap-3">
-          {/* Logo */}
-          <button 
+        <div className="mx-auto flex max-w-[96rem] items-center justify-between gap-2 px-3 sm:px-4 xl:px-6">
+          <button
             onClick={() => onSelectTab('home')}
-            className="flex shrink-0 items-center group text-left cursor-pointer border-none bg-transparent"
+            className="group flex min-w-0 shrink-0 cursor-pointer items-center border-none bg-transparent text-left"
           >
-            <Logo size="sm" showText={true} />
+            <Logo size="sm" showText={true} textColor={darkNav ? 'text-ivory' : 'text-ink'} />
           </button>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex min-w-0 items-center gap-0.5 bg-slate-100/90 p-1 rounded-full border border-blue-200/80 shadow-inner">
+          <nav
+            className={`hidden min-w-0 items-center gap-0.5 overflow-x-auto rounded-full border p-1 lg:flex ${
+              darkNav ? 'border-white/10 bg-white/5' : 'border-ink/8 bg-white/70'
+            }`}
+          >
             {navLinks.map((link) => (
               <button
                 key={link.id}
@@ -125,12 +126,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
                 {link.name}
               </button>
             ))}
-          </nav>
-
-          {/* Actions & Call Button */}
-          <div className="hidden sm:flex shrink-0 items-center gap-1.5">
-            <div className="hidden 2xl:flex items-center gap-0.5 bg-slate-100/90 p-1 rounded-full border border-blue-200/80">
-              {appButtons.map((app) => (
+            <span className={`mx-0.5 h-4 w-px shrink-0 ${darkNav ? 'bg-white/20' : 'bg-ink/15'}`} />
+            {appLinks.map((app) =>
+              app.external ? (
                 <a
                   key={app.name}
                   href={app.href}
@@ -140,12 +138,28 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
                 >
                   {app.name}
                 </a>
-              ))}
-            </div>
+              ) : (
+                <button
+                  key={app.name}
+                  type="button"
+                  onClick={() => onSelectTab(app.id!)}
+                  className={navItemClass(activeTab === app.id)}
+                >
+                  {app.name}
+                </button>
+              )
+            )}
+          </nav>
+
+          <div className="hidden shrink-0 items-center gap-1.5 md:flex">
 
             <a
               href={`tel:${COMPANY_INFO.phone}`}
-              className="grid h-8 w-8 place-items-center rounded-full bg-slate-100 text-blue-900 border border-blue-200 hover:bg-white"
+              className={`grid h-8 w-8 place-items-center rounded-full border ${
+                darkNav
+                  ? 'border-white/15 text-ivory hover:border-gold/50 hover:text-gold'
+                  : 'border-ink/10 text-ink hover:border-gold hover:text-gold'
+              }`}
               aria-label={`Call ${COMPANY_INFO.phoneDisplay}`}
             >
               <Phone className="h-4 w-4" />
@@ -153,25 +167,26 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
 
             <button
               onClick={onOpenQuoteModal}
-              className={navItemClass(true)}
+              className="relative overflow-hidden rounded-full px-3.5 py-1.5 text-[11px] font-semibold text-ink"
             >
-              Get Quote
+              <span className="btn-gold absolute inset-0" />
+              <span className="relative">Get Quote</span>
             </button>
           </div>
 
-          {/* Mobile menu trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:text-red-600"
+            className={`rounded-xl border p-2 lg:hidden ${
+              darkNav ? 'border-white/15 text-ivory' : 'border-ink/10 text-ink'
+            }`}
             aria-label="Toggle Navigation Menu"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
 
-        {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white/95 backdrop-blur-xl border-b border-blue-200 px-4 pt-3 pb-6 mt-3 space-y-3 animate-in slide-in-from-top duration-200">
+          <div className="mt-3 max-h-[min(80dvh,36rem)] space-y-3 overflow-y-auto border-t border-ink/10 bg-ivory px-4 pb-6 pt-3 lg:hidden">
             <div className="flex flex-col gap-1">
               {navLinks.map((link) => {
                 const isActive = activeTab === link.id;
@@ -182,41 +197,55 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
                       setMobileMenuOpen(false);
                       onSelectTab(link.id);
                     }}
-                    className={`px-4 py-2.5 text-sm font-bold rounded-full transition-colors flex items-center justify-between cursor-pointer ${
-                      isActive
-                        ? 'bg-gradient-to-r from-blue-900 to-blue-950 text-white shadow-sm'
-                        : 'text-slate-800 hover:bg-blue-50 hover:text-blue-900'
+                    className={`flex cursor-pointer items-center justify-between rounded-full px-4 py-2.5 text-sm font-semibold transition-colors ${
+                      isActive ? 'bg-ink text-ivory' : 'text-slate-800 hover:bg-ink/5'
                     }`}
                   >
                     <span>{link.name}</span>
-                    <ArrowRight className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
+                    <ArrowRight className={`h-3.5 w-3.5 ${isActive ? 'text-gold' : 'text-slate-400'}`} />
                   </button>
                 );
               })}
             </div>
 
-            <div className="pt-3 border-t border-slate-200 flex flex-col gap-2">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                {appButtons.map((app) => (
-                  <a
-                    key={app.name}
-                    href={app.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-center py-2.5 rounded-full text-sm font-bold text-slate-800 bg-slate-100 hover:bg-white"
-                  >
-                    {app.name}
-                  </a>
-                ))}
+            <div className="flex flex-col gap-2 border-t border-ink/10 pt-3">
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+                {appLinks.map((app) =>
+                  app.external ? (
+                    <a
+                      key={app.name}
+                      href={app.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center justify-center rounded-full bg-white py-2.5 text-sm font-semibold text-ink"
+                    >
+                      {app.name}
+                    </a>
+                  ) : (
+                    <button
+                      key={app.name}
+                      type="button"
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        onSelectTab(app.id!);
+                      }}
+                      className={`flex items-center justify-center rounded-full py-2.5 text-sm font-semibold ${
+                        activeTab === app.id ? 'bg-ink text-ivory' : 'bg-white text-ink'
+                      }`}
+                    >
+                      {app.name}
+                    </button>
+                  )
+                )}
               </div>
 
               <a
                 href={`tel:${COMPANY_INFO.phone}`}
-                className="flex items-center justify-center gap-2 py-2.5 rounded-full text-sm font-bold text-slate-800 bg-slate-100"
+                className="flex items-center justify-center gap-2 rounded-full bg-white py-2.5 text-sm font-semibold text-ink"
                 aria-label={`Call ${COMPANY_INFO.phoneDisplay}`}
               >
-                <Phone className="h-4 w-4 text-blue-900" />
+                <Phone className="h-4 w-4 text-gold" />
                 {COMPANY_INFO.phoneDisplay}
               </a>
 
@@ -225,9 +254,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
                   setMobileMenuOpen(false);
                   onOpenQuoteModal();
                 }}
-                className="w-full flex items-center justify-center py-3 rounded-full text-sm font-bold bg-gradient-to-r from-blue-900 to-blue-950 text-white"
+                className="relative w-full overflow-hidden rounded-full py-3 text-sm font-semibold text-ink"
               >
-                Get Instant Quote
+                <span className="btn-gold absolute inset-0" />
+                <span className="relative">Get Instant Quote</span>
               </button>
             </div>
           </div>

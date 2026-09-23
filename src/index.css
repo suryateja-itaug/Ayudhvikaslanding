@@ -1,119 +1,258 @@
 @import "tailwindcss";
 
-@keyframes page-turn-next {
-  0% {
-    opacity: 0.55;
-    filter: brightness(0.92);
-    transform: perspective(1800px) rotateY(-62deg) translateX(-2.5rem) scale(0.985);
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", ui-serif, Georgia, "Times New Roman", serif;
+  --color-ink: #07090f;
+  --color-ink-2: #0c111c;
+  --color-navy: #1b2744;
+  --color-gold: #10b981;
+  --color-gold-soft: #6ee7b7;
+  --color-ivory: #f4efe6;
+  --color-crimson: #b4232c;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#root {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: #07090f;
+  overflow-wrap: break-word;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+}
+
+@media (hover: none) {
+  .tilt-card {
+    transform: none !important;
   }
-  55% {
-    opacity: 0.95;
-    filter: brightness(1.04);
-    transform: perspective(1800px) rotateY(8deg) translateX(0.25rem) scale(1.005);
-  }
-  100% {
-    opacity: 1;
-    filter: brightness(1);
-    transform: perspective(1800px) rotateY(0deg) translateX(0) scale(1);
-  }
 }
 
-@keyframes page-turn-previous {
-  0% {
-    opacity: 0.55;
-    filter: brightness(0.92);
-    transform: perspective(1800px) rotateY(62deg) translateX(2.5rem) scale(0.985);
+@layer base {
+  html {
+    text-transform: capitalize;
   }
-  55% {
-    opacity: 0.95;
-    filter: brightness(1.04);
-    transform: perspective(1800px) rotateY(-8deg) translateX(-0.25rem) scale(1.005);
+
+  input,
+  textarea,
+  select,
+  option,
+  code,
+  pre,
+  kbd,
+  samp {
+    text-transform: none;
   }
-  100% {
-    opacity: 1;
-    filter: brightness(1);
-    transform: perspective(1800px) rotateY(0deg) translateX(0) scale(1);
+
+  input::placeholder,
+  textarea::placeholder {
+    text-transform: capitalize;
   }
 }
 
-@keyframes page-sheen {
-  0% { opacity: 0; transform: translateX(-80%) skewX(-18deg); }
-  42% { opacity: 0.35; }
-  100% { opacity: 0; transform: translateX(120%) skewX(-18deg); }
+.font-display {
+  font-family: var(--font-display);
 }
 
-.flipbook-page {
-  backface-visibility: hidden;
-  border-radius: 0.35rem;
-  box-shadow:
-    0 1.5rem 3.5rem rgb(0 0 0 / 0.45),
-    inset 1.2rem 0 2.2rem rgb(15 23 42 / 0.08),
-    inset -0.8rem 0 1.8rem rgb(15 23 42 / 0.08);
-  transform-style: preserve-3d;
-  will-change: transform, opacity, filter;
-}
-
-.flipbook-stage {
-  perspective: 1800px;
-}
-
-.flipbook-stack {
-  transform-style: preserve-3d;
-}
-
-.flipbook-paper-shadow {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: 0.35rem;
-  background: #f8fafc;
-  box-shadow: 0 1.25rem 2.5rem rgb(0 0 0 / 0.22);
-}
-
-.flipbook-paper-shadow--one {
-  transform: translate(0.7rem, 0.55rem) rotate(0.7deg);
-}
-
-.flipbook-paper-shadow--two {
-  transform: translate(1.25rem, 1rem) rotate(1.25deg);
-  opacity: 0.55;
-}
-
-.flipbook-page-sheen {
+.grain-overlay {
   pointer-events: none;
   position: absolute;
   inset: 0;
-  z-index: 3;
-  background: linear-gradient(105deg, transparent 0%, rgb(255 255 255 / 0.05) 38%, rgb(255 255 255 / 0.45) 50%, rgb(255 255 255 / 0.06) 62%, transparent 100%);
-  mix-blend-mode: screen;
-  animation: page-sheen 700ms ease-out both;
+  opacity: 0.22;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
-.flipbook-page-curl {
-  pointer-events: none;
+.gold-hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #059669 20%, #6ee7b7 50%, #10b981 80%, transparent);
+}
+
+@keyframes ken-burns {
+  0% { transform: scale(1.05) translate3d(0, 0, 0); }
+  50% { transform: scale(1.14) translate3d(-1.4%, -1%, 0); }
+  100% { transform: scale(1.05) translate3d(0, 0, 0); }
+}
+
+.ken-burns {
+  animation: ken-burns 28s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes gold-shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.btn-gold {
+  background-image: linear-gradient(110deg, #047857 0%, #6ee7b7 28%, #10b981 52%, #a7f3d0 74%, #047857 100%);
+  background-size: 220% 100%;
+  animation: gold-shimmer 4.5s linear infinite;
+}
+
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee-x 38s linear infinite;
+  width: max-content;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.7); opacity: 0.7; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+.live-ring::before {
+  content: "";
   position: absolute;
-  right: 0;
-  bottom: 0;
-  z-index: 4;
-  width: 5rem;
-  height: 5rem;
-  background: radial-gradient(circle at bottom right, rgb(15 23 42 / 0.16), transparent 62%);
+  inset: -4px;
+  border-radius: 999px;
+  border: 1px solid #10b981;
+  animation: pulse-ring 2.2s ease-out infinite;
 }
 
-.flipbook-page--next {
-  transform-origin: left center;
-  animation: page-turn-next 680ms cubic-bezier(0.2, 0.78, 0.25, 1);
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
 }
 
-.flipbook-page--previous {
-  transform-origin: right center;
-  animation: page-turn-previous 680ms cubic-bezier(0.2, 0.78, 0.25, 1);
+.float-slow {
+  animation: float-slow 6.5s ease-in-out infinite;
+}
+
+@keyframes scroll-cue {
+  0% { transform: translateY(0); opacity: 1; }
+  70% { transform: translateY(10px); opacity: 0.2; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.scroll-cue-dot {
+  animation: scroll-cue 1.8s ease-in-out infinite;
+}
+
+@keyframes orbit-glow {
+  0% { transform: rotate(0deg) translateX(140px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(140px) rotate(-360deg); }
+}
+
+.orbit-glow {
+  animation: orbit-glow 18s linear infinite;
+}
+
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.mask-fade-x {
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .flipbook-page--next,
-  .flipbook-page--previous,
-  .flipbook-page-sheen {
+  .ken-burns,
+  .btn-gold,
+  .marquee-track,
+  .live-ring::before,
+  .float-slow,
+  .scroll-cue-dot,
+  .orbit-glow,
+  .flipbook-sheet--next,
+  .flipbook-sheet--previous {
     animation: none;
+  }
+}
+
+.flipbook-viewport {
+  perspective: 2200px;
+  touch-action: pan-y;
+}
+
+.flipbook-leaf {
+  position: relative;
+  background: #fff;
+  box-shadow: 0 18px 50px rgb(0 0 0 / 0.28);
+  transform: translateZ(0);
+}
+
+.flipbook-leaf canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #fff;
+}
+
+.flipbook-sheet {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: #fff;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  pointer-events: none;
+  box-shadow: 0 18px 40px rgb(0 0 0 / 0.22);
+}
+
+.flipbook-sheet canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+}
+
+.flipbook-sheet::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgb(15 23 42 / 0.08), transparent 18%, transparent 78%, rgb(15 23 42 / 0.12));
+}
+
+.flipbook-sheet--next {
+  transform-origin: left center;
+  animation: book-flip-next 720ms cubic-bezier(0.22, 0.7, 0.25, 1) forwards;
+}
+
+.flipbook-sheet--previous {
+  transform-origin: right center;
+  animation: book-flip-previous 720ms cubic-bezier(0.22, 0.7, 0.25, 1) forwards;
+}
+
+@keyframes book-flip-next {
+  0% { transform: rotateY(0deg); }
+  55% { transform: rotateY(-98deg); }
+  100% { transform: rotateY(-180deg); opacity: 0; }
+}
+
+@keyframes book-flip-previous {
+  0% { transform: rotateY(0deg); }
+  55% { transform: rotateY(98deg); }
+  100% { transform: rotateY(180deg); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flipbook-sheet--next,
+  .flipbook-sheet--previous {
+    animation: none;
+    opacity: 0;
   }
 }

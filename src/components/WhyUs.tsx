@@ -78,7 +78,7 @@ export const WhyUs: React.FC = () => {
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
   Why Top Enterprises Trust{' '}
-  <span className="inline-block whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-blue-800 to-red-600">
+  <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-blue-800 to-red-600">
     Ayudh Vikas
   </span>
 </h2>
@@ -157,7 +157,7 @@ export const WhyUs: React.FC = () => {
             className="rounded-3xl bg-white border border-slate-200 overflow-hidden shadow-xl"
           >
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-sm text-slate-700">
+              <table className="w-full min-w-[40rem] text-left text-sm text-slate-700">
                 <thead className="bg-slate-50 text-xs text-slate-800 uppercase font-bold border-b border-slate-200">
                   <tr>
                     <th scope="col" className="py-4 px-6">Service Standard</th>

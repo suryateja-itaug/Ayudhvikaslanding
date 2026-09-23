@@ -56,11 +56,11 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-slate-900/60 p-0 backdrop-blur-md animate-in fade-in duration-200 sm:items-center sm:p-4"
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-lg bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-2xl overflow-hidden"
+        className="relative max-h-[92dvh] w-full max-w-lg overflow-y-auto rounded-t-3xl border border-slate-200 bg-white p-5 shadow-2xl sm:rounded-3xl sm:p-8"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -108,7 +108,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Rajesh Kumar"
+                    placeholder="E.g. Rajesh Kumar"
                     value={modalForm.name}
                     onChange={(e) => setModalForm({ ...modalForm, name: e.target.value })}
                     className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-red-500"
@@ -132,7 +132,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                 <label className="block text-xs font-bold text-slate-700 mb-1">Company / Facility Name</label>
                 <input
                   type="text"
-                  placeholder="e.g. Apex Tech Park, Hanamkonda"
+                  placeholder="E.g. Apex Tech Park, Hanamkonda"
                   value={modalForm.company}
                   onChange={(e) => setModalForm({ ...modalForm, company: e.target.value })}
                   className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-red-500"
@@ -143,7 +143,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                 <label className="block text-xs font-bold text-slate-700 mb-1">Property Size / Staff Count Notes</label>
                 <textarea
                   rows={2}
-                  placeholder="e.g. 20,000 sq.ft IT Park, need 6 guards in 2 shifts..."
+                  placeholder="E.g. 20,000 Sq.ft IT Park, Need 6 Guards In 2 Shifts..."
                   value={modalForm.notes}
                   onChange={(e) => setModalForm({ ...modalForm, notes: e.target.value })}
                   className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-red-500 resize-none"

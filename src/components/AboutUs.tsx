@@ -7,8 +7,6 @@ import {
 } from 'lucide-react';
 import { GlobalWorkerOptions, getDocument, type PDFDocumentProxy } from 'pdfjs-dist';
 import pdfWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
-import chiefAdvisorImage from '../assets/images/about-chief-advisor.jpg';
-import directorsImage from '../assets/images/about-directors.jpg';
 import ecosystemHeroImage from '../assets/images/ayudh-ecosystem-hero.png';
 import healthcareImage from '../assets/images/service_deep_cleaning_1784719519754.jpg';
 import communityImage from '../assets/images/service_corporate_staffing_1784719493174.jpg';
@@ -16,6 +14,8 @@ import poshalaNareshImage from '../assets/images/poshala-naresh.jpg';
 import jannuRajuImage from '../assets/images/jannu-raju.jpg';
 import vijenderProfileImage from '../assets/images/vijender-profile.jpg';
 import govinduProfileImage from '../assets/images/govindu-vinay-kumar-profile.jpg';
+import allamAshokImage from '../assets/images/allam-ashok-profile.jpg';
+import ravinderProfileImage from '../assets/images/ravinder-profile.jpg';
 
 GlobalWorkerOptions.workerSrc = pdfWorker;
 
@@ -25,7 +25,7 @@ const leadershipProfiles = [
     role: 'Honourable Director',
     image: vijenderProfileImage,
     alt: 'M. Vijender, Honourable Director',
-    crop: { backgroundSize: 'cover', backgroundPosition: 'center 20%' },
+    position: 'object-[center_20%]',
     summary:
       'Mr. Vijender is the Managing Director of Ayudh Vikas. With an MBA background and strong leadership skills, he drives the organization with a clear vision of delivering reliable manpower solutions, professional cleaning services and impactful healthcare initiatives. His focus on innovation, integrity and customer satisfaction continues to guide the company towards sustainable growth and social impact.',
     highlights: ['MBA-backed leadership', 'Focus on innovation and integrity', 'Customer satisfaction and sustainable growth'],
@@ -35,7 +35,7 @@ const leadershipProfiles = [
     role: 'Director',
     image: poshalaNareshImage,
     alt: 'Poshala Naresh, Director',
-    crop: { backgroundSize: 'cover', backgroundPosition: 'center 24%' },
+    position: 'object-[center_18%]',
     summary:
       'Mr. Poshala Naresh brings a valuable combination of pharmacy knowledge, legal understanding and public-service commitment to Ayudh Vikas Manpower. His multidisciplinary background supports ethical operations, compliance-oriented planning, team discipline and responsible service delivery.',
     highlights: ['Pharmacy and legal perspective', 'Compliance support', 'Ethical and responsible planning'],
@@ -43,9 +43,9 @@ const leadershipProfiles = [
   {
     name: 'Allam Ashok',
     role: 'Director',
-    image: directorsImage,
+    image: allamAshokImage,
     alt: 'Allam Ashok, Director',
-    crop: { backgroundSize: '335% auto', backgroundPosition: '50% 44%' },
+    position: 'object-[center_20%]',
     summary:
       'Mr. Allam Ashok serves as a Director and plays a key role in administration, project coordination and the successful execution of organizational initiatives. His dedication, discipline and commitment to teamwork help strengthen operational efficiency and contribute significantly to the organization’s mission and long-term success.',
     highlights: ['Administration and coordination', 'Team discipline and commitment', 'Operational efficiency and long-term success'],
@@ -55,7 +55,7 @@ const leadershipProfiles = [
     role: 'Director',
     image: govinduProfileImage,
     alt: 'Govindu Vinay Kumar, Director',
-    crop: { backgroundSize: 'cover', backgroundPosition: 'center 18%' },
+    position: 'object-[center_12%]',
     summary:
       'Mr. Govindu Vinay Kumar serves as a Director and is responsible for financial planning, budgeting and maintaining transparency in all financial operations. His strategic approach and strong financial management ensure the organization’s stability, accountability and sustainable development.',
     highlights: ['Financial planning and budgeting', 'Transparent operations', 'Strategic financial stability'],
@@ -63,9 +63,9 @@ const leadershipProfiles = [
   {
     name: 'Dr. V. Ravinder',
     role: 'Chief Advisor',
-    image: chiefAdvisorImage,
+    image: ravinderProfileImage,
     alt: 'Dr. V. Ravinder, Chief Advisor',
-    crop: { backgroundSize: '105% auto', backgroundPosition: '20% 9%' },
+    position: 'object-[center_18%]',
     summary:
       'Dr. V. Ravinder serves as the Chief Advisor of Ayudh Vikas. With his vast experience and valuable guidance, he supports the organization in strategic decision-making, policy development and overall growth. His wisdom and vision continue to inspire the team and strengthen our commitment to serve the community.',
     highlights: ['Strategic guidance', 'Policy development', 'Community-focused leadership'],
@@ -75,7 +75,7 @@ const leadershipProfiles = [
     role: 'Operations Director',
     image: jannuRajuImage,
     alt: 'Jannu Raju, Operations Director',
-    crop: { backgroundSize: 'cover', backgroundPosition: 'center 20%' },
+    position: 'object-[center_12%]',
     summary:
       'Mr. Jannu Raju serves as Operations Director and supports the day-to-day coordination, execution and monitoring of Ayudh Vikas Manpower activities. His operational focus helps strengthen field-level implementation, team coordination, service delivery and timely follow-up across manpower, security and cleaning assignments.',
     highlights: ['Operational coordination', 'Field execution and follow-up', 'Service delivery management'],
@@ -92,7 +92,7 @@ const FoundationStory: React.FC = () => (
           <span className="inline-flex rounded-full border border-amber-300/40 bg-amber-300/10 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-amber-200">
             Ayudh Vikas Manpower
           </span>
-          <h1 className="mt-5 max-w-4xl text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="mt-5 max-w-4xl text-3xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">
             Security, Deep Cleaning & Manpower Support
           </h1>
           <p className="mt-5 max-w-3xl text-base leading-8 text-slate-200">
@@ -106,7 +106,7 @@ const FoundationStory: React.FC = () => (
         <div className="grid gap-4">
           <div className="rounded-2xl border border-white/10 bg-white/10 p-6 backdrop-blur-md">
             <div className="-m-6 mb-5 overflow-hidden rounded-t-2xl border-b border-amber-200/20">
-              <div className="relative h-72">
+              <div className="relative h-52 sm:h-72">
                 <img
                   src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Sri_Sathya_Sai_Baba_PIC.jpg"
                   alt="Sri Sathya Sai Baba with devotees during bhajans"
@@ -189,13 +189,17 @@ const FoundationStory: React.FC = () => (
 );
 
 const Flipbook: React.FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const liveCanvasRef = useRef<HTMLCanvasElement>(null);
+  const overlayCanvasRef = useRef<HTMLCanvasElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const pdfRef = useRef<PDFDocumentProxy | null>(null);
+  const turningRef = useRef(false);
+  const pointerRef = useRef<{ x: number; y: number } | null>(null);
   const [pageCount, setPageCount] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [direction, setDirection] = useState<'next' | 'previous'>('next');
+  const [isTurning, setIsTurning] = useState(false);
 
   useEffect(() => {
     let disposed = false;
@@ -219,39 +223,79 @@ const Flipbook: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    let cancelled = false;
+
     const renderPage = async () => {
       const pdf = pdfRef.current;
-      const canvas = canvasRef.current;
+      const canvas = liveCanvasRef.current;
       const stage = stageRef.current;
       if (!pdf || !canvas || !stage) return;
 
       const page = await pdf.getPage(pageNumber);
+      if (cancelled) return;
+
       const originalViewport = page.getViewport({ scale: 1 });
-      const availableWidth = Math.min(stage.clientWidth - 24, 1100);
-      const availableHeight = Math.max(360, window.innerHeight * 0.78);
+      const availableWidth = Math.max(stage.clientWidth, 280);
+      const availableHeight = Math.min(window.innerHeight * 0.82, window.innerWidth < 640 ? 640 : 920);
       const scale = Math.min(availableWidth / originalViewport.width, availableHeight / originalViewport.height);
       const viewport = page.getViewport({ scale });
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-      const context = canvas.getContext('2d');
+      const outputScale = Math.min(window.devicePixelRatio || 1, 2);
+      const context = canvas.getContext('2d', { alpha: false });
       if (!context) return;
 
-      canvas.width = Math.floor(viewport.width * pixelRatio);
-      canvas.height = Math.floor(viewport.height * pixelRatio);
+      canvas.width = Math.floor(viewport.width * outputScale);
+      canvas.height = Math.floor(viewport.height * outputScale);
       canvas.style.width = `${Math.floor(viewport.width)}px`;
       canvas.style.height = `${Math.floor(viewport.height)}px`;
-      await page.render({ canvas, canvasContext: context, viewport, transform: [pixelRatio, 0, 0, pixelRatio, 0, 0] }).promise;
+      context.setTransform(1, 0, 0, 1, 0, 0);
+      context.fillStyle = '#ffffff';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+
+      await page.render({
+        canvas,
+        canvasContext: context,
+        viewport,
+        transform: outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : undefined,
+      }).promise;
     };
 
     renderPage();
-    const resizeObserver = new ResizeObserver(renderPage);
+    const resizeObserver = new ResizeObserver(() => {
+      if (!turningRef.current) renderPage();
+    });
     if (stageRef.current) resizeObserver.observe(stageRef.current);
-    return () => resizeObserver.disconnect();
+    return () => {
+      cancelled = true;
+      resizeObserver.disconnect();
+    };
   }, [pageNumber, pageCount]);
 
+  const snapshotLivePage = () => {
+    const source = liveCanvasRef.current;
+    const overlay = overlayCanvasRef.current;
+    if (!source || !overlay || source.width === 0) return;
+    overlay.width = source.width;
+    overlay.height = source.height;
+    overlay.style.width = source.style.width;
+    overlay.style.height = source.style.height;
+    const context = overlay.getContext('2d', { alpha: false });
+    if (!context) return;
+    context.setTransform(1, 0, 0, 1, 0, 0);
+    context.drawImage(source, 0, 0);
+  };
+
   const changePage = (nextPage: number) => {
+    if (turningRef.current) return;
     if (nextPage < 1 || nextPage > pageCount || nextPage === pageNumber) return;
+    snapshotLivePage();
+    turningRef.current = true;
     setDirection(nextPage > pageNumber ? 'next' : 'previous');
+    setIsTurning(true);
     setPageNumber(nextPage);
+    window.setTimeout(() => {
+      turningRef.current = false;
+      setIsTurning(false);
+    }, 740);
   };
 
   useEffect(() => {
@@ -260,82 +304,108 @@ const Flipbook: React.FC = () => {
       if (event.key === 'ArrowRight') changePage(pageNumber + 1);
       if (event.key === 'ArrowLeft') changePage(pageNumber - 1);
     };
-
     window.addEventListener('keydown', handleKeydown);
     return () => window.removeEventListener('keydown', handleKeydown);
   }, [pageCount, pageNumber]);
 
-  const progress = pageCount ? (pageNumber / pageCount) * 100 : 0;
+  const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    pointerRef.current = { x: event.clientX, y: event.clientY };
+  };
+
+  const onPointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
+    const start = pointerRef.current;
+    pointerRef.current = null;
+    if (!start) return;
+    const dx = event.clientX - start.x;
+    const dy = event.clientY - start.y;
+    if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy)) return;
+    if (dx < 0) changePage(pageNumber + 1);
+    else changePage(pageNumber - 1);
+  };
 
   return (
-    <section className="bg-[radial-gradient(circle_at_top,#1e293b_0%,#0f172a_45%,#020617_100%)] px-4 py-14 sm:py-20">
-      <div className="mx-auto max-w-6xl text-center">
-        <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-amber-300/30 bg-amber-300/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-amber-200">
+    <section className="bg-slate-950 py-10 text-white sm:py-14">
+      <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
+        <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-300/30 bg-amber-300/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-amber-200">
           <BookOpen className="h-4 w-4" /> Company Profile
         </div>
-        <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl">Explore our story</h2>
-        <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-300">Turn through the company profile with realistic page depth, shadows, and keyboard navigation.</p>
+        <h2 className="text-3xl font-black tracking-tight sm:text-4xl">Explore our story</h2>
+        <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-300">
+          Swipe, tap the arrows, or use the keyboard to turn the pages.
+        </p>
+      </div>
 
-        <div ref={stageRef} className="flipbook-stage relative mt-8 flex min-h-[430px] items-center justify-center overflow-hidden rounded-3xl border border-white/10 bg-[linear-gradient(135deg,#111827,#020617_65%)] p-5 shadow-2xl shadow-slate-950/60 sm:p-8">
-          <div className="absolute inset-x-10 bottom-6 h-8 rounded-full bg-black/45 blur-2xl" />
-          <div className="absolute left-1/2 top-8 bottom-8 hidden w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-amber-200/25 to-transparent md:block" />
-          {isLoading ? (
-            <div className="text-sm font-semibold text-slate-300">Loading company profile…</div>
-          ) : pageCount ? (
-            <>
-              <button
-                type="button"
-                onClick={() => changePage(pageNumber - 1)}
-                disabled={pageNumber === 1}
-                className="absolute left-3 top-1/2 z-20 hidden h-16 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-md transition hover:bg-white/20 disabled:pointer-events-none disabled:opacity-0 sm:flex"
-                aria-label="Previous page"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button
-                type="button"
-                onClick={() => changePage(pageNumber + 1)}
-                disabled={pageNumber === pageCount}
-                className="absolute right-3 top-1/2 z-20 hidden h-16 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white backdrop-blur-md transition hover:bg-white/20 disabled:pointer-events-none disabled:opacity-0 sm:flex"
-                aria-label="Next page"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
+      <div
+        ref={stageRef}
+        className="flipbook-viewport relative mx-auto mt-6 w-full max-w-5xl select-none px-2 sm:px-4"
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+        onPointerCancel={() => {
+          pointerRef.current = null;
+        }}
+      >
+        {isLoading ? (
+          <div className="grid min-h-[24rem] place-items-center text-sm font-semibold text-slate-300">Loading company profile…</div>
+        ) : pageCount ? (
+          <div className="relative mx-auto w-fit max-w-full">
+            <div className="flipbook-leaf overflow-hidden">
+              <canvas ref={liveCanvasRef} aria-label={`Company profile page ${pageNumber} of ${pageCount}`} />
+            </div>
 
-              <div className="flipbook-stack relative">
-                <div className="flipbook-paper-shadow flipbook-paper-shadow--one" />
-                <div className="flipbook-paper-shadow flipbook-paper-shadow--two" />
-                <div key={pageNumber} className={`flipbook-page flipbook-page--${direction} relative overflow-hidden bg-white shadow-2xl`}>
-                  <div className="flipbook-page-sheen" />
-                  <canvas ref={canvasRef} aria-label={`Company profile page ${pageNumber} of ${pageCount}`} />
-                  <div className="flipbook-page-curl" />
-                </div>
-              </div>
+            <div className={`flipbook-sheet ${isTurning ? `flipbook-sheet--${direction}` : 'hidden'}`}>
+              <canvas ref={overlayCanvasRef} aria-hidden="true" />
+            </div>
 
-              <div className="absolute bottom-4 left-6 right-6 z-20">
-                <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
-                  <div className="h-full rounded-full bg-amber-300 transition-all duration-500" style={{ width: `${progress}%` }} />
-                </div>
-              </div>
-            </>
-          ) : (
-            <a className="text-sm font-bold text-amber-300 underline" href={`${import.meta.env.BASE_URL}about-us-brochure.pdf`} target="_blank" rel="noreferrer">Open company profile PDF</a>
-          )}
-        </div>
-
-        {pageCount > 0 && (
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
-            <button onClick={() => changePage(pageNumber - 1)} disabled={pageNumber === 1} className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-35">
-              <ChevronLeft className="h-4 w-4" /> Previous
+            <button
+              type="button"
+              onClick={() => changePage(pageNumber - 1)}
+              disabled={pageNumber === 1 || isTurning}
+              className="absolute left-1 top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-slate-950/55 text-white backdrop-blur-md disabled:opacity-0 sm:left-3 sm:h-12 sm:w-12"
+              aria-label="Previous page"
+            >
+              <ChevronLeft className="h-5 w-5" />
             </button>
-            <span className="rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-bold text-slate-200">Page {pageNumber} / {pageCount}</span>
-            <button onClick={() => changePage(pageNumber + 1)} disabled={pageNumber === pageCount} className="inline-flex items-center gap-2 rounded-xl bg-amber-400 px-4 py-2.5 text-sm font-black text-slate-950 transition hover:bg-amber-300 disabled:cursor-not-allowed disabled:opacity-35">
-              Next <ChevronRight className="h-4 w-4" />
+            <button
+              type="button"
+              onClick={() => changePage(pageNumber + 1)}
+              disabled={pageNumber === pageCount || isTurning}
+              className="absolute right-1 top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-slate-950/55 text-white backdrop-blur-md disabled:opacity-0 sm:right-3 sm:h-12 sm:w-12"
+              aria-label="Next page"
+            >
+              <ChevronRight className="h-5 w-5" />
             </button>
-            <span className="w-full text-xs font-semibold text-slate-400">Use left and right arrow keys to turn pages</span>
+          </div>
+        ) : (
+          <div className="py-16 text-center">
+            <a className="text-sm font-bold text-amber-300 underline" href={`${import.meta.env.BASE_URL}about-us-brochure.pdf`} target="_blank" rel="noreferrer">
+              Open company profile PDF
+            </a>
           </div>
         )}
       </div>
+
+      {pageCount > 0 && (
+        <div className="mx-auto mt-5 flex max-w-5xl flex-wrap items-center justify-center gap-3 px-4">
+          <button
+            onClick={() => changePage(pageNumber - 1)}
+            disabled={pageNumber === 1 || isTurning}
+            className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-35"
+          >
+            <ChevronLeft className="h-4 w-4" /> Previous
+          </button>
+          <span className="rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-bold text-slate-200">
+            Page {pageNumber} / {pageCount}
+          </span>
+          <button
+            onClick={() => changePage(pageNumber + 1)}
+            disabled={pageNumber === pageCount || isTurning}
+            className="inline-flex items-center gap-2 rounded-xl bg-amber-400 px-4 py-2.5 text-sm font-black text-slate-950 transition hover:bg-amber-300 disabled:cursor-not-allowed disabled:opacity-35"
+          >
+            Next <ChevronRight className="h-4 w-4" />
+          </button>
+          <span className="w-full text-center text-xs font-semibold text-slate-400">Swipe left or right to turn the page</span>
+        </div>
+      )}
     </section>
   );
 };
@@ -361,14 +431,15 @@ export const AboutUs: React.FC = () => (
           {leadershipProfiles.map((profile) => (
             <article
               key={profile.name}
-              className="grid overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-2xl shadow-slate-950/30 backdrop-blur md:grid-cols-[18rem_1fr]"
+              className="grid overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-2xl shadow-slate-950/30 backdrop-blur md:grid-cols-[15rem_1fr] lg:grid-cols-[17.5rem_1fr]"
             >
-              <div
-                className="min-h-72 bg-slate-900 bg-no-repeat md:min-h-full"
-                style={{ backgroundImage: `url(${profile.image})`, ...profile.crop }}
-                role="img"
-                aria-label={profile.alt}
-              />
+              <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden bg-slate-200 sm:max-w-md md:mx-0 md:aspect-auto md:h-full md:max-w-none md:min-h-[22rem]">
+                <img
+                  src={profile.image}
+                  alt={profile.alt}
+                  className={`absolute inset-0 h-full w-full object-cover ${profile.position}`}
+                />
+              </div>
 
               <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
                 <div className="flex flex-wrap items-center gap-3">

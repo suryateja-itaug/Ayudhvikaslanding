@@ -77,7 +77,7 @@ export const FAQSection: React.FC = () => {
         </div>
 
         {/* Help Banner */}
-        <div className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-blue-950 via-blue-900 to-red-950 border border-red-800 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg shadow-blue-950/10">
+        <div className="mt-12 flex flex-col items-stretch justify-between gap-4 rounded-2xl border border-red-800 bg-gradient-to-r from-blue-950 via-blue-900 to-red-950 p-5 text-center shadow-lg shadow-blue-950/10 sm:flex-row sm:items-center sm:p-6 sm:text-left">
           <div className="space-y-1">
             <h4 className="text-base font-bold text-white">Have specific security audit questions?</h4>
             <p className="text-xs text-blue-100">Speak directly with our Warangal & South India Operations Desk.</p>
@@ -85,7 +85,7 @@ export const FAQSection: React.FC = () => {
 
           <a
             href={`tel:${COMPANY_INFO.phone}`}
-            className="px-5 py-2.5 rounded-xl bg-white text-red-700 hover:bg-red-50 font-bold text-xs flex items-center gap-2 shadow-md shrink-0 transition-colors"
+            className="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-5 py-2.5 text-xs font-bold text-red-700 shadow-md transition-colors hover:bg-red-50 sm:w-auto"
           >
             <PhoneCall className="w-4 h-4 text-red-600" />
             <span>Call {COMPANY_INFO.phoneDisplay}</span>
