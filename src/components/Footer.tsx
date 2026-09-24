@@ -16,108 +16,102 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab }) => {
   };
 
   return (
-    <footer className="bg-slate-100 border-t border-slate-200 text-slate-600 text-xs relative overflow-hidden">
-      {/* Blue-Green-Red Top Accent Line */}
-      <div className="h-1.5 w-full bg-gradient-to-r from-blue-900 via-emerald-500 to-red-600" />
+    <footer className="relative overflow-hidden border-t border-white/8 bg-ink text-xs text-ivory/65">
+      <div className="gold-hairline" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
-          
-          {/* Col 1 & 2: Brand & Overview */}
-          <div className="lg:col-span-2 space-y-4">
+      <div className="mx-auto max-w-[96rem] px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-5">
+          <div className="space-y-4 lg:col-span-2">
             <a href="#home" onClick={handleNav('home')} className="inline-block">
-              <Logo size="md" showText={true} />
+              <Logo size="md" showText={true} textColor="text-ivory" />
             </a>
 
-            <p className="text-slate-600 leading-relaxed text-xs">
-              Ayudh Vikas Manpower Solutions is a premier provider delivering police-verified security personnel, professional deep cleaning, facility support, and corporate manpower across <strong className="text-slate-900 font-semibold">Hanamkonda, Warangal, and Kazipet</strong>.
+            <p className="max-w-md text-xs leading-relaxed text-ivory/60">
+              Ayudh Vikas Manpower Solutions delivers police-verified security, professional deep cleaning, facility support, and corporate manpower across{' '}
+              <strong className="font-semibold text-ivory">Hanamkonda, Warangal, and Kazipet</strong>.
             </p>
 
-            <div className="pt-2 space-y-2">
-              <div className="flex items-center gap-2 text-slate-700">
-                <Phone className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Helpline: <strong className="text-slate-900">{COMPANY_INFO.phoneDisplay}</strong>, <strong className="text-slate-900">{COMPANY_INFO.phoneDisplay2}</strong></span>
+            <div className="space-y-2 pt-2">
+              <div className="flex items-center gap-2 text-ivory/75">
+                <Phone className="h-3.5 w-3.5 text-gold" />
+                <span>
+                  Helpline: <strong className="text-ivory">{COMPANY_INFO.phoneDisplay}</strong>,{' '}
+                  <strong className="text-ivory">{COMPANY_INFO.phoneDisplay2}</strong>
+                </span>
               </div>
-              <div className="flex items-center gap-2 text-slate-700">
-                <Mail className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Email: <strong className="text-slate-900">{COMPANY_INFO.email}</strong></span>
+              <div className="flex items-center gap-2 text-ivory/75">
+                <Mail className="h-3.5 w-3.5 text-gold" />
+                <span className="min-w-0 break-all">
+                  Email: <strong className="text-ivory">{COMPANY_INFO.email}</strong>
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Col 3: Quick Navigation */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+            <h4 className="text-[11px] font-semibold uppercase tracking-[0.22em] text-gold">
               Quick Navigation
             </h4>
             <ul className="space-y-2 text-xs">
-              <li><a href="#home" onClick={handleNav('home')} className="hover:text-emerald-600 transition-colors">Home Page</a></li>
-              <li><a href="#services" onClick={handleNav('services')} className="hover:text-emerald-600 transition-colors">Services Portfolio</a></li>
-              <li className="font-bold text-emerald-700">AyudhKlin</li>
-              <li><a href="#ayudhklin-products" onClick={handleNav('ayudhklin-products')} className="hover:text-emerald-600 transition-colors pl-3">AyudhKlin Products</a></li>
-              <li><a href="#ayudhklin-services" onClick={handleNav('ayudhklin-services')} className="hover:text-emerald-600 transition-colors pl-3">AyudhKlin Services</a></li>
-              <li><a href="#why-us" onClick={handleNav('why-us')} className="hover:text-emerald-600 transition-colors">Why Ayudh Vikas</a></li>
-              <li><a href="#faq" onClick={handleNav('faq')} className="hover:text-emerald-600 transition-colors">Frequently Asked Questions</a></li>
-              <li><a href="#contact" onClick={handleNav('contact')} className="hover:text-emerald-600 transition-colors">Contact Headquarters</a></li>
+              <li><a href="#home" onClick={handleNav('home')} className="transition-colors hover:text-gold">Home</a></li>
+              <li><a href="#services" onClick={handleNav('services')} className="transition-colors hover:text-gold">Services Portfolio</a></li>
+              <li className="font-semibold text-gold-soft">AyudhKlin</li>
+              <li><a href="#ayudhklin-products" onClick={handleNav('ayudhklin-products')} className="pl-3 transition-colors hover:text-gold">AyudhKlin Products</a></li>
+              <li><a href="#ayudhklin-services" onClick={handleNav('ayudhklin-services')} className="pl-3 transition-colors hover:text-gold">AyudhKlin Services</a></li>
+              <li><a href="#why-us" onClick={handleNav('why-us')} className="transition-colors hover:text-gold">Why Ayudh Vikas</a></li>
+              <li><a href="#faq" onClick={handleNav('faq')} className="transition-colors hover:text-gold">Frequently Asked Questions</a></li>
+              <li><a href="#contact" onClick={handleNav('contact')} className="transition-colors hover:text-gold">Contact Headquarters</a></li>
             </ul>
           </div>
 
-          {/* Col 4: Services */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+            <h4 className="text-[11px] font-semibold uppercase tracking-[0.22em] text-gold">
               Core Offerings
             </h4>
             <ul className="space-y-2 text-xs">
-              <li><a href="#services" onClick={handleNav('services')} className="hover:text-emerald-600 font-bold text-slate-900 transition-colors">🛡️ Security &amp; Guarding</a></li>
-              <li><a href="#services" onClick={handleNav('services')} className="hover:text-emerald-600 font-bold text-slate-900 transition-colors">✨ Professional Deep Cleaning</a></li>
-              <li><a href="#ayudhklin-services" onClick={handleNav('ayudhklin-services')} className="hover:text-emerald-600 transition-colors">AyudhKlin Deep Cleaning</a></li>
-              <li><a href="#services" onClick={handleNav('services')} className="hover:text-emerald-600 transition-colors">Integrated Facility Management</a></li>
-              <li><a href="#services" onClick={handleNav('services')} className="hover:text-emerald-600 transition-colors">Corporate Support Staff</a></li>
-              <li><a href="#services" onClick={handleNav('services')} className="hover:text-emerald-600 transition-colors">Event &amp; VIP Escort</a></li>
+              <li><a href="#services" onClick={handleNav('services')} className="font-semibold text-ivory transition-colors hover:text-gold">Security &amp; Guarding</a></li>
+              <li><a href="#services" onClick={handleNav('services')} className="font-semibold text-ivory transition-colors hover:text-gold">Professional Deep Cleaning</a></li>
+              <li><a href="#ayudhklin-services" onClick={handleNav('ayudhklin-services')} className="transition-colors hover:text-gold">AyudhKlin Deep Cleaning</a></li>
+              <li><a href="#services" onClick={handleNav('services')} className="transition-colors hover:text-gold">Integrated Facility Management</a></li>
+              <li><a href="#services" onClick={handleNav('services')} className="transition-colors hover:text-gold">Corporate Support Staff</a></li>
+              <li><a href="#services" onClick={handleNav('services')} className="transition-colors hover:text-gold">Event &amp; VIP Escort</a></li>
             </ul>
           </div>
 
-          {/* Col 5: Registered Office */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+            <h4 className="text-[11px] font-semibold uppercase tracking-[0.22em] text-gold">
               Registered Office
             </h4>
-            <div className="text-slate-600 leading-relaxed space-y-2">
+            <div className="space-y-2 leading-relaxed text-ivory/60">
               <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
                 <span>
                   Km Complex, Hunter Road, Warangal Railway Gate, Warangal - 506002, Telangana, India.
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 text-amber-800 font-semibold text-[11px]">
-                <Navigation className="w-3.5 h-3.5 text-amber-600" />
+              <div className="flex items-center gap-1.5 text-[11px] font-semibold text-gold-soft">
+                <Navigation className="h-3.5 w-3.5 text-gold" />
                 <span>Opposite Kasam Janata Sale</span>
               </div>
             </div>
 
             <div className="pt-2">
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold border border-emerald-300">
-                <CheckCircle2 className="w-3 h-3 text-emerald-700" /> Verified & Compliant Agency
+              <span className="inline-flex items-center gap-1 rounded-full border border-gold/30 bg-gold/10 px-2.5 py-1 text-[10px] font-semibold text-gold-soft">
+                <CheckCircle2 className="h-3 w-3 text-gold" /> Verified &amp; Compliant Agency
               </span>
             </div>
           </div>
-
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 mt-12 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
-          <div>
-            © 2026 Web-Devs Solutions. All rights reserved.
-          </div>
-
-          <div className="flex items-center gap-6">
-            <a href="#privacy" className="hover:text-slate-800 transition-colors">Privacy Policy</a>
-            <a href="#terms" className="hover:text-slate-800 transition-colors">Terms of Service</a>
-            <a href="#compliance" className="hover:text-slate-800 transition-colors">Statutory Compliance</a>
-            <a href="#sitemap" className="hover:text-slate-800 transition-colors">Sitemap</a>
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/8 pt-8 text-[11px] text-ivory/40 sm:flex-row">
+          <div>© 2026 Web-Devs Solutions. All rights reserved.</div>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-6">
+            <a href="#privacy" className="transition-colors hover:text-gold">Privacy Policy</a>
+            <a href="#terms" className="transition-colors hover:text-gold">Terms of Service</a>
+            <a href="#compliance" className="transition-colors hover:text-gold">Statutory Compliance</a>
+            <a href="#sitemap" className="transition-colors hover:text-gold">Sitemap</a>
           </div>
         </div>
-
       </div>
     </footer>
   );

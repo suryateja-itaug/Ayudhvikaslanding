@@ -389,11 +389,11 @@ export const S4SmartProducts: React.FC<S4SmartProductsProps> = ({ onSelectTab })
   };
 
   return (
-    <div className="bg-white min-h-screen pb-20 text-slate-900 font-sans">
+    <div className="min-h-screen bg-white pb-8 font-sans text-slate-900">
       {cartCount > 0 && (
         <button
           onClick={() => setCartOpen(true)}
-          className="fixed bottom-24 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-600 text-white shadow-2xl shadow-emerald-900/35 ring-4 ring-white transition-transform hover:scale-105"
+          className="fixed bottom-28 right-3 z-50 inline-flex h-12 w-12 items-center justify-center rounded-full bg-emerald-600 text-white shadow-2xl shadow-emerald-900/35 ring-4 ring-white transition-transform hover:scale-105 sm:bottom-24 sm:right-5 sm:h-14 sm:w-14"
           aria-label="Open AyudhKlin cart"
         >
           <ShoppingCart className="h-6 w-6" />
@@ -404,7 +404,7 @@ export const S4SmartProducts: React.FC<S4SmartProductsProps> = ({ onSelectTab })
       )}
 
       {cartToast && (
-        <div className="fixed bottom-40 right-5 z-50 max-w-[18rem] rounded-2xl border border-emerald-200 bg-white px-4 py-3 text-sm font-bold text-slate-800 shadow-2xl shadow-slate-950/15">
+        <div className="fixed bottom-44 left-3 right-3 z-50 max-w-sm rounded-2xl border border-emerald-200 bg-white px-4 py-3 text-sm font-bold text-slate-800 shadow-2xl shadow-slate-950/15 sm:left-auto sm:right-5 sm:max-w-[18rem]">
           <div className="flex items-start gap-2">
             <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-emerald-100 text-emerald-700">
               <Check className="h-3.5 w-3.5" />
@@ -528,7 +528,7 @@ export const S4SmartProducts: React.FC<S4SmartProductsProps> = ({ onSelectTab })
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 space-y-12">
+      <div className="mx-auto max-w-7xl space-y-12 px-4 pb-8 pt-8 sm:px-6 sm:pt-12 lg:px-8">
         <section id="product-catalog" className="space-y-6">
           
           {/* Green-focused Search Bar */}
@@ -548,7 +548,7 @@ export const S4SmartProducts: React.FC<S4SmartProductsProps> = ({ onSelectTab })
           </div>
 
           {/* Sub-Filter: Type Tabs */}
-          <div className="flex items-center justify-center gap-2 text-xs font-semibold">
+          <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-semibold">
             <span className="text-slate-500 mr-1 flex items-center gap-1">
               <Filter className="w-3.5 h-3.5 text-emerald-600" /> Type:
             </span>

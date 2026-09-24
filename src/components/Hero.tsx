@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
-  Activity,
   ArrowRight,
   BriefcaseBusiness,
   CarTaxiFront,
@@ -9,234 +8,241 @@ import {
   Sparkles,
   Star,
   Utensils,
-  Zap,
 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { COMPANY_INFO } from '../data/mockData';
 import { Logo } from './Logo';
-import ecosystemHeroBg from '../assets/images/ayudh-ecosystem-hero.png';
+import securityHeroBg from '../assets/images/security_hero_bg_1784715806151.jpg';
 
 interface HeroProps {
   onOpenQuoteModal: () => void;
   onSelectTab?: (tab: string) => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onSelectTab }) => {
-  const ecosystemServices = [
-    { label: 'Security', icon: ShieldCheck },
-    { label: 'Jobs', icon: BriefcaseBusiness },
-    { label: 'AV Life News', icon: Newspaper },
-    { label: 'Food Delivery', icon: Utensils },
-    { label: 'Cleaning Products', icon: Sparkles },
-    { label: 'AV Ride', icon: CarTaxiFront },
-  ];
+const ecosystemServices = [
+  { label: 'Security', icon: ShieldCheck },
+  { label: 'Jobs', icon: BriefcaseBusiness },
+  { label: 'AV Life News', icon: Newspaper },
+  { label: 'Food Delivery', icon: Utensils },
+  { label: 'AyudhKlin', icon: Sparkles },
+  { label: 'AV Ride', icon: CarTaxiFront },
+];
 
-  const heroAppLinks = [
-    {
-      label: 'AV Manpower',
-      icon: BriefcaseBusiness,
-      href: 'https://ayudh-vikas-manpower.vercel.app',
-    },
-    {
-      label: 'AV Food',
-      icon: Utensils,
-      href: '#av-food',
-    },
-    {
-      label: 'AV Ride',
-      icon: CarTaxiFront,
-      href: '#av-ride',
-    },
-  ];
+const headlineLines = [
+  { italic: false, words: ['The', 'Private', 'Standard'] },
+  { italic: true, words: ['Of', 'Public', 'Service.'] },
+];
+
+export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onSelectTab }) => {
+  const stageRef = useRef<HTMLDivElement>(null);
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 40, damping: 18, mass: 0.6 });
+  const sy = useSpring(my, { stiffness: 40, damping: 18, mass: 0.6 });
+  const imgX = useTransform(sx, [-0.5, 0.5], ['2.4%', '-2.4%']);
+  const imgY = useTransform(sy, [-0.5, 0.5], ['1.6%', '-1.6%']);
+
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches) return;
+    const rect = stageRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    mx.set((e.clientX - rect.left) / rect.width - 0.5);
+    my.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
 
   return (
-    <section id="hero" className="relative min-h-[48vh] py-6 sm:py-8 lg:py-10 flex items-center overflow-hidden bg-slate-950 text-white">
+    <section
+      id="hero"
+      ref={stageRef}
+      onMouseMove={handleMove}
+      className="relative flex min-h-[auto] items-end overflow-hidden bg-ink text-ivory sm:min-h-[calc(100svh-7.25rem)]"
+    >
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <img
-          src={ecosystemHeroBg}
-          alt="Ayudh Vikas ecosystem covering security, jobs, AV Life news, food delivery, cleaning products, and AV Ride"
+        <motion.img
+          src={securityHeroBg}
+          alt="Ayudh Vikas officers securing a premium corporate campus at dusk"
           referrerPolicy="no-referrer"
-          className="h-full w-full scale-[1.02] object-cover object-center brightness-95 contrast-105"
+          style={{ x: imgX, y: imgY }}
+          className="ken-burns h-[112%] w-[112%] max-w-none object-cover object-[center_30%] brightness-[0.62] contrast-110 saturate-[0.9]"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/92 via-slate-950/62 to-slate-950/35" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/70 to-ink/45" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/30" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,rgba(16,185,129,0.16),transparent_55%)]" />
+        <div className="grain-overlay" />
       </div>
 
-      <div
-        className="absolute inset-0 z-10 bg-[linear-gradient(to_right,#10b98115_1px,transparent_1px),linear-gradient(to_bottom,#10b98115_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none"
-      />
+      <div className="pointer-events-none absolute inset-6 z-10 hidden border border-gold/15 lg:block">
+        <span className="absolute -left-px -top-px h-8 w-8 border-l-2 border-t-2 border-gold/70" />
+        <span className="absolute -right-px -top-px h-8 w-8 border-r-2 border-t-2 border-gold/70" />
+        <span className="absolute -bottom-px -left-px h-8 w-8 border-b-2 border-l-2 border-gold/70" />
+        <span className="absolute -bottom-px -right-px h-8 w-8 border-b-2 border-r-2 border-gold/70" />
+      </div>
 
-      <div className="relative z-20 mx-auto flex w-full max-w-[96rem] flex-col gap-4 px-4 sm:px-6 xl:px-8 2xl:px-10">
-        <div className="flex w-full flex-col items-stretch space-y-4 text-left">
+      <div className="pointer-events-none absolute right-[12%] top-[22%] z-10 hidden h-2 w-2 rounded-full bg-gold/80 lg:block">
+        <span className="orbit-glow absolute left-0 top-0 h-24 w-24 rounded-full bg-gradient-to-br from-gold/25 to-transparent blur-xl" />
+      </div>
+
+      <div className="relative z-20 mx-auto flex w-full max-w-[96rem] flex-col gap-6 px-4 pb-8 pt-8 sm:gap-8 sm:px-6 sm:pb-14 sm:pt-10 lg:gap-10 lg:pb-16 xl:px-10">
+        <div className="flex w-full flex-col gap-5 sm:gap-6">
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex w-full flex-col items-center justify-center gap-2 text-center"
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-wrap items-center gap-4"
           >
-            <Logo size="lg" showText={false} className="justify-center" />
-            <p className="text-xl font-black tracking-tight text-white sm:text-2xl lg:text-3xl">
-              Ayudh Vikas Group
-            </p>
-            <p className="text-xs font-semibold tracking-wide text-slate-300 sm:text-sm">
-              Security, Staffing, Media & Local Services
-            </p>
+            <Logo size="md" showText={false} />
+            <div className="flex min-w-0 items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-gold-soft sm:text-[11px] sm:tracking-[0.28em]">
+              <span className="relative flex h-2 w-2 items-center justify-center">
+                <span className="live-ring relative h-2 w-2 rounded-full bg-gold" />
+              </span>
+              Command center live · Warangal HQ
+            </div>
           </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+          <div>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.12 }}
+              className="mb-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-gold sm:mb-4 sm:text-[11px] sm:tracking-[0.32em]"
+            >
+              License 417/2025 · Telangana
+            </motion.p>
+
+            <h1 className="font-display w-full text-[clamp(1.85rem,9vw,7.6rem)] font-medium leading-[0.96] tracking-tight text-ivory sm:leading-[0.94]">
+              {headlineLines.map((line, lineIndex) => (
+                <span key={line.words.join('-')} className={`block w-full ${line.italic ? 'italic text-gold-soft' : ''}`}>
+                  {line.words.map((word, wordIndex) => (
+                    <motion.span
+                      key={`${word}-${wordIndex}`}
+                      initial={{ opacity: 0, y: 28, filter: 'blur(10px)' }}
+                      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                      transition={{
+                        duration: 0.75,
+                        delay: 0.18 + (lineIndex * 3 + wordIndex) * 0.08,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className="mr-[0.22em] inline-block last:mr-0"
+                    >
+                      {word}
+                    </motion.span>
+                  ))}
+                </span>
+              ))}
+            </h1>
+          </div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="max-w-none text-2xl font-black leading-[1.15] tracking-tight text-white sm:text-3xl lg:text-4xl xl:text-[2.65rem]"
+            transition={{ duration: 0.7, delay: 0.55 }}
+            className="w-full text-sm leading-relaxed text-ivory/75 sm:text-base lg:max-w-none lg:text-lg xl:text-xl"
           >
-            One Ayudh Vikas ecosystem for{' '}
-            <span className="bg-gradient-to-r from-blue-400 via-red-400 to-amber-300 bg-clip-text text-transparent">
-              safety, jobs, mobility, food, news & care
-            </span>{' '}
-            across Warangal
-          </motion.h1>
+            Police-verified security, hotel-grade cleaning, and a city ecosystem for jobs, mobility, food, and news — deployed from{' '}
+            <span className="text-ivory">Warangal, Hanamkonda, and Kazipet</span> with 24-hour precision.
+          </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
+            transition={{ duration: 0.7, delay: 0.68 }}
             className="flex flex-wrap gap-2"
           >
-            {ecosystemServices.map((service) => {
+            {ecosystemServices.map((service, i) => {
               const Icon = service.icon;
-
               return (
-                <span
+                <motion.span
                   key={service.label}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[11px] font-extrabold text-white backdrop-blur-md"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.72 + i * 0.05 }}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-[11px] font-semibold tracking-wide text-ivory/90 backdrop-blur-md"
                 >
-                  <Icon className="h-3.5 w-3.5 text-emerald-300" />
+                  <Icon className="h-3.5 w-3.5 text-gold" />
                   {service.label}
-                </span>
+                </motion.span>
               );
             })}
           </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="w-full max-w-none text-sm leading-relaxed text-slate-300 sm:text-base lg:max-w-5xl"
-          >
-            From police-verified security and manpower jobs to AV Ride, food delivery, AV Life local news, and house-cleaning product delivery, we are building a practical service network for{' '}
-            <strong className="font-semibold text-white">Warangal, Hanamkonda, and Kazipet</strong>.
-          </motion.p>
-
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex w-full flex-col gap-3 pt-1 lg:flex-row lg:items-stretch"
+            transition={{ duration: 0.7, delay: 0.8 }}
+            className="flex w-full flex-col gap-3 pt-1 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center"
           >
-            <div className="flex min-w-0 flex-1 flex-col justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-              <button
-                onClick={onOpenQuoteModal}
-                className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-xl bg-gradient-to-r from-red-600 via-red-500 to-blue-900 px-6 py-3 text-sm font-bold text-white shadow-xl shadow-red-950/60 transition-all duration-300 hover:-translate-y-0.5 hover:from-red-500 hover:to-blue-800"
-              >
-                <Zap className="h-4 w-4 text-amber-300" />
-                <span>Request 24-Hour Quote</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </button>
+            <button
+              onClick={onOpenQuoteModal}
+              className="group relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-full px-7 py-3.5 text-sm font-semibold text-ink shadow-[0_12px_40px_rgba(16,185,129,0.28)] transition-transform duration-300 hover:-translate-y-0.5 sm:w-auto"
+            >
+              <span className="btn-gold absolute inset-0" />
+              <span className="relative">Request a private briefing</span>
+              <ArrowRight className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </button>
 
-              <button
-                onClick={() => onSelectTab?.('services')}
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-blue-500/60 bg-blue-950/80 px-6 py-3 text-sm font-semibold text-white shadow-sm backdrop-blur-md transition-all duration-300 hover:bg-blue-900"
-              >
-                <span>Explore Services</span>
-                <ArrowRight className="h-4 w-4 text-blue-300" />
-              </button>
-
-              {heroAppLinks.map((app) => {
-                const Icon = app.icon;
-
-                return (
-                  <a
-                    key={app.label}
-                    href={app.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/10 px-4 py-2.5 text-xs font-extrabold text-white shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-300/60 hover:bg-white/15"
-                  >
-                    <Icon className="h-4 w-4 text-emerald-300" />
-                    <span>{app.label}</span>
-                  </a>
-                );
-              })}
-            </div>
-
-            <aside className="w-full shrink-0 lg:w-[17.5rem]">
-              <button
-                type="button"
-                onClick={() => onSelectTab?.('ayudhklin-products')}
-                className="group flex h-full w-full flex-col justify-between rounded-2xl border border-emerald-300/40 bg-emerald-950/70 p-3.5 text-left shadow-lg shadow-emerald-950/40 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-emerald-300/70"
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <span className="rounded-full bg-emerald-400/20 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-emerald-200">
-                    Ad · AyudhKlin
-                  </span>
-                  <Sparkles className="h-4 w-4 text-emerald-300" />
-                </div>
-                <div className="mt-2">
-                  <p className="text-sm font-extrabold leading-snug text-white">
-                    Professional cleaning products for home & industry
-                  </p>
-                  <p className="mt-1 text-[11px] leading-relaxed text-emerald-100/80">
-                    Order hygiene supplies on WhatsApp. Same-city delivery across Warangal.
-                  </p>
-                </div>
-                <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-emerald-200">
-                  Shop catalog
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                </span>
-              </button>
-            </aside>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="grid w-full grid-cols-1 gap-3 border-t border-slate-800/80 pt-3 text-xs font-medium text-slate-300 sm:grid-cols-3"
-          >
-            <div className="flex items-center justify-start gap-2 rounded-xl border border-slate-800 bg-slate-900/80 p-3 shadow-sm backdrop-blur-md">
-              <div className="flex text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-3.5 w-3.5 fill-amber-400" />
-                ))}
-              </div>
-              <div className="text-left">
-                <span className="font-bold text-white">{COMPANY_INFO.rating}</span>
-                <span className="ml-1 text-slate-400">({COMPANY_INFO.reviewCount} Reviews)</span>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-start gap-2 rounded-xl border border-slate-800 bg-slate-900/80 p-3 shadow-sm backdrop-blur-md">
-              <div className="rounded-lg border border-red-800/50 bg-red-950 p-1.5 text-red-400">
-                <Activity className="h-4 w-4" />
-              </div>
-              <div className="text-left">
-                <span className="font-bold text-white">24/7 Emergency</span>
-                <span className="block text-[11px] text-slate-400">Command Center Active</span>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-start gap-2 rounded-xl border border-slate-800 bg-slate-900/80 p-3 shadow-sm backdrop-blur-md">
-              <div className="rounded-lg border border-blue-800/50 bg-blue-950 p-1.5 text-blue-400">
-                <ShieldCheck className="h-4 w-4" />
-              </div>
-              <div className="text-left">
-                <span className="font-bold text-white">100% Police Verified</span>
-                <span className="block text-[11px] text-slate-400">Vetted Staff Deployment</span>
-              </div>
-            </div>
+            <button
+              onClick={() => onSelectTab?.('services')}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-sm font-medium text-ivory backdrop-blur-md transition-all duration-300 hover:border-gold/50 hover:bg-white/10 sm:w-auto"
+            >
+              Explore the house
+              <ArrowRight className="h-4 w-4 text-gold" />
+            </button>
           </motion.div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.95 }}
+          className="grid grid-cols-1 gap-3 border-t border-white/10 pt-6 sm:grid-cols-2 lg:grid-cols-4"
+        >
+          <div className="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/5 px-4 py-3.5 backdrop-blur-md">
+            <div className="flex text-gold">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="h-3.5 w-3.5 fill-gold" />
+              ))}
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-ivory">{COMPANY_INFO.rating} Justdial</p>
+              <p className="text-[11px] text-ivory/55">{COMPANY_INFO.reviewCount} verified reviews</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/5 px-4 py-3.5 backdrop-blur-md">
+            <span className="grid h-9 w-9 place-items-center rounded-full border border-gold/30 bg-gold/10 text-gold">
+              <ShieldCheck className="h-4 w-4" />
+            </span>
+            <div>
+              <p className="text-sm font-semibold text-ivory">100% Police Verified</p>
+              <p className="text-[11px] text-ivory/55">Biometric & address cleared</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/5 px-4 py-3.5 backdrop-blur-md">
+            <span className="relative grid h-9 w-9 place-items-center rounded-full border border-crimson/40 bg-crimson/15 text-red-300">
+              <span className="absolute h-2 w-2 animate-ping rounded-full bg-red-400" />
+              <span className="h-2 w-2 rounded-full bg-red-400" />
+            </span>
+            <div>
+              <p className="text-sm font-semibold text-ivory">24/7 Operations</p>
+              <p className="text-[11px] text-ivory/55">QRT standby under 60 minutes</p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => onSelectTab?.('ayudhklin-products')}
+            className="group flex items-center justify-between gap-3 rounded-2xl border border-gold/25 bg-gold/10 px-4 py-3.5 text-left backdrop-blur-md transition-all duration-300 hover:border-gold/50 hover:bg-gold/15"
+          >
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gold">AyudhKlin</p>
+              <p className="text-sm font-semibold text-ivory">Shop Professional Care</p>
+            </div>
+            <ArrowRight className="h-4 w-4 text-gold transition-transform duration-300 group-hover:translate-x-1" />
+          </button>
+        </motion.div>
       </div>
+
     </section>
   );
 };

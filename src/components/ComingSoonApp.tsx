@@ -145,7 +145,7 @@ const ComingSoonHeader: React.FC<{ type: 'ride' | 'food'; onSelectTab: (tab: str
         <div className="flex items-center gap-2">
           <a
             href={`tel:${COMPANY_INFO.phone}`}
-            className={`inline-flex items-center gap-2 rounded-xl border ${content.border} ${content.softBg} px-3 py-2 text-xs font-bold ${content.accent}`}
+            className={`inline-flex shrink-0 items-center gap-2 rounded-xl border ${content.border} ${content.softBg} px-2.5 py-2 text-xs font-bold ${content.accent} sm:px-3`}
           >
             <Phone className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">{COMPANY_INFO.phoneDisplay}</span>
@@ -196,7 +196,7 @@ const RideBookingPreview: React.FC = () => {
 
   return (
     <div id="booking" className="rounded-2xl border border-slate-200 bg-white p-4 shadow-2xl shadow-slate-950/10 sm:p-5">
-      <div className="flex items-start justify-between gap-4 border-b border-slate-200 pb-4">
+      <div className="flex flex-col items-start justify-between gap-3 border-b border-slate-200 pb-4 sm:flex-row sm:gap-4">
         <div>
             <p className="text-xs font-bold uppercase text-blue-700">Ride booking preview</p>
             <h2 className="text-xl font-extrabold text-slate-950">Plan a Warangal ride</h2>
@@ -274,7 +274,7 @@ const FoodOrderPreview: React.FC = () => {
 
   return (
     <div id="booking" className="rounded-2xl border border-slate-200 bg-white p-4 shadow-2xl shadow-slate-950/10 sm:p-5">
-      <div className="flex items-start justify-between gap-4 border-b border-slate-200 pb-4">
+      <div className="flex flex-col items-start justify-between gap-3 border-b border-slate-200 pb-4 sm:flex-row sm:gap-4">
         <div>
             <p className="text-xs font-bold uppercase text-red-700">Food ordering preview</p>
             <h2 className="text-xl font-extrabold text-slate-950">Schedule a Warangal meal order</h2>
@@ -353,7 +353,7 @@ export const ComingSoonApp: React.FC<ComingSoonAppProps> = ({ type, onSelectTab,
         <section className="relative overflow-hidden bg-slate-950 text-white">
           <img src={content.hero} alt={`${content.badge} Warangal service preview`} className="absolute inset-0 h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/78 to-slate-950/15" />
-          <div className="relative mx-auto grid min-h-[520px] max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[0.9fr_0.85fr] lg:px-8">
+          <div className="relative mx-auto grid min-h-[28rem] max-w-7xl items-center gap-10 px-4 py-12 sm:min-h-[520px] sm:px-6 sm:py-14 lg:grid-cols-[0.9fr_0.85fr] lg:px-8">
             <div>
               <div className={`inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-bold text-white backdrop-blur`}>
                 <Sparkles className="h-3.5 w-3.5 text-amber-300" />
@@ -365,7 +365,7 @@ export const ComingSoonApp: React.FC<ComingSoonAppProps> = ({ type, onSelectTab,
                 </span>
                 <p className="text-sm font-extrabold uppercase tracking-wide text-white/70">{content.badge}</p>
               </div>
-              <h1 className="mt-4 max-w-2xl text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+              <h1 className="mt-4 max-w-2xl text-3xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
                 {content.title}
               </h1>
               <p className="mt-4 inline-flex rounded-full bg-amber-400 px-4 py-1.5 text-xs font-extrabold uppercase text-slate-950 shadow-lg shadow-amber-500/20">

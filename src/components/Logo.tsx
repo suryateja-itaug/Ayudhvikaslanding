@@ -84,10 +84,12 @@ export const Logo: React.FC<LogoProps> = ({
 
       {showText && (
         <div className="flex flex-col leading-tight">
-          <span className={`font-black tracking-tight text-base sm:text-lg ${textColor}`}>
-            AYUDH <span className="text-red-600">VIKAS</span>
+          <span className={`text-sm font-black tracking-tight sm:text-base lg:text-lg ${textColor}`}>
+            AYUDH <span className="text-crimson">VIKAS</span>
           </span>
-          <span className="text-[9px] font-bold tracking-widest text-emerald-700 uppercase -mt-0.5">
+          <span className={`-mt-0.5 text-[9px] font-bold uppercase tracking-widest ${
+            textColor.includes('ivory') || textColor.includes('white') ? 'text-gold' : 'text-emerald-700'
+          }`}>
             Manpower Solutions
           </span>
         </div>

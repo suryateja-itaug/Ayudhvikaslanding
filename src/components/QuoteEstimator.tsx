@@ -147,15 +147,15 @@ export const QuoteEstimator: React.FC = () => {
         </div>
 
         {/* Main Form Container */}
-        <div className="max-w-4xl mx-auto bg-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+        <div className="relative mx-auto max-w-4xl overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 p-4 shadow-2xl sm:rounded-3xl sm:p-10">
           
           {/* Progress Indicator */}
           {!submitted && (
             <div className="mb-8">
-              <div className="flex items-center justify-between text-xs font-semibold text-slate-400 mb-2">
-                <span className={step >= 1 ? 'text-red-400' : ''}>1. Service & Property</span>
-                <span className={step >= 2 ? 'text-red-400' : ''}>2. Scale & Shift</span>
-                <span className={step >= 3 ? 'text-red-400' : ''}>3. Contact & Delivery</span>
+              <div className="mb-2 flex items-center justify-between gap-2 text-[10px] font-semibold text-slate-400 sm:text-xs">
+                <span className={`min-w-0 truncate ${step >= 1 ? 'text-red-400' : ''}`}>1. Service</span>
+                <span className={`min-w-0 truncate ${step >= 2 ? 'text-red-400' : ''}`}>2. Scale</span>
+                <span className={`min-w-0 truncate ${step >= 3 ? 'text-red-400' : ''}`}>3. Contact</span>
               </div>
 
               <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
@@ -349,7 +349,7 @@ export const QuoteEstimator: React.FC = () => {
                         <input
                           type="text"
                           required
-                          placeholder="e.g. Ramesh Varma"
+                          placeholder="E.g. Ramesh Varma"
                           value={formData.fullName}
                           onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                           className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-red-500"
@@ -362,7 +362,7 @@ export const QuoteEstimator: React.FC = () => {
                         </label>
                         <input
                           type="text"
-                          placeholder="e.g. Apex Tech Park"
+                          placeholder="E.g. Apex Tech Park"
                           value={formData.companyName}
                           onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                           className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-red-500"
@@ -389,7 +389,7 @@ export const QuoteEstimator: React.FC = () => {
                         </label>
                         <input
                           type="email"
-                          placeholder="name@company.com"
+                          placeholder="Name@company.com"
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-red-500"
@@ -403,7 +403,7 @@ export const QuoteEstimator: React.FC = () => {
                       </label>
                       <input
                         type="text"
-                        placeholder="e.g. Hanamkonda, Warangal"
+                        placeholder="E.g. Hanamkonda, Warangal"
                         value={formData.location}
                         onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                         className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-red-500"
@@ -416,7 +416,7 @@ export const QuoteEstimator: React.FC = () => {
                       </label>
                       <textarea
                         rows={2}
-                        placeholder="e.g. Need 2 guards for the entrance gate and a deep-cleaning team for the office..."
+                        placeholder="E.g. Need 2 Guards For The Entrance Gate And A Deep-cleaning Team For The Office..."
                         value={formData.additionalNotes}
                         onChange={(e) => setFormData({ ...formData, additionalNotes: e.target.value })}
                         className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-red-500 resize-none"

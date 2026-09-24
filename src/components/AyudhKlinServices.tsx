@@ -24,16 +24,16 @@ const services = [
 ];
 
 export const AyudhKlinServices: React.FC<AyudhKlinServicesProps> = ({ onOpenQuoteModal }) => (
-  <div className="min-h-screen bg-white pb-20 text-slate-900">
+  <div className="min-h-screen bg-white pb-8 text-slate-900">
     <section className="bg-gradient-to-br from-emerald-700 via-emerald-600 to-teal-600 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 grid lg:grid-cols-2 gap-10 items-center">
         <div>
           <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-bold"><Sparkles className="w-4 h-4" /> AyudhKlin Services</div>
-          <h1 className="mt-5 text-4xl sm:text-5xl font-black tracking-tight">Deep cleaning that makes every space feel cared for.</h1>
-          <p className="mt-5 text-emerald-50 text-lg leading-relaxed">From homes and offices to industrial sites, our trained teams deliver systematic deep cleaning with professional equipment and hygiene-focused products.</p>
-          <button onClick={() => onOpenQuoteModal('AyudhKlin Deep Cleaning Service')} className="mt-7 rounded-xl bg-white px-6 py-3 font-bold text-emerald-700 shadow-lg hover:bg-emerald-50 transition-colors">Request a deep-cleaning quote</button>
+          <h1 className="mt-5 text-3xl font-black tracking-tight sm:text-5xl">Deep cleaning that makes every space feel cared for.</h1>
+          <p className="mt-5 text-base leading-relaxed text-emerald-50 sm:text-lg">From homes and offices to industrial sites, our trained teams deliver systematic deep cleaning with professional equipment and hygiene-focused products.</p>
+          <button onClick={() => onOpenQuoteModal('AyudhKlin Deep Cleaning Service')} className="mt-7 w-full rounded-xl bg-white px-6 py-3 font-bold text-emerald-700 shadow-lg transition-colors hover:bg-emerald-50 sm:w-auto">Request a deep-cleaning quote</button>
         </div>
-        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=85" alt="Professional deep cleaning team at work" className="w-full h-72 lg:h-96 object-cover rounded-3xl border border-white/25 shadow-2xl" />
+        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=85" alt="Professional deep cleaning team at work" className="h-56 w-full rounded-3xl border border-white/25 object-cover shadow-2xl sm:h-72 lg:h-96" />
       </div>
     </section>
 
