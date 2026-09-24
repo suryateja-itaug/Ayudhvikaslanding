@@ -115,11 +115,11 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
   return (
     <div className="relative overflow-hidden bg-ink text-ivory">
       {/* Trust marquee */}
-      <section className="border-b border-white/8 bg-ink py-5">
+      <section className="border-b border-white/8 bg-ink py-4">
         <div className="mask-fade-x overflow-hidden">
           <div className="marquee-track flex items-center gap-10 pr-10">
             {[...marqueeItems, ...marqueeItems].map((item, i) => (
-              <span key={`${item}-${i}`} className="flex items-center gap-10 text-[11px] font-semibold uppercase tracking-[0.26em] text-ivory/55">
+              <span key={`${item}-${i}`} className="flex items-center gap-10 text-[10px] font-semibold uppercase tracking-[0.26em] text-ivory/55">
                 <span className="text-gold">✦</span>
                 {item}
               </span>
@@ -128,10 +128,77 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
         </div>
       </section>
 
+      {/* Tender readiness */}
+      <section className="relative overflow-hidden border-b border-white/8 bg-gradient-to-b from-ink to-ink-2 px-4 py-12 sm:px-6 lg:px-10">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
+        <div className="mx-auto grid max-w-[96rem] gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-80px' }}
+          >
+            <Eyebrow light>Tenders and contracts</Eyebrow>
+            <h2 className="font-display mt-4 max-w-3xl text-3xl font-medium leading-tight tracking-tight text-ivory sm:text-4xl lg:text-5xl">
+              Ready for tenders, contracts, and site visits.
+            </h2>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-ivory/70">
+              We keep the important details ready: company license, staff verification, EPF/ESIC support, service scope, supervisor plan, and fast deployment for security, manpower, and cleaning work.
+            </p>
+          </motion.div>
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            {[
+              { icon: ClipboardCheck, title: 'Documents ready', desc: 'License, address, EPF, ESIC, and service details can be shared clearly.' },
+              { icon: ShieldCheck, title: 'Verified staff', desc: 'Police-verified guards and trained workers with uniform and supervisor support.' },
+              { icon: Timer, title: 'Clear service plan', desc: 'Shift timing, replacement staff, escalation contact, and reporting process.' },
+              { icon: Building2, title: 'Works for many sites', desc: 'Apartments, schools, hospitals, offices, events, and industrial locations.' },
+            ].map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={item.title}
+                  custom={index}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, margin: '-80px' }}
+                  className="group rounded-2xl border border-white/8 bg-white/[0.045] p-5 transition-colors hover:border-gold/35 hover:bg-gold/[0.07]"
+                >
+                  <div className="flex items-start gap-4">
+                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-gold/25 bg-gold/10 text-gold">
+                      <Icon className="h-4 w-4" />
+                    </span>
+                    <div>
+                      <h3 className="text-base font-semibold text-ivory">{item.title}</h3>
+                      <p className="mt-1 text-sm leading-relaxed text-ivory/60">{item.desc}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="mx-auto mt-8 flex max-w-[96rem] flex-col gap-3 border-t border-white/8 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ivory/45">
+            Important for tenders: documents, supervision, replacement staff, and clear service scope
+          </p>
+          <button
+            onClick={() => onOpenQuoteModal('Tender & Contract Requirement')}
+            className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] text-ink sm:w-auto"
+          >
+            <span className="btn-gold absolute inset-0" />
+            <span className="relative">Get contract quote</span>
+            <ArrowRight className="relative h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+          </button>
+        </div>
+      </section>
+
       {/* Featured protection */}
       <section ref={featuredRef} className="relative overflow-hidden">
         <div className="mx-auto grid max-w-[96rem] items-stretch lg:grid-cols-12">
-          <div className="relative h-64 overflow-hidden sm:h-[28rem] lg:col-span-7 lg:h-[40rem]">
+          <div className="relative h-64 overflow-hidden sm:h-[26rem] lg:col-span-7 lg:h-[34rem]">
             <motion.img
               src={bodyguardImg}
               alt="Ayudh Vikas executive protection detail"
@@ -142,12 +209,15 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
             <div className="grain-overlay opacity-30" />
           </div>
 
-          <div className="relative z-10 flex flex-col justify-center px-4 py-10 sm:px-8 sm:py-14 lg:col-span-5 lg:-ml-16 lg:px-12">
-            <Eyebrow light>Executive protection</Eyebrow>
-            <h2 className="font-display mt-5 text-3xl font-medium leading-[1.05] tracking-tight text-ivory sm:text-5xl lg:text-[3.4rem]">
-              Presence that is felt before it is seen.
+          <div className="relative z-10 flex flex-col justify-center px-4 py-9 sm:px-8 sm:py-12 lg:col-span-5 lg:-ml-16 lg:px-12">
+            <Eyebrow light>Security service</Eyebrow>
+            <h2 className="font-display mt-5 text-3xl font-medium leading-[1.05] tracking-tight text-ivory sm:text-5xl lg:text-[3rem]">
+              Trained guards for sites, events, and people.
             </h2>
-            <p className="mt-5 max-w-md text-sm leading-relaxed text-ivory/70 sm:text-base">
+            <p className="mt-5 max-w-md text-base leading-relaxed text-ivory/72">
+              Police-verified guards for gates, apartments, offices, events, VIP movement, crowd control, and night duty.
+            </p>
+            <p className="hidden">
               Elite, police-verified officers and close-protection specialists trained for VIP escort, crowd control, and perimeter command — the quiet confidence of a private house.
             </p>
             <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
@@ -156,14 +226,14 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
                 className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-semibold text-ink sm:w-auto"
               >
                 <span className="btn-gold absolute inset-0" />
-                <span className="relative">Request a security detail</span>
+                <span className="relative">Request security service</span>
                 <ArrowRight className="relative h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
               <button
                 onClick={() => onSelectTab('services')}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-ivory/90 hover:border-gold/40 sm:w-auto"
               >
-                View the portfolio
+                View services
               </button>
             </div>
           </div>
@@ -171,20 +241,20 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
       </section>
 
       {/* Services gallery */}
-      <section className="relative px-4 py-14 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+      <section className="relative px-4 py-12 sm:px-6 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto max-w-[96rem]">
           <div className="mb-12 flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
             <div className="max-w-2xl">
-              <Eyebrow light>House capabilities</Eyebrow>
+              <Eyebrow light>Main services</Eyebrow>
               <h2 className="font-display mt-4 text-3xl font-medium tracking-tight text-ivory sm:text-4xl lg:text-5xl">
-                Crafted for campuses, homes, and high-stakes rooms.
+                Services for homes, apartments, offices, and industries.
               </h2>
             </div>
             <button
               onClick={() => onSelectTab('services')}
               className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-gold hover:text-gold-soft"
             >
-              Full services ledger
+              View all services
               <ArrowRight className="h-4 w-4" />
             </button>
           </div>
@@ -194,7 +264,7 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
               {
                 img: securityGuardImg,
                 title: 'Guarding & Security',
-                desc: 'Biometric-tracked officers, industrial gatekeepers, and night patrol command.',
+                desc: 'Police-verified guards for gates, offices, apartments, industries, and night duty.',
                 tab: 'services',
                 span: 'md:col-span-3 md:row-span-2 min-h-[22rem] md:min-h-[34rem]',
                 eta: '24–48 Hr Deployment',
@@ -202,7 +272,7 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
               {
                 img: deepCleanImg,
                 title: 'AyudhKlin Deep Cleaning',
-                desc: 'Hotel-grade sanitation for homes, offices, and industrial floors.',
+                desc: 'Deep cleaning for homes, offices, bathrooms, floors, and commercial spaces.',
                 tab: 'ayudhklin-services',
                 span: 'md:col-span-3 min-h-[16rem]',
                 eta: 'Same Day / Next Day',
@@ -210,7 +280,7 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
               {
                 img: facilityImg,
                 title: 'Facility Management',
-                desc: 'MEP upkeep, janitorial SLAs, and a dedicated site manager.',
+                desc: 'Housekeeping, maintenance support, daily supervision, and site coordination.',
                 tab: 'services',
                 span: 'md:col-span-3 min-h-[16rem]',
                 eta: 'Dedicated SLA Manager',
@@ -237,13 +307,13 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
                   <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
                   <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_30%_80%,rgba(16,185,129,0.22),transparent_55%)]" />
                   <div className="absolute inset-x-0 bottom-0 p-4 sm:p-8">
-                    <span className="rounded-full border border-gold/30 bg-ink/50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-soft backdrop-blur-md">
+                    <span className="rounded-full border border-gold/30 bg-ink/50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-gold-soft backdrop-blur-md">
                       {card.eta}
                     </span>
                     <h3 className="font-display mt-3 text-2xl font-medium text-ivory sm:text-3xl">{card.title}</h3>
-                    <p className="mt-2 max-w-md text-sm text-ivory/70">{card.desc}</p>
-                    <span className="mt-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-gold">
-                      Enter
+                    <p className="mt-2 max-w-md text-base leading-relaxed text-ivory/75">{card.desc}</p>
+                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gold">
+                      View service
                       <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                     </span>
                   </div>
@@ -260,8 +330,8 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
               <img src={vipImg} alt="VIP event security" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
               <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-6">
-                <h3 className="font-display text-2xl font-medium text-ivory">Event & VIP escort</h3>
-                <p className="mt-1 text-sm text-ivory/70">Red-carpet presence, DFMD screening, and crowd choreography.</p>
+                <h3 className="font-display text-2xl font-medium text-ivory">Event & VIP security</h3>
+                <p className="mt-1 text-base text-ivory/75">Security for events, VIP movement, entry checking, and crowd control.</p>
               </div>
             </TiltCard>
             <TiltCard
@@ -272,7 +342,7 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
               <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-6">
                 <h3 className="font-display text-2xl font-medium text-ivory">Corporate manpower</h3>
-                <p className="mt-1 text-sm text-ivory/70">Front desk, pantry, and operations staff with full statutory cover.</p>
+                <p className="mt-1 text-base text-ivory/75">Staff for reception, pantry, housekeeping, office support, and daily operations.</p>
               </div>
             </TiltCard>
           </div>
@@ -283,22 +353,25 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
       <section className="relative border-y border-white/8 bg-ink-2 px-4 py-14 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-[96rem]">
           <div className="mb-12 max-w-2xl">
-            <Eyebrow light>The Ayudh Vikas ecosystem</Eyebrow>
+            <Eyebrow light>Ayudh Vikas services</Eyebrow>
             <h2 className="font-display mt-4 text-3xl font-medium tracking-tight text-ivory sm:text-4xl lg:text-5xl">
-              One house. A city of services.
+              One company, many useful services.
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-ivory/65 sm:text-base">
+            <p className="mt-4 text-base leading-relaxed text-ivory/70">
+              Security is our main service. We are also building support for manpower, cleaning products, rides, food delivery, and local news.
+            </p>
+            <p className="hidden">
               Security remains the core. Around it we are building the daily life of Warangal — ride, food, jobs, news, and professional care.
             </p>
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {[
-              { img: securityGuardImg, title: 'AV Security', status: 'Live', desc: 'Manned guarding and executive protection.', action: () => onSelectTab('services') },
+              { img: securityGuardImg, title: 'AV Security', status: 'Live', desc: 'Security guards and event protection.', action: () => onSelectTab('services') },
               { img: klinDeliveryImg, title: 'AyudhKlin', status: 'Live', desc: 'Deep cleaning and hygiene product delivery.', action: () => onSelectTab('ayudhklin-products') },
-              { img: staffingImg, title: 'AV Manpower', status: 'Live', desc: 'Verified jobs and corporate staffing.', href: 'https://ayudh-vikas-manpower.vercel.app' },
+              { img: staffingImg, title: 'AV Manpower', status: 'Live', desc: 'Jobs and staff support for businesses.', href: 'https://ayudh-vikas-manpower.vercel.app' },
               { img: avRideImg, title: 'AV Ride', status: 'Coming soon', desc: 'Trusted local mobility for Warangal.', action: () => onSelectTab('av-ride') },
-              { img: avFoodImg, title: 'AV Food', status: 'Coming soon', desc: 'City kitchens, delivered with care.', action: () => onSelectTab('av-food') },
+              { img: avFoodImg, title: 'AV Food', status: 'Coming soon', desc: 'Food ordering and delivery in Warangal.', action: () => onSelectTab('av-food') },
               { img: avNewsImg, title: 'AV Life News', status: 'Coming soon', desc: 'Local stories from Hanamkonda to Kazipet.', action: () => onSelectTab('about-us') },
             ].map((item, i) => (
               <motion.button
@@ -325,7 +398,7 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
                 <div className="flex items-end justify-between gap-3 p-5">
                   <div>
                     <h3 className="font-display text-2xl font-medium text-ivory">{item.title}</h3>
-                    <p className="mt-1 text-sm text-ivory/60">{item.desc}</p>
+                    <p className="mt-1 text-base leading-relaxed text-ivory/68">{item.desc}</p>
                   </div>
                   <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-white/10 text-gold transition-all group-hover:border-gold/50 group-hover:bg-gold group-hover:text-ink">
                     <ArrowRight className="h-4 w-4" />
@@ -343,28 +416,28 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
         <div className="mx-auto max-w-[96rem]">
           <div className="mb-14 flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
             <div className="max-w-2xl">
-              <Eyebrow light>The Ayudh Vikas promise</Eyebrow>
+              <Eyebrow light>Why clients choose us</Eyebrow>
               <h2 className="font-display mt-4 text-3xl font-medium tracking-tight text-ivory sm:text-4xl lg:text-5xl">
-                Why enterprises choose the house over local agencies.
+                Clear service, verified staff, and quick support.
               </h2>
             </div>
             <button
               onClick={() => onSelectTab('why-us')}
               className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-ivory hover:border-gold/40"
             >
-              Compare in detail
+              Know more
               <ArrowRight className="h-4 w-4 text-gold" />
             </button>
           </div>
 
           <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[1.6rem] border border-white/8 bg-white/8 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { n: '01', icon: UserCheck, title: '100% Police Verified', desc: 'Biometric, address, and local police clearance before any posting.' },
-              { n: '02', icon: BadgeCheck, title: 'Statutory compliance', desc: 'EPF, ESIC, and minimum wage proof with every billing cycle.' },
-              { n: '03', icon: Smartphone, title: 'GPS patrol tracking', desc: 'NFC and QR checkpoints that make duty lapses visible in real time.' },
-              { n: '04', icon: Siren, title: '24/7 Standby QRT', desc: 'Substitute officers dispatched within 60 minutes. Zero unstaffed gates.' },
+              { n: '01', icon: UserCheck, title: '100% Police Verified', desc: 'Address check, biometric record, and police verification before duty.' },
+              { n: '02', icon: BadgeCheck, title: 'EPF / ESIC support', desc: 'EPF, ESIC, and wage details can be shared clearly for billing.' },
+              { n: '03', icon: Smartphone, title: 'GPS patrol tracking', desc: 'QR and GPS checkpoints help track duty and patrol activity.' },
+              { n: '04', icon: Siren, title: '24/7 Standby Team', desc: 'Replacement staff and emergency support are available when needed.' },
               { n: '05', icon: ClipboardCheck, title: 'Transparent ledgers', desc: 'Upfront pricing. Statutory, management, and equipment — itemised.' },
-              { n: '06', icon: Phone, title: 'Named account manager', desc: 'A direct operations line. No call-center maze between you and the site.' },
+              { n: '06', icon: Phone, title: 'Direct support person', desc: 'You get a direct contact person for follow-up and site coordination.' },
             ].map((item, i) => {
               const Icon = item.icon;
               return (
@@ -382,7 +455,7 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
                     <Icon className="h-5 w-5 text-gold" />
                   </div>
                   <h3 className="mt-6 text-lg font-semibold text-ivory">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ivory/60">{item.desc}</p>
+                  <p className="mt-2 text-base leading-relaxed text-ivory/65">{item.desc}</p>
                 </motion.div>
               );
             })}
@@ -395,11 +468,11 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
         <div className="mx-auto max-w-[96rem]">
           <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
-              <Eyebrow light>Official credentials</Eyebrow>
+              <Eyebrow light>License and proof</Eyebrow>
               <h2 className="font-display mt-4 text-3xl font-medium tracking-tight text-ivory sm:text-4xl lg:text-5xl">
-                Licensed. Awarded. Field ready.
+                Registered, verified, and ready for work.
               </h2>
-              <p className="mt-4 text-sm leading-relaxed text-ivory/65">
+              <p className="mt-4 text-base leading-relaxed text-ivory/70">
                 Government licensed under <span className="text-ivory">Reg. No. 417/2025, Telangana</span>. Statutory EPF/ESIC compliance from Warangal HQ.
               </p>
             </div>
@@ -410,7 +483,7 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
                 { k: 'Justdial', v: '5.0 ★' },
               ].map((chip) => (
                 <div key={chip.k} className="rounded-2xl border border-gold/20 bg-gold/8 px-2 py-3 text-center sm:px-4">
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.12em] text-gold sm:text-[10px] sm:tracking-[0.2em]">{chip.k}</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-gold">{chip.k}</p>
                   <p className="mt-1 font-display text-base text-ivory sm:text-xl">{chip.v}</p>
                 </div>
               ))}
@@ -444,8 +517,8 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
                   return (
                     <div key={item.title} className="rounded-2xl border border-white/8 bg-ink p-5">
                       <Icon className="h-5 w-5 text-gold" />
-                      <h4 className="mt-3 text-sm font-semibold text-ivory">{item.title}</h4>
-                      <p className="mt-1 text-xs leading-relaxed text-ivory/55">{item.desc}</p>
+                      <h4 className="mt-3 text-base font-semibold text-ivory">{item.title}</h4>
+                      <p className="mt-1 text-sm leading-relaxed text-ivory/60">{item.desc}</p>
                     </div>
                   );
                 })}
@@ -488,9 +561,9 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
       <section className="px-4 py-14 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto max-w-[96rem]">
           <div className="mb-12 max-w-2xl">
-            <Eyebrow light>48-Hour Onboarding</Eyebrow>
+            <Eyebrow light>How service starts</Eyebrow>
             <h2 className="font-display mt-4 text-3xl font-medium tracking-tight text-ivory sm:text-4xl lg:text-5xl">
-              From audit to posted officers in four movements.
+              From site visit to staff deployment in simple steps.
             </h2>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
@@ -506,8 +579,8 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
               >
                 <p className="font-display text-5xl text-gold/70">{step.number}</p>
                 <h3 className="mt-4 text-lg font-semibold text-ivory">{step.title}</h3>
-                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-gold">{step.subtitle}</p>
-                <p className="mt-3 text-sm leading-relaxed text-ivory/60">{step.description}</p>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-gold">{step.subtitle}</p>
+                <p className="mt-3 text-base leading-relaxed text-ivory/65">{step.description}</p>
               </motion.div>
             ))}
           </div>
@@ -517,7 +590,7 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
               className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-7 py-3.5 text-sm font-semibold text-ink"
             >
               <span className="btn-gold absolute inset-0" />
-              <span className="relative">Begin the briefing</span>
+              <span className="relative">Start service request</span>
               <ArrowRight className="relative h-4 w-4 transition-transform group-hover:translate-x-1" />
             </button>
           </div>
@@ -528,9 +601,9 @@ export const HomePreviews: React.FC<HomePreviewsProps> = ({ onSelectTab, onOpenQ
       <section className="relative overflow-hidden border-y border-white/8 bg-ink-2 px-4 py-14 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
         <div className="pointer-events-none absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
         <div className="mx-auto max-w-4xl text-center">
-          <Eyebrow light>Client letters</Eyebrow>
+          <Eyebrow light>Client feedback</Eyebrow>
           <h2 className="font-display mx-auto mt-4 max-w-2xl text-3xl font-medium tracking-tight text-ivory sm:text-4xl lg:text-5xl">
-            Spoken by the people who sleep better.
+            What clients say about our service.
           </h2>
 
           <div className="relative mt-12 min-h-[12rem] sm:min-h-[16rem]">

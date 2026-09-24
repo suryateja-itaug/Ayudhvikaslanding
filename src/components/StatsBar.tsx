@@ -45,13 +45,13 @@ const StatCell: React.FC<(typeof STATS)[number] & { delay: number; active: boole
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
-      className="relative px-2 py-4 sm:px-6"
+      className="relative px-4 py-4 transition-colors hover:bg-white/[0.035] sm:px-5"
     >
-      <p className="font-display text-4xl font-medium tracking-tight text-ivory sm:text-5xl lg:text-6xl">
+      <p className="font-display text-3xl font-medium tracking-tight text-ivory sm:text-4xl lg:text-5xl">
         {formatted}
         <span className="text-gold">{suffix}</span>
       </p>
-      <div className="gold-hairline mt-4 mb-3 max-w-[7rem]" />
+      <div className="gold-hairline mt-3 mb-2 max-w-[5.5rem]" />
       <p className="text-sm font-semibold tracking-wide text-ivory">{label}</p>
       <p className="mt-1 text-xs text-ivory/50">{sub}</p>
     </motion.div>
@@ -63,9 +63,9 @@ export const StatsBar: React.FC = () => {
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section ref={ref} className="relative overflow-hidden border-y border-white/8 bg-ink-2">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.08),transparent_60%)]" />
-      <div className="relative mx-auto grid max-w-[96rem] grid-cols-1 divide-y divide-white/8 px-4 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4 lg:px-8">
+    <section ref={ref} className="relative overflow-hidden border-y border-white/8 bg-ink">
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(16,185,129,0.08),transparent_28%,transparent_72%,rgba(16,185,129,0.06))]" />
+      <div className="relative mx-auto grid max-w-[96rem] grid-cols-1 divide-y divide-white/8 px-3 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4 lg:px-6">
         {STATS.map((stat, idx) => (
           <StatCell key={stat.label} {...stat} delay={idx * 0.08} active={inView} />
         ))}

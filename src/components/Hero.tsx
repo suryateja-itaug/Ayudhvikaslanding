@@ -10,7 +10,6 @@ import {
   Utensils,
 } from 'lucide-react';
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
-import { COMPANY_INFO } from '../data/mockData';
 import { Logo } from './Logo';
 import securityHeroBg from '../assets/images/security_hero_bg_1784715806151.jpg';
 
@@ -55,7 +54,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onSelectTab }) => 
       id="hero"
       ref={stageRef}
       onMouseMove={handleMove}
-      className="relative flex min-h-[auto] items-end overflow-hidden bg-ink text-ivory sm:min-h-[calc(100svh-7.25rem)]"
+      className="relative flex min-h-[34rem] items-end overflow-hidden bg-ink text-ivory sm:min-h-[38rem] lg:min-h-[42rem]"
     >
       <div className="absolute inset-0 z-0 overflow-hidden">
         <motion.img
@@ -82,8 +81,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onSelectTab }) => 
         <span className="orbit-glow absolute left-0 top-0 h-24 w-24 rounded-full bg-gradient-to-br from-gold/25 to-transparent blur-xl" />
       </div>
 
-      <div className="relative z-20 mx-auto flex w-full max-w-[96rem] flex-col gap-6 px-4 pb-8 pt-8 sm:gap-8 sm:px-6 sm:pb-14 sm:pt-10 lg:gap-10 lg:pb-16 xl:px-10">
-        <div className="flex w-full flex-col gap-5 sm:gap-6">
+      <div className="relative z-20 mx-auto flex w-full max-w-[96rem] flex-col gap-5 px-4 pb-6 pt-8 sm:px-6 sm:pb-10 sm:pt-10 lg:pb-12 xl:px-10">
+        <div className="flex w-full max-w-6xl flex-col gap-4 sm:gap-5">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -109,7 +108,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onSelectTab }) => 
               License 417/2025 · Telangana
             </motion.p>
 
-            <h1 className="font-display w-full text-[clamp(1.85rem,9vw,7.6rem)] font-medium leading-[0.96] tracking-tight text-ivory sm:leading-[0.94]">
+            <h1 className="font-display w-full text-[clamp(2.35rem,7vw,6.1rem)] font-medium leading-[0.94] tracking-tight text-ivory">
               {headlineLines.map((line, lineIndex) => (
                 <span key={line.words.join('-')} className={`block w-full ${line.italic ? 'italic text-gold-soft' : ''}`}>
                   {line.words.map((word, wordIndex) => (
@@ -136,10 +135,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onSelectTab }) => 
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.55 }}
-            className="w-full text-sm leading-relaxed text-ivory/75 sm:text-base lg:max-w-none lg:text-lg xl:text-xl"
+            className="max-w-4xl text-base leading-relaxed text-ivory/78 sm:text-lg lg:text-xl"
           >
-            Police-verified security, hotel-grade cleaning, and a city ecosystem for jobs, mobility, food, and news — deployed from{' '}
-            <span className="text-ivory">Warangal, Hanamkonda, and Kazipet</span> with 24-hour precision.
+            Security guards, manpower, facility support, and deep-cleaning teams for apartments, offices, schools, hospitals, events, and industries across{' '}
+            <span className="text-ivory">Warangal, Hanamkonda, and Kazipet</span>.
           </motion.p>
 
           <motion.div
@@ -156,7 +155,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onSelectTab }) => 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.72 + i * 0.05 }}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-[11px] font-semibold tracking-wide text-ivory/90 backdrop-blur-md"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs font-semibold tracking-wide text-ivory/90 backdrop-blur-md"
                 >
                   <Icon className="h-3.5 w-3.5 text-gold" />
                   {service.label}
@@ -176,7 +175,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onSelectTab }) => 
               className="group relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-full px-7 py-3.5 text-sm font-semibold text-ink shadow-[0_12px_40px_rgba(16,185,129,0.28)] transition-transform duration-300 hover:-translate-y-0.5 sm:w-auto"
             >
               <span className="btn-gold absolute inset-0" />
-              <span className="relative">Request a private briefing</span>
+              <span className="relative">Get contract quote</span>
               <ArrowRight className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </button>
 
@@ -184,7 +183,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onSelectTab }) => 
               onClick={() => onSelectTab?.('services')}
               className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-sm font-medium text-ivory backdrop-blur-md transition-all duration-300 hover:border-gold/50 hover:bg-white/10 sm:w-auto"
             >
-              Explore the house
+              Explore services
               <ArrowRight className="h-4 w-4 text-gold" />
             </button>
           </motion.div>
@@ -194,45 +193,45 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onSelectTab }) => 
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.95 }}
-          className="grid grid-cols-1 gap-3 border-t border-white/10 pt-6 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid grid-cols-1 gap-2 border-t border-white/10 pt-5 sm:grid-cols-2 lg:grid-cols-4"
         >
-          <div className="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/5 px-4 py-3.5 backdrop-blur-md">
+          <div className="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/5 px-4 py-3 backdrop-blur-md">
             <div className="flex text-gold">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="h-3.5 w-3.5 fill-gold" />
               ))}
             </div>
             <div>
-              <p className="text-sm font-semibold text-ivory">{COMPANY_INFO.rating} Justdial</p>
-              <p className="text-[11px] text-ivory/55">{COMPANY_INFO.reviewCount} verified reviews</p>
+              <p className="text-sm font-semibold text-ivory">Tender Docs Ready</p>
+              <p className="text-xs text-ivory/60">License, EPF, ESIC & profiles</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/5 px-4 py-3.5 backdrop-blur-md">
+          <div className="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/5 px-4 py-3 backdrop-blur-md">
             <span className="grid h-9 w-9 place-items-center rounded-full border border-gold/30 bg-gold/10 text-gold">
               <ShieldCheck className="h-4 w-4" />
             </span>
             <div>
               <p className="text-sm font-semibold text-ivory">100% Police Verified</p>
-              <p className="text-[11px] text-ivory/55">Biometric & address cleared</p>
+              <p className="text-xs text-ivory/60">Biometric & address cleared</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/5 px-4 py-3.5 backdrop-blur-md">
+          <div className="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/5 px-4 py-3 backdrop-blur-md">
             <span className="relative grid h-9 w-9 place-items-center rounded-full border border-crimson/40 bg-crimson/15 text-red-300">
               <span className="absolute h-2 w-2 animate-ping rounded-full bg-red-400" />
               <span className="h-2 w-2 rounded-full bg-red-400" />
             </span>
             <div>
-              <p className="text-sm font-semibold text-ivory">24/7 Operations</p>
-              <p className="text-[11px] text-ivory/55">QRT standby under 60 minutes</p>
+              <p className="text-sm font-semibold text-ivory">24/7 SLA Support</p>
+              <p className="text-xs text-ivory/60">Escalation desk & standby teams</p>
             </div>
           </div>
 
           <button
             type="button"
             onClick={() => onSelectTab?.('ayudhklin-products')}
-            className="group flex items-center justify-between gap-3 rounded-2xl border border-gold/25 bg-gold/10 px-4 py-3.5 text-left backdrop-blur-md transition-all duration-300 hover:border-gold/50 hover:bg-gold/15"
+            className="group flex items-center justify-between gap-3 rounded-2xl border border-gold/25 bg-gold/10 px-4 py-3 text-left backdrop-blur-md transition-all duration-300 hover:border-gold/50 hover:bg-gold/15"
           >
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gold">AyudhKlin</p>
