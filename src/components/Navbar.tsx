@@ -23,15 +23,12 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
     { id: 'services', name: 'Services' },
     { id: 'ayudhklin-products', name: 'AyudhKlin Products' },
     { id: 'ayudhklin-services', name: 'AyudhKlin Services' },
+    { name: 'AV Jobs', href: 'https://ayudh-vikas-manpower.vercel.app' },
+    { id: 'av-ride', name: 'AV Ride' },
+    { id: 'av-food', name: 'AV Food' },
     { id: 'why-us', name: 'Why Us' },
     { id: 'faq', name: 'FAQ' },
     { id: 'contact', name: 'Contact' },
-  ];
-
-  const appLinks = [
-    { name: 'AV Jobs', href: 'https://ayudh-vikas-manpower.vercel.app', external: true },
-    { name: 'AV Ride', id: 'av-ride' },
-    { name: 'AV Food', id: 'av-food' },
   ];
 
   const navItemClass = (isActive: boolean) =>
@@ -102,35 +99,25 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
               darkNav ? 'border-white/10 bg-white/5' : 'border-ink/8 bg-white/70'
             }`}
           >
-            {navLinks.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => onSelectTab(link.id)}
-                className={navItemClass(activeTab === link.id)}
-              >
-                {link.name}
-              </button>
-            ))}
-            <span className={`mx-0.5 h-4 w-px shrink-0 ${darkNav ? 'bg-white/20' : 'bg-ink/15'}`} />
-            {appLinks.map((app) =>
-              app.external ? (
+            {navLinks.map((link) =>
+              link.href ? (
                 <a
-                  key={app.name}
-                  href={app.href}
+                  key={link.name}
+                  href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={navItemClass(false)}
                 >
-                  {app.name}
+                  {link.name}
                 </a>
               ) : (
                 <button
-                  key={app.name}
+                  key={link.id}
                   type="button"
-                  onClick={() => onSelectTab(app.id!)}
-                  className={navItemClass(activeTab === app.id)}
+                  onClick={() => onSelectTab(link.id!)}
+                  className={navItemClass(activeTab === link.id)}
                 >
-                  {app.name}
+                  {link.name}
                 </button>
               )
             )}
@@ -174,17 +161,33 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
           <div className="mt-4 max-h-[min(80dvh,36rem)] space-y-4 overflow-y-auto border-t border-ink/10 bg-ivory px-4 pb-7 pt-4 lg:hidden">
             <div className="flex flex-col gap-1">
               {navLinks.map((link) => {
-                const isActive = activeTab === link.id;
+                const isActive = Boolean(link.id) && activeTab === link.id;
+                const itemClass = `flex cursor-pointer items-center justify-between rounded-full px-4 py-3 text-sm font-semibold transition-colors ${
+                  isActive ? 'bg-ink text-ivory' : 'text-slate-800 hover:bg-ink/5'
+                }`;
+                if (link.href) {
+                  return (
+                    <a
+                      key={link.name}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={itemClass}
+                    >
+                      <span>{link.name}</span>
+                      <ArrowRight className="h-3.5 w-3.5 text-slate-400" />
+                    </a>
+                  );
+                }
                 return (
                   <button
                     key={link.id}
                     onClick={() => {
                       setMobileMenuOpen(false);
-                      onSelectTab(link.id);
+                      onSelectTab(link.id!);
                     }}
-                    className={`flex cursor-pointer items-center justify-between rounded-full px-4 py-3 text-sm font-semibold transition-colors ${
-                      isActive ? 'bg-ink text-ivory' : 'text-slate-800 hover:bg-ink/5'
-                    }`}
+                    className={itemClass}
                   >
                     <span>{link.name}</span>
                     <ArrowRight className={`h-3.5 w-3.5 ${isActive ? 'text-gold' : 'text-slate-400'}`} />
@@ -194,37 +197,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
             </div>
 
             <div className="flex flex-col gap-2 border-t border-ink/10 pt-3">
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-                {appLinks.map((app) =>
-                  app.external ? (
-                    <a
-                      key={app.name}
-                      href={app.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-center rounded-full bg-white py-3 text-sm font-semibold text-ink"
-                    >
-                      {app.name}
-                    </a>
-                  ) : (
-                    <button
-                      key={app.name}
-                      type="button"
-                      onClick={() => {
-                        setMobileMenuOpen(false);
-                        onSelectTab(app.id!);
-                      }}
-                      className={`flex items-center justify-center rounded-full py-3 text-sm font-semibold ${
-                        activeTab === app.id ? 'bg-ink text-ivory' : 'bg-white text-ink'
-                      }`}
-                    >
-                      {app.name}
-                    </button>
-                  )
-                )}
-              </div>
-
               <a
                 href={`tel:${COMPANY_INFO.phone}`}
                 className="flex items-center justify-center gap-2 rounded-full bg-white py-3 text-sm font-semibold text-ink"
