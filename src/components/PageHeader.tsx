@@ -1,5 +1,6 @@
 import React from 'react';
 import { Shield, ChevronRight, Zap } from 'lucide-react';
+import { Logo } from './Logo';
 
 interface PageHeaderProps {
   badge: string;
@@ -21,6 +22,13 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
       {/* Background glow & subtle patterns */}
       <div className="absolute top-0 right-1/3 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center space-y-3">
+        <button
+          onClick={() => onSelectTab('home')}
+          className="mb-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 backdrop-blur-md transition-colors hover:bg-white/15"
+          aria-label="Go to Ayudh Vikas home"
+        >
+          <Logo size="md" showText textColor="text-ivory" />
+        </button>
         
         {/* Breadcrumbs */}
         <nav className="flex items-center gap-2 text-xs font-semibold text-blue-200/90 mb-1">

@@ -16,6 +16,7 @@ import vijenderProfileImage from '../assets/images/vijender-profile.jpg';
 import govinduProfileImage from '../assets/images/govindu-vinay-kumar-profile.jpg';
 import allamAshokImage from '../assets/images/allam-ashok-profile.jpg';
 import ravinderProfileImage from '../assets/images/ravinder-profile.jpg';
+import { Logo } from './Logo';
 
 GlobalWorkerOptions.workerSrc = pdfWorker;
 
@@ -89,9 +90,14 @@ const FoundationStory: React.FC = () => (
       <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/45" />
       <div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <div>
-          <span className="inline-flex rounded-full border border-amber-300/40 bg-amber-300/10 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-amber-200">
-            Ayudh Vikas Manpower
-          </span>
+          <div className="mb-5 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+            <div className="inline-flex h-14 items-center rounded-full border border-white/15 bg-white/10 px-4 backdrop-blur-md">
+              <Logo size="md" showText textColor="text-ivory" />
+            </div>
+            <span className="inline-flex h-14 items-center rounded-full border border-amber-300/40 bg-amber-300/10 px-5 text-xs font-black uppercase tracking-[0.18em] text-amber-200">
+              Ayudh Vikas Manpower
+            </span>
+          </div>
           <h1 className="mt-5 max-w-4xl text-3xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">
             Security, Deep Cleaning & Manpower Support
           </h1>

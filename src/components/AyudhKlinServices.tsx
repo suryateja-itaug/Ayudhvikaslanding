@@ -1,5 +1,6 @@
 import React from 'react';
 import { CheckCircle2, Clock3, Sparkles, SprayCan, UsersRound } from 'lucide-react';
+import { Logo } from './Logo';
 
 interface AyudhKlinServicesProps {
   onOpenQuoteModal: (serviceName?: string) => void;
@@ -28,7 +29,15 @@ export const AyudhKlinServices: React.FC<AyudhKlinServicesProps> = ({ onOpenQuot
     <section className="bg-gradient-to-br from-emerald-700 via-emerald-600 to-teal-600 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 grid lg:grid-cols-2 gap-10 items-center">
         <div>
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-bold"><Sparkles className="w-4 h-4" /> AyudhKlin Services</div>
+          <div className="mb-5 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+            <div className="inline-flex h-14 items-center rounded-full border border-white/20 bg-white/10 px-4 backdrop-blur-md">
+              <Logo size="md" showText textColor="text-ivory" />
+            </div>
+            <div className="inline-flex h-14 items-center gap-2 rounded-full bg-white/15 px-5 text-sm font-bold">
+              <Sparkles className="w-4 h-4" />
+              AyudhKlin Services
+            </div>
+          </div>
           <h1 className="mt-5 text-3xl font-black tracking-tight sm:text-5xl">Deep cleaning that makes every space feel cared for.</h1>
           <p className="mt-5 text-base leading-relaxed text-emerald-50 sm:text-lg">From homes and offices to industrial sites, our trained teams deliver systematic deep cleaning with professional equipment and hygiene-focused products.</p>
           <button onClick={() => onOpenQuoteModal('AyudhKlin Deep Cleaning Service')} className="mt-7 w-full rounded-xl bg-white px-6 py-3 font-bold text-emerald-700 shadow-lg transition-colors hover:bg-emerald-50 sm:w-auto">Request a deep-cleaning quote</button>

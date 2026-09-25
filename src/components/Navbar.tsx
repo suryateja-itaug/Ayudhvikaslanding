@@ -46,7 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
   ];
 
   const navItemClass = (isActive: boolean) =>
-    `px-2.5 2xl:px-3 py-1.5 text-[11px] font-semibold tracking-wide rounded-full transition-all duration-200 cursor-pointer whitespace-nowrap ${
+    `px-3 2xl:px-3.5 py-2 text-xs font-semibold tracking-wide rounded-full transition-all duration-200 cursor-pointer whitespace-nowrap ${
       isActive
         ? darkNav
           ? 'bg-gold text-ink shadow-md shadow-gold/20'
@@ -60,7 +60,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
   return (
     <>
       <div className={`border-b text-xs ${darkNav ? 'border-white/10 bg-ink/90 text-ivory' : 'border-ink/10 bg-ink text-ivory'}`}>
-        <div className="mx-auto flex max-w-[96rem] items-center justify-between gap-2 px-3 py-1.5 sm:px-4">
+        <div className="mx-auto flex max-w-[96rem] items-center justify-between gap-2 px-3 py-2 sm:px-4 sm:py-2.5">
           <div className="flex min-w-0 items-center gap-2 sm:gap-3">
             <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-gold/30 bg-gold/10 px-2 py-0.5 text-[10px] font-semibold text-gold-soft sm:px-2.5 sm:text-[11px]">
               <span className="relative flex h-1.5 w-1.5">
@@ -100,16 +100,16 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
       <header
         className={`sticky top-0 z-40 transition-all duration-500 ${
           darkNav
-            ? 'border-b border-white/8 bg-ink/35 py-3.5 backdrop-blur-md'
-            : 'border-b border-ink/8 bg-ivory/92 py-2.5 shadow-[0_10px_40px_rgba(7,9,15,0.08)] backdrop-blur-xl'
+            ? 'border-b border-white/8 bg-ink/35 py-5 backdrop-blur-md'
+            : 'border-b border-ink/8 bg-ivory/92 py-4 shadow-[0_10px_40px_rgba(7,9,15,0.08)] backdrop-blur-xl'
         }`}
       >
-        <div className="mx-auto flex max-w-[96rem] items-center justify-between gap-2 px-3 sm:px-4 xl:px-6">
+        <div className="mx-auto flex max-w-[96rem] items-center justify-between gap-3 px-3 sm:px-4 xl:px-6">
           <button
             onClick={() => onSelectTab('home')}
             className="group flex min-w-0 shrink-0 cursor-pointer items-center border-none bg-transparent text-left"
           >
-            <Logo size="sm" showText={true} textColor={darkNav ? 'text-ivory' : 'text-ink'} />
+            <Logo size="md" showText={true} textColor={darkNav ? 'text-ivory' : 'text-ink'} />
           </button>
 
           <nav
@@ -155,7 +155,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
 
             <a
               href={`tel:${COMPANY_INFO.phone}`}
-              className={`grid h-8 w-8 place-items-center rounded-full border ${
+              className={`grid h-10 w-10 place-items-center rounded-full border ${
                 darkNav
                   ? 'border-white/15 text-ivory hover:border-gold/50 hover:text-gold'
                   : 'border-ink/10 text-ink hover:border-gold hover:text-gold'
@@ -167,7 +167,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
 
             <button
               onClick={onOpenQuoteModal}
-              className="relative overflow-hidden rounded-full px-3.5 py-1.5 text-[11px] font-semibold text-ink"
+              className="relative overflow-hidden rounded-full px-5 py-2.5 text-xs font-semibold text-ink"
             >
               <span className="btn-gold absolute inset-0" />
               <span className="relative">Get Quote</span>
@@ -176,7 +176,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`rounded-xl border p-2 lg:hidden ${
+            className={`rounded-xl border p-2.5 lg:hidden ${
               darkNav ? 'border-white/15 text-ivory' : 'border-ink/10 text-ink'
             }`}
             aria-label="Toggle Navigation Menu"
@@ -186,7 +186,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
         </div>
 
         {mobileMenuOpen && (
-          <div className="mt-3 max-h-[min(80dvh,36rem)] space-y-3 overflow-y-auto border-t border-ink/10 bg-ivory px-4 pb-6 pt-3 lg:hidden">
+          <div className="mt-4 max-h-[min(80dvh,36rem)] space-y-4 overflow-y-auto border-t border-ink/10 bg-ivory px-4 pb-7 pt-4 lg:hidden">
             <div className="flex flex-col gap-1">
               {navLinks.map((link) => {
                 const isActive = activeTab === link.id;
@@ -197,7 +197,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
                       setMobileMenuOpen(false);
                       onSelectTab(link.id);
                     }}
-                    className={`flex cursor-pointer items-center justify-between rounded-full px-4 py-2.5 text-sm font-semibold transition-colors ${
+                    className={`flex cursor-pointer items-center justify-between rounded-full px-4 py-3 text-sm font-semibold transition-colors ${
                       isActive ? 'bg-ink text-ivory' : 'text-slate-800 hover:bg-ink/5'
                     }`}
                   >
@@ -218,7 +218,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-center rounded-full bg-white py-2.5 text-sm font-semibold text-ink"
+                      className="flex items-center justify-center rounded-full bg-white py-3 text-sm font-semibold text-ink"
                     >
                       {app.name}
                     </a>
@@ -230,7 +230,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
                         setMobileMenuOpen(false);
                         onSelectTab(app.id!);
                       }}
-                      className={`flex items-center justify-center rounded-full py-2.5 text-sm font-semibold ${
+                      className={`flex items-center justify-center rounded-full py-3 text-sm font-semibold ${
                         activeTab === app.id ? 'bg-ink text-ivory' : 'bg-white text-ink'
                       }`}
                     >
@@ -242,7 +242,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
 
               <a
                 href={`tel:${COMPANY_INFO.phone}`}
-                className="flex items-center justify-center gap-2 rounded-full bg-white py-2.5 text-sm font-semibold text-ink"
+                className="flex items-center justify-center gap-2 rounded-full bg-white py-3 text-sm font-semibold text-ink"
                 aria-label={`Call ${COMPANY_INFO.phoneDisplay}`}
               >
                 <Phone className="h-4 w-4 text-gold" />
@@ -254,7 +254,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
                   setMobileMenuOpen(false);
                   onOpenQuoteModal();
                 }}
-                className="relative w-full overflow-hidden rounded-full py-3 text-sm font-semibold text-ink"
+                className="relative w-full overflow-hidden rounded-full py-3.5 text-sm font-semibold text-ink"
               >
                 <span className="btn-gold absolute inset-0" />
                 <span className="relative">Get Instant Quote</span>

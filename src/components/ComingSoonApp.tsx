@@ -18,6 +18,7 @@ import {
   UserCheck,
 } from 'lucide-react';
 import { COMPANY_INFO } from '../data/mockData';
+import { Logo } from './Logo';
 import avRideHero from '../assets/images/av-ride-hero.png';
 import avFoodHero from '../assets/images/av-food-hero.png';
 import avRideSafety from '../assets/images/av-ride-safety.png';
@@ -120,17 +121,21 @@ const ComingSoonHeader: React.FC<{ type: 'ride' | 'food'; onSelectTab: (tab: str
             <ArrowLeft className="h-5 w-5" />
           </button>
           <button onClick={goHome} className="flex items-center gap-3 text-left">
-          <span className={`grid h-10 w-10 place-items-center rounded-xl ${content.softBg} ${content.accent} ring-1 ring-inset ring-current/15`}>
-            <Icon className="h-5 w-5" />
-          </span>
-          <span>
-            <span className="flex items-center gap-2">
-              <span className="block text-sm font-extrabold text-slate-950">{content.badge}</span>
-              <span className={`hidden rounded-full border ${content.border} ${content.softBg} px-2 py-0.5 text-[9px] font-extrabold uppercase ${content.accent} sm:inline-flex`}>
-                Coming Soon
-              </span>
+          <Logo size="sm" showText textColor="text-slate-950" />
+          <span className="hidden h-8 w-px bg-slate-200 sm:block" />
+          <span className="flex items-center gap-2">
+            <span className={`grid h-10 w-10 place-items-center rounded-xl ${content.softBg} ${content.accent} ring-1 ring-inset ring-current/15`}>
+              <Icon className="h-5 w-5" />
             </span>
-            <span className="block text-[10px] font-bold uppercase text-slate-500">Ayudh Vikas</span>
+            <span>
+              <span className="flex items-center gap-2">
+                <span className="block text-sm font-extrabold text-slate-950">{content.badge}</span>
+                <span className={`hidden rounded-full border ${content.border} ${content.softBg} px-2 py-0.5 text-[9px] font-extrabold uppercase ${content.accent} sm:inline-flex`}>
+                  Coming Soon
+                </span>
+              </span>
+              <span className="block text-[10px] font-bold uppercase text-slate-500">Ayudh Vikas service</span>
+            </span>
           </span>
           </button>
         </div>

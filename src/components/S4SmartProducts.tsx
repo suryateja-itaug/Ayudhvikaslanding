@@ -3,6 +3,7 @@ import {
   Search, Check, Sparkles, Filter, Package,
   ArrowRight, ShoppingCart, Plus, Minus, Trash2, MessageCircle, X
 } from 'lucide-react';
+import { Logo } from './Logo';
 import brandPosterImg from '../assets/images/brand_official_poster_1784802712788.jpg';
 import brandTeamworkImg from '../assets/images/brand_teamwork_quote_1784802669697.jpg';
 
@@ -529,6 +530,30 @@ export const S4SmartProducts: React.FC<S4SmartProductsProps> = ({ onSelectTab })
       )}
 
       <div className="mx-auto max-w-7xl space-y-12 px-4 pb-8 pt-8 sm:px-6 sm:pt-12 lg:px-8">
+        <section className="rounded-3xl border border-emerald-200 bg-white p-5 shadow-sm sm:p-7">
+          <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-4">
+              <Logo size="lg" showText textColor="text-slate-950" />
+              <span className="hidden h-12 w-px bg-emerald-100 sm:block" />
+              <div>
+                <p className="text-sm font-bold uppercase tracking-[0.18em] text-emerald-700">AyudhKlin by Ayudh Vikas</p>
+                <h1 className="mt-1 text-2xl font-black text-slate-950 sm:text-3xl">Cleaning Products Catalog</h1>
+                <p className="mt-1 max-w-2xl text-base leading-relaxed text-slate-600">
+                  Professional cleaning products and supplies from the Ayudh Vikas service ecosystem.
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setCartOpen(true)}
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-extrabold text-emerald-800 hover:bg-emerald-100"
+            >
+              <ShoppingCart className="h-4 w-4" />
+              View Cart ({cartCount})
+            </button>
+          </div>
+        </section>
+
         <section id="product-catalog" className="space-y-6">
           
           {/* Green-focused Search Bar */}
