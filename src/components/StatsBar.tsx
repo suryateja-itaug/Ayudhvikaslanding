@@ -2,10 +2,34 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'motion/react';
 
 const STATS = [
-  { end: 3500, suffix: '+', label: 'Deployed personnel', sub: 'Police-verified & uniformed' },
-  { end: 500, suffix: '+', label: 'Commercial clients', sub: 'IT parks, malls & factories' },
-  { end: 10, suffix: '+', label: 'Years of command', sub: 'Proven operational record' },
-  { end: 24, suffix: '/7', label: 'Operations center', sub: 'Instant emergency QRT response' },
+  {
+    end: 3500,
+    suffix: '+',
+    label: 'Deployed personnel',
+    sub: 'Police-verified & uniformed',
+    tone: 'bg-blue-50 text-blue-800 border-blue-200',
+  },
+  {
+    end: 500,
+    suffix: '+',
+    label: 'Commercial clients',
+    sub: 'IT parks, malls & factories',
+    tone: 'bg-orange-50 text-orange-800 border-orange-200',
+  },
+  {
+    end: 10,
+    suffix: '+',
+    label: 'Years of command',
+    sub: 'Proven operational record',
+    tone: 'bg-red-50 text-red-800 border-red-200',
+  },
+  {
+    end: 24,
+    suffix: '/7',
+    label: 'Operations center',
+    sub: 'Instant emergency QRT response',
+    tone: 'bg-violet-50 text-violet-800 border-violet-200',
+  },
 ];
 
 const useCountUp = (end: number, active: boolean, duration = 1600) => {
@@ -33,6 +57,7 @@ const StatCell: React.FC<(typeof STATS)[number] & { delay: number; active: boole
   suffix,
   label,
   sub,
+  tone,
   delay,
   active,
 }) => {
@@ -45,15 +70,15 @@ const StatCell: React.FC<(typeof STATS)[number] & { delay: number; active: boole
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
-      className="relative px-4 py-4 transition-colors hover:bg-white/[0.035] sm:px-5"
+      className={`relative rounded-xl border px-4 py-4 shadow-sm transition-transform hover:-translate-y-0.5 sm:px-5 ${tone}`}
     >
-      <p className="font-display text-3xl font-medium tracking-tight text-ivory sm:text-4xl lg:text-5xl">
+      <p className="text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
         {formatted}
-        <span className="text-gold">{suffix}</span>
+        <span>{suffix}</span>
       </p>
-      <div className="gold-hairline mt-3 mb-2 max-w-[5.5rem]" />
-      <p className="text-sm font-semibold tracking-wide text-ivory">{label}</p>
-      <p className="mt-1 text-xs text-ivory/50">{sub}</p>
+      <div className="my-3 h-px max-w-[5.5rem] bg-current opacity-25" />
+      <p className="text-sm font-black tracking-wide text-slate-950">{label}</p>
+      <p className="mt-1 text-xs font-semibold text-slate-600">{sub}</p>
     </motion.div>
   );
 };
@@ -63,9 +88,8 @@ export const StatsBar: React.FC = () => {
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section ref={ref} className="relative overflow-hidden border-y border-white/8 bg-ink">
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(16,185,129,0.08),transparent_28%,transparent_72%,rgba(16,185,129,0.06))]" />
-      <div className="relative mx-auto grid max-w-[96rem] grid-cols-1 divide-y divide-white/8 px-3 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4 lg:px-6">
+    <section ref={ref} className="relative overflow-hidden border-y border-slate-200 bg-white px-4 py-5 sm:px-6 lg:px-10">
+      <div className="relative mx-auto grid max-w-[96rem] grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {STATS.map((stat, idx) => (
           <StatCell key={stat.label} {...stat} delay={idx * 0.08} active={inView} />
         ))}

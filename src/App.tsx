@@ -21,6 +21,13 @@ import { ServiceItem } from './types';
 
 const VALID_TABS = ['home', 'services', 'ayudhklin-products', 'ayudhklin-services', 'about-us', 'why-us', 'faq', 'contact', 'av-ride', 'av-food'];
 
+const PageColorBar = () => (
+  <div
+    className="h-2 w-full bg-[linear-gradient(90deg,#1d4ed8_0%,#7c3aed_18%,#dc2626_36%,#f97316_54%,#10b981_72%,#06b6d4_88%,#2563eb_100%)]"
+    aria-hidden="true"
+  />
+);
+
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>(() => {
     const hash = window.location.hash.replace('#', '');
@@ -46,10 +53,6 @@ export default function App() {
     setActiveTab(tabId);
     window.location.hash = tabId;
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (tabId === 'services') {
-      setQuoteServiceId(undefined);
-      setIsQuoteModalOpen(true);
-    }
   };
 
   const handleOpenQuoteModal = (serviceId?: string) => {
@@ -86,6 +89,8 @@ export default function App() {
           onOpenQuoteModal={() => handleOpenQuoteModal()}
         />
       )}
+
+      {!isStandaloneApp && <PageColorBar />}
 
       {/* Main Separate Page Views */}
       <main className="min-h-[70vh] pb-24 sm:pb-10">
