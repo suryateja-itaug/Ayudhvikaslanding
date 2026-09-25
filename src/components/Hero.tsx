@@ -54,7 +54,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onSelectTab }) => 
       id="hero"
       ref={stageRef}
       onMouseMove={handleMove}
-      className="relative flex min-h-[34rem] items-end overflow-hidden bg-ink text-ivory sm:min-h-[38rem] lg:min-h-[42rem]"
+      className="relative flex min-h-[34rem] flex-col items-stretch overflow-hidden bg-ink text-ivory sm:min-h-[38rem] lg:min-h-[42rem]"
     >
       <div className="absolute inset-0 z-0 overflow-hidden">
         <motion.img
