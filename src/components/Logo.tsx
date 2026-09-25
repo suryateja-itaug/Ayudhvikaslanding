@@ -21,7 +21,7 @@ export const Logo: React.FC<LogoProps> = ({
   };
 
   return (
-    <div className={`flex items-center gap-2.5 ${className}`}>
+    <div className={`flex min-w-0 items-center gap-2.5 ${className}`}>
       {/* SVG Emblem representing Ayudh Vikas (AV) Logo */}
       <svg 
         viewBox="0 0 200 200" 
@@ -83,8 +83,8 @@ export const Logo: React.FC<LogoProps> = ({
       </svg>
 
       {showText && (
-        <div className="flex flex-col leading-tight">
-          <span className={`text-sm font-black tracking-tight sm:text-base lg:text-lg ${textColor}`}>
+        <div className="min-w-0 flex flex-col leading-tight">
+          <span className={`whitespace-nowrap text-sm font-black tracking-tight sm:text-base lg:text-lg ${textColor}`}>
             AYUDH <span className="text-crimson">VIKAS</span>
           </span>
           <span className={`-mt-0.5 text-[9px] font-bold uppercase tracking-widest ${

@@ -111,8 +111,8 @@ const ComingSoonHeader: React.FC<{ type: 'ride' | 'food'; onSelectTab: (tab: str
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/70 bg-white/90 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-2 sm:gap-3">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-3 sm:gap-4 sm:px-6 lg:px-8">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <button
             onClick={goHome}
             className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-slate-300 bg-white text-slate-800 shadow-sm hover:bg-slate-100"
@@ -120,16 +120,16 @@ const ComingSoonHeader: React.FC<{ type: 'ride' | 'food'; onSelectTab: (tab: str
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
-          <button onClick={goHome} className="flex items-center gap-3 text-left">
+          <button onClick={goHome} className="flex min-w-0 items-center gap-2 text-left sm:gap-3">
           <Logo size="sm" showText textColor="text-slate-950" />
           <span className="hidden h-8 w-px bg-slate-200 sm:block" />
-          <span className="flex items-center gap-2">
+          <span className="flex min-w-0 items-center gap-2">
             <span className={`grid h-10 w-10 place-items-center rounded-xl ${content.softBg} ${content.accent} ring-1 ring-inset ring-current/15`}>
               <Icon className="h-5 w-5" />
             </span>
-            <span>
+            <span className="min-w-0">
               <span className="flex items-center gap-2">
-                <span className="block text-sm font-extrabold text-slate-950">{content.badge}</span>
+                <span className="block whitespace-nowrap text-sm font-extrabold text-slate-950">{content.badge}</span>
                 <span className={`hidden rounded-full border ${content.border} ${content.softBg} px-2 py-0.5 text-[9px] font-extrabold uppercase ${content.accent} sm:inline-flex`}>
                   Coming Soon
                 </span>
@@ -150,7 +150,7 @@ const ComingSoonHeader: React.FC<{ type: 'ride' | 'food'; onSelectTab: (tab: str
         <div className="flex items-center gap-2">
           <a
             href={`tel:${COMPANY_INFO.phone}`}
-            className={`inline-flex shrink-0 items-center gap-2 rounded-xl border ${content.border} ${content.softBg} px-2.5 py-2 text-xs font-bold ${content.accent} sm:px-3`}
+            className={`inline-flex shrink-0 items-center gap-2 rounded-xl border ${content.border} ${content.softBg} px-2 py-2 text-xs font-bold ${content.accent} sm:px-3`}
           >
             <Phone className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">{COMPANY_INFO.phoneDisplay}</span>

@@ -85,20 +85,20 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onSelectTab }) => 
         initial={{ opacity: 0, y: -14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute left-1/2 top-5 z-20 flex -translate-x-1/2 items-center justify-center rounded-full border border-white/12 bg-ink/45 px-4 py-2.5 shadow-2xl shadow-black/20 backdrop-blur-md sm:top-7 sm:px-5"
+        className="relative z-20 mx-auto mb-1 flex max-w-[calc(100vw-2rem)] items-center justify-center rounded-full border border-white/12 bg-ink/45 px-3 py-2 shadow-2xl shadow-black/20 backdrop-blur-md sm:absolute sm:left-1/2 sm:top-7 sm:mb-0 sm:-translate-x-1/2 sm:px-5 sm:py-2.5"
       >
-        <Logo size="lg" showText textColor="text-ivory" />
+        <Logo size="md" showText textColor="text-ivory" />
       </motion.div>
 
-      <div className="relative z-20 mx-auto flex w-full max-w-[96rem] flex-col gap-5 px-4 pb-6 pt-8 sm:px-6 sm:pb-10 sm:pt-10 lg:pb-12 xl:px-10">
+      <div className="relative z-20 mx-auto flex w-full max-w-[96rem] flex-col gap-5 px-4 pb-6 pt-2 sm:px-6 sm:pb-10 sm:pt-10 lg:pb-12 xl:px-10">
         <div className="flex w-full max-w-6xl flex-col gap-4 sm:gap-5">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-wrap items-center gap-4"
+            className="flex max-w-full flex-wrap items-center gap-4"
           >
-            <div className="flex min-w-0 items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-gold-soft sm:text-[11px] sm:tracking-[0.28em]">
+            <div className="flex min-w-0 max-w-full items-start gap-3 text-[10px] font-semibold uppercase leading-relaxed tracking-[0.14em] text-gold-soft sm:items-center sm:text-[11px] sm:tracking-[0.28em]">
               <span className="relative flex h-2 w-2 items-center justify-center">
                 <span className="live-ring relative h-2 w-2 rounded-full bg-gold" />
               </span>

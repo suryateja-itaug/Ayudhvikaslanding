@@ -24,7 +24,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
       <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center space-y-3">
         <button
           onClick={() => onSelectTab('home')}
-          className="mb-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 backdrop-blur-md transition-colors hover:bg-white/15"
+          className="mb-2 max-w-full rounded-full border border-white/15 bg-white/10 px-3 py-2 backdrop-blur-md transition-colors hover:bg-white/15 sm:px-4"
           aria-label="Go to Ayudh Vikas home"
         >
           <Logo size="md" showText textColor="text-ivory" />
@@ -44,11 +44,11 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
         </nav>
 
         {/* Title & Subtitle */}
-        <h1 className="px-1 text-2xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
+        <h1 className="max-w-full break-words px-1 text-2xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
           {title}
         </h1>
 
-        <p className="text-blue-100/90 text-sm sm:text-base max-w-2xl leading-relaxed">
+        <p className="max-w-2xl text-sm leading-relaxed text-blue-100/90 sm:text-base">
           {subtitle}
         </p>
 
