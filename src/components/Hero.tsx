@@ -60,21 +60,21 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal, onSelectTab }) => 
         }}
       />
       <div className="relative mx-auto flex min-h-[32rem] max-w-[96rem] px-4 pb-7 pt-7 sm:min-h-[35rem] sm:px-6 lg:min-h-[37rem] lg:px-10 lg:py-9">
-        <div className="flex max-w-4xl flex-col justify-center">
+        <div className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center text-center">
           <motion.div
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-4 inline-flex w-fit max-w-full rounded-2xl border border-slate-200 bg-white/85 px-4 py-3 shadow-xl shadow-slate-950/10 backdrop-blur-md"
+            className="mb-4 inline-flex w-fit max-w-full rounded-3xl border border-slate-200 bg-white/90 px-5 py-4 shadow-xl shadow-slate-950/10 backdrop-blur-md sm:px-6"
           >
-            <Logo size="md" showText textColor="text-slate-950" />
+            <Logo size="xl" showText textColor="text-slate-950" />
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.08 }}
-            className="inline-flex w-fit items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50/90 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-cyan-800 backdrop-blur-md sm:text-xs"
+            className="inline-flex w-fit items-center justify-center gap-2 rounded-full border border-cyan-200 bg-cyan-50/95 px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-cyan-800 shadow-sm backdrop-blur-md sm:px-5 sm:text-sm"
           >
             <span className="h-2 w-2 rounded-full bg-cyan-600" />
             Command center live - Warangal HQ
