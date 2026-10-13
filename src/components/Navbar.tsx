@@ -33,7 +33,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
   ];
 
   const navItemClass = (isActive: boolean) =>
-    `px-3 2xl:px-3.5 py-2 text-xs font-semibold tracking-wide rounded-full transition-all duration-200 cursor-pointer whitespace-nowrap ${
+    `px-3 py-2 text-[12.5px] font-bold tracking-wide rounded-full transition-all duration-200 cursor-pointer whitespace-nowrap xl:px-3.5 xl:text-[13px] ${
       isActive
         ? darkNav
           ? 'bg-gold text-ink shadow-md shadow-gold/20'
@@ -96,7 +96,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
           </button>
 
           <nav
-            className={`hidden min-w-0 items-center gap-0.5 overflow-x-auto rounded-full border p-1 lg:flex ${
+            className={`hidden min-w-0 items-center gap-0.5 overflow-x-auto rounded-full border p-1.5 lg:flex ${
               darkNav ? 'border-white/10 bg-white/5' : 'border-ink/8 bg-white/70'
             }`}
           >
@@ -140,7 +140,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
 
             <button
               onClick={onOpenQuoteModal}
-              className="relative overflow-hidden rounded-full px-5 py-2.5 text-xs font-semibold text-ink"
+              className="relative overflow-hidden rounded-full px-5 py-2.5 text-[13px] font-bold text-ink"
             >
               <span className="btn-gold absolute inset-0" />
               <span className="relative">Get Quote</span>
@@ -163,7 +163,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
             <div className="flex flex-col gap-1">
               {navLinks.map((link) => {
                 const isActive = Boolean(link.id) && activeTab === link.id;
-                const itemClass = `flex cursor-pointer items-center justify-between rounded-full px-4 py-3 text-sm font-semibold transition-colors ${
+                const itemClass = `flex cursor-pointer items-center justify-between rounded-full px-4 py-3 text-[15px] font-bold transition-colors ${
                   isActive ? 'bg-ink text-ivory' : 'text-slate-800 hover:bg-ink/5'
                 }`;
                 if (link.href) {
