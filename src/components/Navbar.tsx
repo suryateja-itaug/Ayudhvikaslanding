@@ -24,6 +24,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, onSelectTab, onOpenQu
     { id: 'ayudhklin-products', name: 'AyudhKlin Products' },
     { id: 'ayudhklin-services', name: 'AyudhKlin Services' },
     { name: 'AV Jobs', href: 'https://ayudh-vikas-manpower.vercel.app' },
+    { name: 'AVoneCall', href: 'https://avonecall.vercel.app/' },
     { id: 'av-ride', name: 'AV Ride' },
     { id: 'av-food', name: 'AV Food' },
     { id: 'why-us', name: 'Why Us' },
